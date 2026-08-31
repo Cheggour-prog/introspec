@@ -1,0 +1,1906 @@
+<!doctype html>
+<html lang="fr" dir="ltr" data-theme="sauge">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Introspec — Test de personnalité : Big Five, HEXACO, DISC, RIASEC, Attachement &amp; Archétypes</title>
+  <!--
+    V3 · Changes:
+      6 tests (Big Five / DISC / Archétypes / HEXACO / RIASEC / Attachement)
+      3 langues FR · AR (RTL) · EN — interface + 115 questions traduites
+      questionnaire isolé en couche plein écran (V2)
+      partage: WhatsApp / Facebook / Instagram (image 1080×1080) / copie / partage natif
+      3 thèmes: sauge (clair) · nuit (sombre) · sable (terracotta)
+      mobile: réponses empilées pleines largeur, cibles tactiles, nav compacte
+      hypothèses: résultats 100% locaux; items originaux inspirés des cadres publiés
+  -->
+  <!-- font-stack: Plus Jakarta Sans (FR/EN) + IBM Plex Sans Arabic (AR) + JetBrains Mono (meta latin) — per web-prototype-taste-soft/SKILL.md -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ===== TOKENS · THÈME SAUGE (défaut) ===== */
+    :root {
+      --canvas: #FDFBF7; --canvas-2: #F4F1EA; --core: #FCFCFA;
+      --glass: rgba(255,255,255,0.5); --glass-2: rgba(255,255,255,0.65);
+      --ink: #101012; --muted: #57575A;
+      --hairline: rgba(16,16,18,0.08); --hairline-strong: rgba(16,16,18,0.13);
+      --innerlight: rgba(255,255,255,0.65);
+      --hover: rgba(16,16,18,0.05); --raise: rgba(255,255,255,0.9);
+      --track: rgba(16,16,18,0.07); --dot: rgba(16,16,18,0.10);
+      --accent: #1F4D3F; --accent-glow: #5A8C7A;
+      --accent-soft: rgba(31,77,63,0.10); --accent-fill: rgba(31,77,63,0.14);
+      --accent-ink: #FDFBF7; --sand: #C9B79A; --sc: 16,16,18;
+      --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --sans-ar: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --ease: cubic-bezier(0.32, 0.72, 0, 1);
+      --ease-spring: cubic-bezier(0.16, 1.16, 0.3, 1);
+      --shell-radius: 2.25rem; --core-radius: calc(2.25rem - 0.4rem);
+    }
+    html[data-theme="nuit"] {
+      --canvas: #101014; --canvas-2: #17171C; --core: #17171C;
+      --glass: rgba(255,255,255,0.055); --glass-2: rgba(255,255,255,0.09);
+      --ink: #F2F2F0; --muted: rgba(242,242,240,0.60);
+      --hairline: rgba(255,255,255,0.09); --hairline-strong: rgba(255,255,255,0.16);
+      --innerlight: rgba(255,255,255,0.05);
+      --hover: rgba(255,255,255,0.08); --raise: rgba(255,255,255,0.15);
+      --track: rgba(255,255,255,0.09); --dot: rgba(255,255,255,0.16);
+      --accent: #8FC0AD; --accent-glow: #5A8C7A;
+      --accent-soft: rgba(143,192,173,0.12); --accent-fill: rgba(143,192,173,0.16);
+      --accent-ink: #101014; --sand: #8A7A63; --sc: 0,0,0;
+    }
+    html[data-theme="sable"] {
+      --canvas: #F7F0E6; --canvas-2: #F0E5D3; --core: #FCF8F1;
+      --glass: rgba(255,255,255,0.45); --glass-2: rgba(255,255,255,0.62);
+      --ink: #2B1E16; --muted: #6E5A4B;
+      --hairline: rgba(43,30,22,0.10); --hairline-strong: rgba(43,30,22,0.17);
+      --hover: rgba(43,30,22,0.06); --raise: rgba(255,255,255,0.92);
+      --track: rgba(43,30,22,0.09); --dot: rgba(43,30,22,0.12);
+      --accent: #B4552D; --accent-glow: #D08A5F;
+      --accent-soft: rgba(180,85,45,0.10); --accent-fill: rgba(180,85,45,0.14);
+      --accent-ink: #FDFBF7;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--canvas); color: var(--ink);
+      font-family: var(--sans); font-size: 16px; line-height: 1.5;
+      letter-spacing: -0.005em; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    html[dir="rtl"] body, html[dir="rtl"] button { font-family: var(--sans-ar); }
+    html[dir="rtl"] body { line-height: 1.7; }
+    html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] .q-text,
+    html[dir="rtl"] .mode-card .h3, html[dir="rtl"] .meth-note h3,
+    html[dir="rtl"] .nav .brand, html[dir="rtl"] .arch-head .who h2,
+    html[dir="rtl"] .profile-dark h2, html[dir="rtl"] .closing h2,
+    html[dir="rtl"] .res-head h1, html[dir="rtl"] .meth-aside h2 { letter-spacing: 0; line-height: 1.22; }
+    html[dir="rtl"] .hero h1 { line-height: 1.2; }
+    html[dir="rtl"] .eyebrow, html[dir="rtl"] .chip, html[dir="rtl"] .meta,
+    html[dir="rtl"] .mode-card .meta, html[dir="rtl"] .m-spec, html[dir="rtl"] .quiz-mode,
+    html[dir="rtl"] .quiz-count .c, html[dir="rtl"] .scale-cap, html[dir="rtl"] .kbd-hint,
+    html[dir="rtl"] .pv-cell .meta, html[dir="rtl"] .pv-note, html[dir="rtl"] .profile-dark .meta,
+    html[dir="rtl"] .arch-head .who .meta, html[dir="rtl"] .fo-cell .meta, html[dir="rtl"] footer,
+    html[dir="rtl"] .r-lab, html[dir="rtl"] .share-label { font-family: var(--sans-ar); letter-spacing: 0; }
+    button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+    /* ===== AMBIENT MESH ===== */
+    .mesh { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .mesh::before, .mesh::after {
+      content: ''; position: absolute; border-radius: 50%; filter: blur(90px);
+      opacity: 0.16; will-change: transform;
+    }
+    html[data-theme="nuit"] .mesh::before, html[data-theme="nuit"] .mesh::after { opacity: 0.12; }
+    .mesh::before {
+      width: 720px; height: 720px;
+      background: radial-gradient(circle at 30% 30%, var(--accent-glow), transparent 60%);
+      top: -180px; left: -160px;
+      animation: drift1 28s var(--ease) infinite alternate;
+    }
+    .mesh::after {
+      width: 560px; height: 560px;
+      background: radial-gradient(circle at 60% 60%, var(--sand), transparent 60%);
+      top: 120px; right: -140px;
+      animation: drift2 36s var(--ease) infinite alternate;
+    }
+    @keyframes drift1 { from { transform: translate3d(0,0,0); } to { transform: translate3d(80px, 60px, 0); } }
+    @keyframes drift2 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-60px, 40px, 0); } }
+
+    main > *, header, footer { position: relative; z-index: 1; }
+
+    /* ===== FLOATING PILL NAV ===== */
+    .nav-shell {
+      position: sticky; top: 24px; z-index: 50;
+      margin: 24px auto 0; padding: 6px;
+      width: max-content; max-width: calc(100% - 40px);
+      border-radius: 999px; background: var(--glass);
+      backdrop-filter: saturate(160%) blur(22px); -webkit-backdrop-filter: saturate(160%) blur(22px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 0 0 1px var(--hairline), 0 12px 36px -18px rgba(var(--sc),0.18);
+    }
+    html[data-theme="nuit"] .nav-shell { box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 0 0 1px var(--hairline), 0 12px 36px -18px rgba(var(--sc),0.6); }
+    .nav {
+      display: flex; align-items: center; gap: 16px;
+      padding: 6px 8px 6px 18px; border-radius: 999px; background: var(--glass-2);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+    }
+    html[data-theme="nuit"] .nav { box-shadow: inset 0 1px 0 rgba(255,255,255,0.05); }
+    .nav .brand { font-weight: 700; font-size: 16px; letter-spacing: -0.02em; display: inline-flex; align-items: center; gap: 8px; }
+    .nav .brand-mark {
+      width: 22px; height: 22px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-glow) 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 1px 2px rgba(var(--sc),0.18);
+    }
+    .nav ul { list-style: none; display: flex; gap: 6px; margin: 0; padding: 0; }
+    .nav ul a {
+      display: inline-block; padding: 9px 14px; border-radius: 999px;
+      color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 500;
+      transition: background 300ms var(--ease);
+    }
+    .nav ul a:hover { background: var(--hover); }
+
+    /* ===== COMMUTATEURS LANGUE + THÈME ===== */
+    [data-lang-toggle], [data-theme-toggle] {
+      display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px;
+      box-shadow: inset 0 0 0 1px var(--hairline); background: var(--glass);
+    }
+    [data-lang-toggle] button {
+      padding: 5px 10px; border-radius: 999px; min-height: 28px;
+      font: 600 12px/1.2 var(--mono); color: var(--muted);
+      transition: background 250ms var(--ease), color 250ms var(--ease);
+    }
+    html[dir="rtl"] [data-lang-toggle] button { font-family: var(--sans-ar); letter-spacing: 0; }
+    [data-lang-toggle] button:hover { color: var(--ink); }
+    [data-lang-toggle] button.is-active { background: var(--ink); color: var(--canvas); }
+    [data-theme-toggle] button {
+      width: 26px; height: 26px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: background 250ms var(--ease), box-shadow 250ms var(--ease);
+    }
+    [data-theme-toggle] button:hover { background: var(--hover); }
+    [data-theme-toggle] button.is-active { box-shadow: inset 0 0 0 2px var(--accent); }
+    [data-theme-toggle] .sw {
+      width: 16px; height: 16px; border-radius: 999px; display: block;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), 0 1px 2px rgba(var(--sc),0.2);
+    }
+
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 7px 7px 16px; border-radius: 999px;
+      background: var(--ink); color: var(--canvas);
+      font: 600 13px/1 var(--sans); text-decoration: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+      transition: transform 300ms var(--ease);
+    }
+    html[dir="rtl"] .pill { font-family: var(--sans-ar); }
+    .pill .icon-wrap {
+      width: 26px; height: 26px; border-radius: 999px;
+      background: rgba(255,255,255,0.14);
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: transform 360ms var(--ease-spring), background 300ms var(--ease);
+    }
+    .pill:hover .icon-wrap { transform: translate(2px, -1px) scale(1.06); background: rgba(255,255,255,0.22); }
+    html[dir="rtl"] .pill:hover .icon-wrap { transform: translate(-2px, -1px) scale(1.06); }
+    .pill:active { transform: scale(0.98); }
+    .pill svg { width: 12px; height: 12px; stroke: currentColor; fill: none; }
+    html[dir="rtl"] .pill svg { transform: scaleX(-1); }
+    .pill-light { background: var(--canvas); color: var(--ink); }
+    .pill-light .icon-wrap { background: rgba(var(--sc),0.08); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100dvh; padding: 96px 0 110px;
+      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 12px; border-radius: 999px; background: var(--glass-2);
+      box-shadow: inset 0 0 0 1px var(--hairline);
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 92px); font-weight: 700;
+      line-height: 0.96; letter-spacing: -0.038em;
+      margin: 22px 0 28px; max-width: 14ch;
+    }
+    .hero h1 .soft { color: var(--muted); font-weight: 500; }
+    .hero p.lede { color: var(--muted); font-size: 18px; max-width: 52ch; margin: 0 0 34px; line-height: 1.55; }
+    .hero .actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 18px; border-radius: 999px; background: var(--glass-2);
+      box-shadow: inset 0 0 0 1px var(--hairline-strong);
+      font: 500 13.5px/1 var(--sans); color: var(--ink); text-decoration: none;
+      transition: background 300ms var(--ease), transform 300ms var(--ease);
+    }
+    html[dir="rtl"] .ghost { font-family: var(--sans-ar); }
+    .ghost:hover { background: var(--raise); }
+    .ghost:active { transform: scale(0.98); }
+
+    /* ===== DOUBLE-BEZEL CARDS ===== */
+    .shell {
+      padding: 10px; border-radius: var(--shell-radius); background: var(--glass);
+      box-shadow: inset 0 1px 0 var(--innerlight), 0 0 0 1px var(--hairline), 0 30px 60px -28px rgba(var(--sc),0.20);
+      transition: transform 600ms var(--ease), box-shadow 600ms var(--ease);
+    }
+    .shell .core {
+      border-radius: var(--core-radius); background: var(--core);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), inset 0 0 0 1px var(--hairline);
+      padding: 30px; height: 100%; display: flex; flex-direction: column; gap: 0;
+    }
+    html[data-theme="nuit"] .shell .core { box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), inset 0 0 0 1px var(--hairline); }
+    .shell.dark { background: rgba(var(--sc),0.05); }
+    .shell.dark .core {
+      background: linear-gradient(180deg, #1A1A1A 0%, #0F0F0F 100%);
+      color: #F2F2F0; box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
+    }
+
+    /* hero preview */
+    .preview-bar { display: flex; gap: 6px; margin-bottom: 16px; }
+    .preview-bar span { width: 10px; height: 10px; border-radius: 999px; background: var(--dot); }
+    .pv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .pv-cell {
+      border-radius: 16px; background: var(--glass-2);
+      box-shadow: inset 0 0 0 1px var(--hairline), inset 0 1px 0 rgba(255,255,255,0.5);
+      padding: 14px;
+    }
+    .pv-cell.span2 { grid-column: span 2; }
+    .pv-cell .meta { font-family: var(--mono); font-size: 9.5px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+    .pv-cell .num { font-size: 24px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+    .pv-cell .num small { font-size: 11.5px; color: var(--muted); margin-left: 5px; font-weight: 500; }
+    html[dir="rtl"] .pv-cell .num small { margin-left: 0; margin-right: 5px; }
+    .pv-note { margin-top: 14px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 7px; }
+    .pv-note .pulse { width: 7px; height: 7px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 0 var(--accent-soft); animation: pulse 2.4s var(--ease) infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(31,77,63,0.35); } 70% { box-shadow: 0 0 0 9px rgba(31,77,63,0); } 100% { box-shadow: 0 0 0 0 rgba(31,77,63,0); } }
+
+    /* ===== SECTIONS ===== */
+    section.block { padding: 104px 0; position: relative; }
+    .section-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 52px; }
+    .section-head h2 {
+      font-size: clamp(36px, 5vw, 60px); font-weight: 700;
+      letter-spacing: -0.035em; line-height: 1; margin: 16px 0 0; max-width: 15ch;
+    }
+    .section-head p { color: var(--muted); font-size: 16.5px; max-width: 46ch; margin: 0; line-height: 1.55; }
+
+    /* modes bento */
+    .modes { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+    .mode-card { text-align: start; display: block; }
+    .mode-card:hover { transform: translateY(-3px); box-shadow: inset 0 1px 0 var(--innerlight), 0 0 0 1px var(--hairline), 0 30px 70px -22px rgba(var(--sc),0.22); }
+    .mode-card:active { transform: translateY(-1px) scale(0.995); }
+    .m-ico {
+      width: 44px; height: 44px; border-radius: 14px;
+      background: var(--accent-soft); color: var(--accent);
+      display: inline-flex; align-items: center; justify-content: center; margin-bottom: 18px;
+    }
+    .m-ico svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .mode-card .meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .mode-card .h3 { display: block; font-size: 24px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 10px; }
+    .mode-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.55; max-width: 38ch; }
+    .m-foot { margin-top: auto; padding-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .m-spec { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .m-go { display: inline-flex; align-items: center; gap: 7px; font: 600 13px/1 var(--sans); color: var(--accent); }
+    html[dir="rtl"] .m-go { font-family: var(--sans-ar); }
+    .m-go svg { width: 12px; height: 12px; stroke: currentColor; fill: none; }
+    html[dir="rtl"] .m-go svg { transform: scaleX(-1); }
+    .span-2 { grid-column: span 2; } .span-3 { grid-column: span 3; } .row-2 { grid-row: span 2; }
+    .chip {
+      display: inline-flex; padding: 4px 10px; border-radius: 999px;
+      background: var(--accent); color: var(--accent-ink);
+      font: 600 10px/1.4 var(--mono); letter-spacing: 0.14em; text-transform: uppercase;
+    }
+
+    /* ===== MÉTHODE ===== */
+    .meth-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; }
+    .meth-note { display: grid; grid-template-columns: 64px 1fr; gap: 18px; padding: 26px 0; border-top: 1px solid var(--hairline); }
+    .meth-note:last-child { border-bottom: 1px solid var(--hairline); }
+    .meth-note .idx { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; color: var(--muted); padding-top: 4px; }
+    .meth-note h3 { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .meth-note p { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.6; max-width: 52ch; }
+    .meth-aside { position: sticky; top: 120px; align-self: start; }
+    .meth-aside h2 { font-size: clamp(30px, 3.6vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin: 16px 0 18px; }
+    .meth-aside p { color: var(--muted); font-size: 15.5px; line-height: 1.6; max-width: 42ch; margin: 0 0 22px; }
+
+    /* ===== COUCHE ISOLÉE ===== */
+    #app-layer {
+      position: fixed; inset: 0; z-index: 100;
+      background: var(--canvas); overflow-y: auto; display: none;
+    }
+    #app-layer.is-open { display: block; animation: layerIn 420ms var(--ease); }
+    @keyframes layerIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+    .layer-head {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 16px 28px; background: var(--canvas);
+      background: color-mix(in srgb, var(--canvas) 82%, transparent);
+      backdrop-filter: saturate(160%) blur(20px); -webkit-backdrop-filter: saturate(160%) blur(20px);
+      box-shadow: 0 1px 0 var(--hairline);
+    }
+    .layer-head .quiz-mode { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .layer-head .head-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .close-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 8px 14px; border-radius: 999px;
+      background: var(--ink); color: var(--canvas);
+      font: 600 12.5px/1 var(--sans);
+      transition: transform 300ms var(--ease);
+    }
+    html[dir="rtl"] .close-btn { font-family: var(--sans-ar); }
+    .close-btn:hover { transform: scale(1.03); }
+    .close-btn:active { transform: scale(0.97); }
+    .close-btn svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+    /* ===== QUIZ ===== */
+    .view { display: none; }
+    .view.is-active { display: block; animation: viewIn 480ms var(--ease); }
+    @keyframes viewIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    .quiz-wrap { max-width: 780px; margin: 0 auto; padding: 40px 28px 96px; min-height: calc(100dvh - 140px); }
+    .progress { height: 6px; border-radius: 999px; background: var(--track); overflow: hidden; }
+    .progress .bar { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); transition: transform 500ms var(--ease); }
+    html[dir="rtl"] .progress .bar { transform-origin: 100% 50%; }
+    .quiz-count { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 14px 0 26px; }
+    .quiz-count .c { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .quiz-count .kbd-hint { font-family: var(--mono); font-size: 10.5px; color: var(--muted); letter-spacing: 0.04em; }
+    html[dir="rtl"] .quiz-count .kbd-hint { font-family: var(--sans-ar); letter-spacing: 0; }
+    .quiz-count .kbd-hint kbd {
+      font-family: var(--mono); font-size: 10px; padding: 2px 6px; border-radius: 6px;
+      background: var(--glass-2); box-shadow: inset 0 0 0 1px var(--hairline-strong);
+    }
+    .q-card .core { padding: clamp(24px, 4vw, 44px); min-height: 380px; }
+    .q-text { font-size: clamp(22px, 3.2vw, 30px); font-weight: 700; letter-spacing: -0.022em; line-height: 1.22; margin: 0 0 30px; max-width: 32ch; }
+    .q-enter { animation: qIn 420ms var(--ease); }
+    @keyframes qIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    .scale-cap { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+
+    .likert { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .lik {
+      min-height: 72px; border-radius: 18px;
+      background: var(--glass-2);
+      box-shadow: inset 0 0 0 1px var(--hairline), inset 0 1px 0 rgba(255,255,255,0.4);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+      padding: 10px 6px;
+      transition: background 250ms var(--ease), box-shadow 250ms var(--ease), transform 250ms var(--ease);
+    }
+    .lik .n { font-family: var(--mono); font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; }
+    .lik .w { font-size: 10.5px; color: var(--muted); text-align: center; line-height: 1.3; }
+    .lik:hover { background: var(--raise); transform: translateY(-2px); }
+    .lik.picked { background: var(--accent); color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent), 0 10px 24px -12px rgba(var(--sc),0.5); }
+    .lik.picked .w { color: var(--accent-ink); opacity: 0.78; }
+
+    .opts { display: grid; gap: 10px; }
+    .opt {
+      display: flex; align-items: center; gap: 14px; text-align: start;
+      padding: 15px 18px; border-radius: 18px; background: var(--glass-2);
+      box-shadow: inset 0 0 0 1px var(--hairline), inset 0 1px 0 rgba(255,255,255,0.4);
+      font-size: 15.5px; font-weight: 500; line-height: 1.4;
+      transition: background 250ms var(--ease), box-shadow 250ms var(--ease), transform 250ms var(--ease);
+    }
+    .opt .k {
+      flex: none; width: 26px; height: 26px; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 11px;
+      box-shadow: inset 0 0 0 1px var(--hairline-strong); color: var(--muted);
+      transition: all 250ms var(--ease);
+    }
+    .opt:hover { background: var(--raise); transform: translateY(-1px); }
+    .opt.picked { background: var(--accent); color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent), 0 10px 24px -12px rgba(var(--sc),0.5); }
+    .opt.picked .k { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-ink) 40%, transparent); color: var(--accent-ink); opacity: 0.85; }
+
+    .quiz-nav { display: flex; justify-content: flex-start; align-items: center; margin-top: 26px; }
+    .quiz-nav .ghost[hidden] { display: none; }
+
+    /* ===== RÉSULTATS ===== */
+    .res-wrap { max-width: 980px; margin: 0 auto; padding: 28px 28px 60px; }
+    .res-head { margin-bottom: 30px; }
+    .res-head h1 { font-size: clamp(34px, 4.6vw, 58px); font-weight: 700; letter-spacing: -0.035em; line-height: 1; margin: 18px 0 0; }
+    .res-card .core { padding: clamp(26px, 4vw, 44px); }
+    .res-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 40px; align-items: center; }
+
+    .radar { width: 100%; max-width: 440px; display: block; margin: 0 auto; }
+    .radar-grid polygon, .radar-grid line { fill: none; stroke: var(--hairline-strong); stroke-width: 1; }
+    .r-lab { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
+    .radar-poly {
+      fill: var(--accent-fill); stroke: var(--accent); stroke-width: 1.8; stroke-linejoin: round;
+      transform-box: fill-box; transform-origin: center;
+      transform: scale(0.55); opacity: 0;
+      transition: transform 900ms var(--ease-spring), opacity 500ms var(--ease);
+    }
+    .radar-dot { fill: var(--accent); opacity: 0; transition: opacity 400ms var(--ease) 500ms; }
+    .radar.go .radar-poly { transform: scale(1); opacity: 1; }
+    .radar.go .radar-dot { opacity: 1; }
+    .radar-mini .r-lab { font-size: 8px; }
+
+    .r-rows { display: grid; gap: 16px; }
+    .r-row .t { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 7px; }
+    .r-row .t .l { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+    .r-row .t .l em { font-style: normal; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-inline-start: 8px; letter-spacing: 0.1em; }
+    html[dir="rtl"] .r-row .t .l em { font-family: var(--sans-ar); letter-spacing: 0; }
+    .r-row .t .pct { font-family: var(--mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .meter { height: 8px; border-radius: 999px; background: var(--track); overflow: hidden; }
+    .meter i { display: block; height: 100%; border-radius: inherit; background: var(--accent-glow); transform-origin: 0 50%; transform: scaleX(0); transition: transform 900ms var(--ease); }
+    html[dir="rtl"] .meter i { transform-origin: 100% 50%; }
+    .meter i.top { background: var(--accent); }
+    .r-row .d { font-size: 12.5px; color: var(--muted); margin-top: 7px; line-height: 1.5; }
+    .r-quick { margin-top: 26px; padding: 16px 18px; border-radius: 16px; background: var(--accent-soft); font-size: 14px; line-height: 1.55; color: var(--ink); }
+    .r-quick b { color: var(--accent); }
+
+    .profile-dark .core { gap: 0; }
+    .profile-dark .meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(242,242,240,0.55); margin-bottom: 16px; }
+    .profile-dark h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin: 0 0 14px; color: #fff; }
+    .profile-dark p { color: rgba(242,242,240,0.68); font-size: 15.5px; line-height: 1.6; max-width: 48ch; margin: 0 0 16px; }
+    .profile-dark .sec { font-size: 13.5px; color: rgba(242,242,240,0.55); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; }
+    .profile-dark .sec b { color: #fff; font-weight: 600; }
+
+    .arch-head { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
+    .arch-head .m-ico { width: 58px; height: 58px; border-radius: 18px; margin: 0; }
+    .arch-head .m-ico svg { width: 28px; height: 28px; }
+    .arch-head .who .meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .arch-head .who h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin: 0; }
+    .arch-desc { font-size: 15.5px; color: var(--muted); line-height: 1.6; max-width: 56ch; margin: 0 0 22px; }
+    .fo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 26px; }
+    .fo-cell { border-radius: 16px; background: var(--glass); box-shadow: inset 0 0 0 1px var(--hairline); padding: 16px; }
+    .fo-cell .meta { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .fo-cell p { margin: 0; font-size: 14px; font-weight: 500; line-height: 1.45; }
+    .res-second { margin-top: 22px; font-size: 13.5px; color: var(--muted); }
+    .res-second b { color: var(--ink); font-weight: 600; }
+
+    /* ===== PARTAGE ===== */
+    .share-block {
+      margin-top: 26px; padding: 20px; border-radius: 18px;
+      background: var(--glass); box-shadow: inset 0 0 0 1px var(--hairline);
+    }
+    .share-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .share-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 14px; border-radius: 999px; background: var(--glass-2);
+      box-shadow: inset 0 0 0 1px var(--hairline-strong);
+      font: 600 13px/1 var(--sans);
+      transition: background 250ms var(--ease), transform 250ms var(--ease);
+    }
+    html[dir="rtl"] .share-btn { font-family: var(--sans-ar); }
+    .share-btn:hover { background: var(--raise); transform: translateY(-1px); }
+    .share-btn:active { transform: scale(0.98); }
+    .share-btn .sdot { width: 8px; height: 8px; border-radius: 999px; flex: none; }
+    #toast {
+      position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%) translateY(20px); opacity: 0; pointer-events: none;
+      background: var(--ink); color: var(--canvas);
+      font: 600 13px/1.35 var(--sans); padding: 12px 18px; border-radius: 999px; z-index: 300;
+      transition: opacity 300ms var(--ease), transform 300ms var(--ease);
+      box-shadow: 0 12px 32px -12px rgba(var(--sc),0.4); max-width: calc(100vw - 48px); text-align: center;
+    }
+    html[dir="rtl"] #toast { font-family: var(--sans-ar); }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ===== QUADRANT ATTACHEMENT ===== */
+    .qbox { width: 100%; max-width: 420px; display: block; margin: 0 auto; }
+    .qbox rect.frame { fill: var(--glass-2); stroke: var(--hairline-strong); }
+    .qbox .mid { stroke: var(--hairline-strong); stroke-dasharray: 3 4; }
+    .qbox .quad-hl { fill: var(--accent-soft); }
+    .qbox .axis { font: 500 9px var(--mono); letter-spacing: 0.1em; text-transform: uppercase; fill: var(--muted); }
+    .qbox .corner { font: 600 9px var(--mono); letter-spacing: 0.12em; fill: var(--muted); opacity: 0.85; }
+    html[dir="rtl"] .qbox .axis, html[dir="rtl"] .qbox .corner { font-family: var(--sans-ar); letter-spacing: 0; }
+    .qbox .q-dot { transition: transform 900ms var(--ease); }
+
+    .res-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 34px 0 10px; }
+    .res-note { font-size: 12.5px; color: var(--muted); max-width: 62ch; line-height: 1.55; margin: 8px 0 0; }
+
+    /* ===== CLOSING ===== */
+    .closing {
+      padding: 100px 0; margin: 48px 28px 28px; border-radius: 40px;
+      background: linear-gradient(180deg, #131313 0%, #050505 100%);
+      color: #F2F2F0; position: relative; overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 80px -40px rgba(16,16,18,0.6);
+    }
+    html[data-theme="nuit"] .closing { box-shadow: inset 0 0 0 1px var(--hairline), 0 30px 80px -40px rgba(0,0,0,0.8); }
+    .closing::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(700px 360px at 30% 0%, rgba(90,140,122,0.32), transparent 70%);
+      pointer-events: none;
+    }
+    .closing-inner { position: relative; max-width: 1040px; padding: 0 32px; margin: 0 auto; text-align: center; }
+    .closing h2 { font-size: clamp(36px, 5vw, 68px); font-weight: 700; letter-spacing: -0.035em; line-height: 1; margin: 0 0 18px; max-width: 18ch; margin-inline: auto; }
+    .closing p { color: rgba(242,242,240,0.65); font-size: 16.5px; margin: 0 auto 32px; max-width: 48ch; line-height: 1.55; }
+
+    /* ===== FOOTER ===== */
+    footer { padding: 30px 28px 30px; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+    footer .row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; max-width: 1240px; margin: 0 auto; align-items: center; }
+    footer .powered { display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px; border-radius: 10px; background: var(--glass-2); border: 1px solid var(--hairline); text-decoration: none; color: inherit; opacity: 0.75; transition: opacity 300ms var(--ease); }
+    footer .powered:hover, footer .powered:focus-visible { opacity: 0.95; }
+    footer .powered img { height: 26px; width: auto; object-fit: contain; }
+    footer .powered .pb-text { display: flex; flex-direction: column; line-height: 1.25; text-align: start; letter-spacing: 0.06em; }
+    footer .powered .pb-by { font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
+    footer .powered .pb-brand { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink); }
+
+    /* ===== REVEAL ===== */
+    .reveal { opacity: 0; transform: translateY(18px); filter: blur(6px); transition: opacity 800ms var(--ease), transform 800ms var(--ease), filter 800ms var(--ease); }
+    .reveal.is-in { opacity: 1; transform: none; filter: none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 980px) {
+      .hero { grid-template-columns: 1fr; padding-top: 64px; padding-bottom: 72px; min-height: 0; }
+      .nav ul { display: none; }
+      .section-head { grid-template-columns: 1fr; gap: 18px; }
+      .modes { grid-template-columns: 1fr; }
+      .span-2, .span-3 { grid-column: span 1; }
+      .row-2 { grid-row: auto; }
+      .meth-grid { grid-template-columns: 1fr; gap: 24px; }
+      .meth-aside { position: static; }
+      .res-grid { grid-template-columns: 1fr; gap: 28px; }
+      .closing { margin: 28px 16px; padding: 72px 0; }
+      .layer-head { padding: 14px 20px; }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 20px; }
+      .nav { gap: 8px; padding: 5px 6px 5px 12px; }
+      .pill { padding: 7px 7px 7px 12px; }
+      /* réponses empilées pleine largeur, libellés visibles */
+      .likert { grid-template-columns: 1fr; gap: 8px; }
+      .lik { flex-direction: row; justify-content: flex-start; gap: 14px; min-height: 54px; padding: 12px 16px; }
+      .lik .n { font-size: 15px; min-width: 18px; text-align: center; }
+      .lik .w { display: inline; font-size: 13.5px; text-align: start; }
+      .scale-cap { display: none; }
+      .q-card .core { min-height: 0; }
+      .fo-grid { grid-template-columns: 1fr; }
+      .quiz-count .kbd-hint { display: none; }
+      .close-btn .close-word { display: none; }
+      .close-btn { padding: 8px 10px; }
+      .share-btn { flex: 1 1 auto; justify-content: center; }
+      .layer-head { flex-wrap: wrap; }
+      .quiz-wrap { padding: 24px 20px 72px; }
+      .res-wrap { padding: 20px 20px 48px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .mesh::before, .mesh::after { animation: none; }
+      .reveal { opacity: 1; transform: none; filter: none; transition: none; }
+      .view.is-active, .q-enter, #app-layer.is-open { animation: none; }
+      .radar-poly, .radar-dot, .meter i, .progress .bar, .qbox .q-dot { transition: none; }
+      .pulse { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="mesh" aria-hidden="true"></div>
+
+  <div class="nav-shell">
+    <header class="nav">
+      <span class="brand"><span class="brand-mark"></span>Introspec</span>
+      <ul>
+        <li><a href="#approches" data-i18n="nav_1">Les 6 approches</a></li>
+        <li><a href="#methode" data-i18n="nav_2">Méthode</a></li>
+      </ul>
+      <span data-lang-toggle></span>
+      <span data-theme-toggle></span>
+      <a class="pill" href="#approches">
+        <span data-i18n="nav_cta">Commencer</span>
+        <span class="icon-wrap"><svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+      </a>
+    </header>
+  </div>
+
+  <main>
+    <div id="screen-home">
+      <section class="wrap hero reveal" data-od-id="hero">
+        <div>
+          <span class="eyebrow"><span class="dot"></span><span data-i18n="hero_eyebrow">Test de personnalité · 6 approches</span></span>
+          <h1 data-i18n="hero_h1">Six regards sur <span class="soft">qui tu es vraiment.</span></h1>
+          <p class="lede" data-i18n="hero_lede">Big Five, HEXACO, DISC, RIASEC, attachement ou Archétypes : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.</p>
+          <div class="actions">
+            <a class="pill" href="#approches">
+              <span data-i18n="hero_cta">Faire le test</span>
+              <span class="icon-wrap"><svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+            </a>
+            <a class="ghost" href="#methode" data-i18n="hero_ghost">Comprendre la méthode</a>
+          </div>
+        </div>
+        <aside class="shell" data-od-id="hero-preview" data-i18n-aria="pv_aria" aria-label="Aperçu d'un rapport de résultats">
+          <div class="core">
+            <div class="preview-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="pv-grid">
+              <div class="pv-cell span2">
+                <div class="meta" data-i18n="pv_report">aperçu · rapport</div>
+                <div id="hero-radar" aria-hidden="true"></div>
+              </div>
+              <div class="pv-cell">
+                <div class="meta" data-i18n="pv_modes_l">approches</div>
+                <div class="num">6<small data-i18n="pv_modes_v">modes</small></div>
+              </div>
+              <div class="pv-cell">
+                <div class="meta" data-i18n="pv_time_l">durée</div>
+                <div class="num">2–5<small data-i18n="pv_time_v">min</small></div>
+              </div>
+            </div>
+            <div class="pv-note"><span class="pulse"></span><span data-i18n="pv_note">100 % local · aucune donnée envoyée</span></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="block reveal" id="approches" data-od-id="approches">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow"><span class="dot"></span><span data-i18n="ap_eyebrow">01 · les approches</span></span>
+              <h2 data-i18n="ap_h2">Choisis ta lecture de toi.</h2>
+            </div>
+            <p data-i18n="ap_p">Six façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus ludique — à toi de voir par où commencer.</p>
+          </div>
+          <div class="modes">
+            <button class="shell mode-card span-3 row-2" data-mode="bigfive" data-od-id="mode-bigfive">
+              <span class="core">
+                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V13M9 20V5M14 20v-9M19 20V8"/></svg></span>
+                <span class="chip" data-i18n="chip_full">Le plus complet</span>
+                <span class="meta" style="margin-top:14px;" data-i18n="m_meta1">01 · scientifique</span>
+                <span class="h3" data-i18n="m_title1">Big Five</span>
+                <p data-i18n="m_p1">Le modèle le plus validé par la recherche en psychologie. Un profil en cinq dimensions — ouverture, conscience, énergie sociale, empathie, sérénité — sans cases ni étiquettes arbitraires.</p>
+                <span class="m-foot">
+                  <span class="m-spec" data-i18n="m_spec1">25 questions · ≈ 4 min</span>
+                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                </span>
+              </span>
+            </button>
+            <button class="shell mode-card span-3" data-mode="disc" data-od-id="mode-disc">
+              <span class="core">
+                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></span>
+                <span class="meta" data-i18n="m_meta2">02 · professionnel</span>
+                <span class="h3" data-i18n="m_title2">DISC</span>
+                <p data-i18n="m_p2">Comment tu agis face aux autres, aux défis et aux règles. Le langage des équipes et du travail.</p>
+                <span class="m-foot">
+                  <span class="m-spec" data-i18n="m_spec2">20 questions · ≈ 3 min</span>
+                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                </span>
+              </span>
+            </button>
+            <button class="shell mode-card span-3" data-mode="arch" data-od-id="mode-arch">
+              <span class="core">
+                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5C7 5.5 9.5 5 12 5s5 .5 8 2.5V13c0 4.5-3.4 7.5-8 7.5S4 17.5 4 13V7.5z"/><ellipse cx="9" cy="11.5" rx="1.7" ry="2.4"/><ellipse cx="15" cy="11.5" rx="1.7" ry="2.4"/></svg></span>
+                <span class="meta" data-i18n="m_meta3">03 · ludique</span>
+                <span class="h3" data-i18n="m_title3">Archétypes</span>
+                <p data-i18n="m_p3">Des situations concrètes, des choix spontanés — et un portrait qui te ressemble.</p>
+                <span class="m-foot">
+                  <span class="m-spec" data-i18n="m_spec3">12 questions · ≈ 2 min</span>
+                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                </span>
+              </span>
+            </button>
+            <button class="shell mode-card span-2" data-mode="hexaco" data-od-id="mode-hexaco">
+              <span class="core">
+                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.5l8.2 4.75v9.5L12 21.5l-8.2-4.75v-9.5z"/></svg></span>
+                <span class="meta" data-i18n="m_meta4">04 · recherche approfondie</span>
+                <span class="h3" data-i18n="m_title4">HEXACO</span>
+                <p data-i18n="m_p4">L'évolution scientifique du Big Five : six dimensions, dont l'Honnêteté-Humilité, validées par des décennies de recherche interculturelle.</p>
+                <span class="m-foot">
+                  <span class="m-spec" data-i18n="m_spec4">24 questions · ≈ 5 min</span>
+                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                </span>
+              </span>
+            </button>
+            <button class="shell mode-card span-2" data-mode="riasec" data-od-id="mode-riasec">
+              <span class="core">
+                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="12" rx="2"/><path d="M9 8V6.5A2 2 0 0 1 11 4.5h2a2 2 0 0 1 2 2V8"/></svg></span>
+                <span class="meta" data-i18n="m_meta5">05 · orientation</span>
+                <span class="h3" data-i18n="m_title5">RIASEC</span>
+                <p data-i18n="m_p5">Le modèle de John Holland pour décoder tes intérêts professionnels : six familles, un code en trois lettres.</p>
+                <span class="m-foot">
+                  <span class="m-spec" data-i18n="m_spec5">18 questions · ≈ 3 min</span>
+                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                </span>
+              </span>
+            </button>
+            <button class="shell mode-card span-2" data-mode="attach" data-od-id="mode-attach">
+              <span class="core">
+                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.5A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 7 3.5C19 15.5 12 20 12 20z"/></svg></span>
+                <span class="meta" data-i18n="m_meta6">06 · relations</span>
+                <span class="h3" data-i18n="m_title6">Attachement</span>
+                <p data-i18n="m_p6">La théorie de l'attachement : comment tu construis la proximité — confiance, inquiétude, distance.</p>
+                <span class="m-foot">
+                  <span class="m-spec" data-i18n="m_spec6">16 questions · ≈ 4 min</span>
+                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                </span>
+              </span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="block reveal" id="methode" data-od-id="methode">
+        <div class="wrap meth-grid">
+          <div class="meth-aside">
+            <span class="eyebrow"><span class="dot"></span><span data-i18n="meth_eyebrow">02 · méthode</span></span>
+            <h2 data-i18n="meth_h2">Ce que ces tests mesurent — et ne mesurent pas.</h2>
+            <p data-i18n="meth_p">Aucun test ne « résume » une personnalité : c'est un miroir, pas un verdict. Réponds avec ta première intuition, celle qui te ressemble le plus souvent — pas la version idéale de toi.</p>
+            <a class="pill" href="#approches">
+              <span data-i18n="meth_cta">Choisir une approche</span>
+              <span class="icon-wrap"><svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+            </a>
+          </div>
+          <div>
+            <div class="meth-note">
+              <span class="idx">01</span>
+              <div>
+                <h3 data-i18n="mn1t">Big Five — cinq dimensions, pas des cases</h3>
+                <p data-i18n="mn1p">Chaque dimension est un continuum : tout le monde se situe quelque part entre les deux pôles. Ton résultat est un profil, pas un type — c'est ce qui le rend nuancé et fiable.</p>
+              </div>
+            </div>
+            <div class="meth-note">
+              <span class="idx">02</span>
+              <div>
+                <h3 data-i18n="mn2t">DISC — ton style face aux autres</h3>
+                <p data-i18n="mn2p">Le DISC décortique ton comportement observable : comment tu décides (D), tu convaincs (I), tu coopères (S) et tu structures (C). Un style dominant, jamais une limite.</p>
+              </div>
+            </div>
+            <div class="meth-note">
+              <span class="idx">03</span>
+              <div>
+                <h3 data-i18n="mn3t">Archétypes — un portrait spontané</h3>
+                <p data-i18n="mn3p">Des choix concrets plutôt que des jugements sur soi-même. Le résultat révèle tes inclinaisons naturelles : une boussole pour la réflexion, pas une vérité absolue.</p>
+              </div>
+            </div>
+            <div class="meth-note">
+              <span class="idx">04</span>
+              <div>
+                <h3 data-i18n="mn4t">Des modèles de spécialistes</h3>
+                <p data-i18n="mn4p">Chaque questionnaire s'appuie sur un cadre établi : Costa &amp; McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton &amp; Lee (HEXACO), Bowlby puis Bartholomew &amp; Horowitz (attachement). Les items sont des formulations originales inspirées de ces cadres.</p>
+              </div>
+            </div>
+            <div class="meth-note">
+              <span class="idx">05</span>
+              <div>
+                <h3 data-i18n="mn5t">Un outil d'introspection</h3>
+                <p data-i18n="mn5p">Ces tests sont indicatifs et ne remplacent ni un diagnostic, ni l'avis d'un professionnel. Utilise-les pour ouvrir la conversation avec toi-même — ou avec ton équipe.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="closing reveal" data-od-id="closing">
+        <div class="closing-inner">
+          <h2 data-i18n="close_h2">Prêt·e à te rencontrer ?</h2>
+          <p data-i18n="close_p">Dix minutes maximum, six approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.</p>
+          <a class="pill pill-light" href="#approches">
+            <span data-i18n="close_cta">Commencer maintenant</span>
+            <span class="icon-wrap"><svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="row">
+      <span data-i18n="foot_l">Introspec · test de personnalité · les réponses restent sur ton appareil</span>
+      <a class="powered" href="https://araignee-systems.com/" target="_blank" rel="noopener noreferrer" title="Araignée Systems">
+        <img src="logo-araignee.png" alt="Araignée Systems" loading="lazy" onerror="this.style.display='none'" />
+        <span class="pb-text">
+          <span class="pb-by" data-i18n="powered_by">Powered by</span>
+          <span class="pb-brand">Araignée Systems</span>
+        </span>
+      </a>
+      <span data-i18n="foot_r">Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement</span>
+    </div>
+  </footer>
+
+  <div id="app-layer" role="dialog" aria-modal="true" data-i18n-aria="layer_aria" aria-label="Questionnaire">
+    <div class="layer-head">
+      <span class="quiz-mode" id="quiz-mode">—</span>
+      <span class="head-actions">
+        <span data-lang-toggle></span>
+        <span data-theme-toggle></span>
+        <button class="close-btn" id="close-layer-btn">
+          <span class="close-word" data-i18n="close_btn">Fermer</span>
+          <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 3l6 6M9 3L3 9"/></svg>
+        </button>
+      </span>
+    </div>
+    <div id="screen-quiz" class="view" data-od-id="quiz">
+      <section class="quiz-wrap">
+        <div class="progress" role="progressbar" id="quiz-progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-i18n-aria="progress_aria" aria-label="Progression du questionnaire">
+          <span class="bar" id="quiz-bar"></span>
+        </div>
+        <div class="quiz-count">
+          <span class="c" id="quiz-count">Question 1 / 25</span>
+          <span class="kbd-hint" id="kbd-hint">Réponds au clavier : <kbd>1</kbd>–<kbd>5</kbd></span>
+        </div>
+        <div class="shell q-card" data-od-id="quiz-card">
+          <div class="core" id="quiz-core">
+            <h2 class="q-text" id="q-text" aria-live="polite">—</h2>
+            <div id="q-answers"></div>
+          </div>
+        </div>
+        <div class="quiz-nav">
+          <button class="ghost" id="back-btn" hidden>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9.5 6h-7M6 2.5L2.5 6 6 9.5"/></svg>
+            <span data-i18n="quiz_back">Question précédente</span>
+          </button>
+        </div>
+      </section>
+    </div>
+    <div id="screen-results" class="view" data-od-id="results">
+      <section class="res-wrap">
+        <div class="res-head">
+          <span class="eyebrow"><span class="dot"></span><span id="res-tag">Résultat</span></span>
+          <h1 id="res-title">Ton profil</h1>
+        </div>
+        <div class="shell res-card" data-od-id="result-card">
+          <div class="core" id="res-body"></div>
+        </div>
+        <div class="res-actions">
+          <button class="pill" id="redo-btn">
+            <span data-i18n="res_redo">Refaire ce test</span>
+            <span class="icon-wrap"><svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M10 6a4 4 0 1 1-1.2-2.8M10 1.5v2.3H7.7" fill="none"/></svg></span>
+          </button>
+          <button class="ghost" id="home-btn" data-i18n="res_home">Choisir une autre approche</button>
+        </div>
+        <div class="share-block" data-od-id="share">
+          <div class="share-label" data-i18n="share_title">Partager mon résultat</div>
+          <div class="share-row">
+            <button class="share-btn" id="share-wa"><span class="sdot" style="background:#22A565"></span>WhatsApp</button>
+            <button class="share-btn" id="share-fb"><span class="sdot" style="background:#1877F2"></span>Facebook</button>
+            <button class="share-btn" id="share-ig"><span class="sdot" style="background:#C13584"></span>Instagram</button>
+            <button class="share-btn" id="share-copy"><span class="sdot" style="background:var(--accent)"></span><span data-i18n="share_copy">Copier</span></button>
+            <button class="share-btn" id="share-native" hidden><span class="sdot" style="background:var(--accent-glow)"></span><span data-i18n="share_native">Partager…</span></button>
+          </div>
+        </div>
+        <p class="res-note" data-i18n="res_note">Résultat indicatif : un outil d'introspection et de conversation, pas un diagnostic. Plus tes réponses sont spontanées, plus le reflet est fidèle.</p>
+      </section>
+    </div>
+  </div>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* ============ ICONES SVG (monoline 1.6, currentColor) ============ */
+    const ICONS = {
+      vision: '<svg viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 1 3.6 10.8c-.7.5-1.1 1.3-1.1 2.2h-5c0-.9-.4-1.7-1.1-2.2A6 6 0 0 1 12 3z"/><path d="M10 19.5h4"/></svg>',
+      builder: '<svg viewBox="0 0 24 24"><rect x="4" y="13" width="7" height="7" rx="1.2"/><rect x="13" y="13" width="7" height="7" rx="1.2"/><rect x="8.5" y="4" width="7" height="7" rx="1.2"/></svg>',
+      explorer: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2.1 5-5 2.1 2.1-5z"/></svg>',
+      strategist: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="0.8"/></svg>',
+      connector: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M4 19c0-2.8 2.2-5 5-5s5 2.2 5 5"/><circle cx="16.5" cy="9.5" r="2.5"/><path d="M15.2 14.4c.4-.1.9-.2 1.3-.2 2.5 0 4.5 2 4.5 4.8"/></svg>',
+      sage: '<svg viewBox="0 0 24 24"><path d="M4 5.5C6 4.5 8.5 4.5 12 6c3.5-1.5 6-1.5 8-.5v12c-2-1-4.5-1-8 .5-3.5-1.5-6-1.5-8-.5v-12z"/><path d="M12 6v12"/></svg>'
+    };
+    const T = (fr, ar, en) => ({ fr, ar, en });
+
+    /* ============ UI TRILINGUE ============ */
+    const UI = {
+      fr: {
+        nav_1: "Les 6 approches", nav_2: "Méthode", nav_cta: "Commencer",
+        hero_eyebrow: "Test de personnalité · 6 approches",
+        hero_h1: 'Six regards sur <span class="soft">qui tu es vraiment.</span>',
+        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachement ou Archétypes : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.",
+        hero_cta: "Faire le test", hero_ghost: "Comprendre la méthode",
+        pv_aria: "Aperçu d'un rapport de résultats", pv_report: "aperçu · rapport",
+        pv_modes_l: "approches", pv_modes_v: "modes", pv_time_l: "durée", pv_time_v: "min",
+        pv_note: "100 % local · aucune donnée envoyée",
+        ap_eyebrow: "01 · les approches", ap_h2: "Choisis ta lecture de toi.",
+        ap_p: "Six façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus ludique — à toi de voir par où commencer.",
+        chip_full: "Le plus complet",
+        m_meta1: "01 · scientifique", m_title1: "Big Five",
+        m_p1: "Le modèle le plus validé par la recherche en psychologie. Un profil en cinq dimensions — ouverture, conscience, énergie sociale, empathie, sérénité — sans cases ni étiquettes arbitraires.",
+        m_spec1: "25 questions · ≈ 4 min",
+        m_meta2: "02 · professionnel", m_title2: "DISC",
+        m_p2: "Comment tu agis face aux autres, aux défis et aux règles. Le langage des équipes et du travail.",
+        m_spec2: "20 questions · ≈ 3 min",
+        m_meta3: "03 · ludique", m_title3: "Archétypes",
+        m_p3: "Des situations concrètes, des choix spontanés — et un portrait qui te ressemble.",
+        m_spec3: "12 questions · ≈ 2 min",
+        m_meta4: "04 · recherche approfondie", m_title4: "HEXACO",
+        m_p4: "L'évolution scientifique du Big Five : six dimensions, dont l'Honnêteté-Humilité, validées par des décennies de recherche interculturelle.",
+        m_spec4: "24 questions · ≈ 5 min",
+        m_meta5: "05 · orientation", m_title5: "RIASEC",
+        m_p5: "Le modèle de John Holland pour décoder tes intérêts professionnels : six familles, un code en trois lettres qui guide vers des environnements qui te conviennent.",
+        m_spec5: "18 questions · ≈ 3 min",
+        m_meta6: "06 · relations", m_title6: "Attachement",
+        m_p6: "La théorie de l'attachement (Bowlby, puis Bartholomew & Horowitz) : comment tu construis la proximité — confiance, inquiétude, distance.",
+        m_spec6: "16 questions · ≈ 4 min", m_go: "Lancer",
+        meth_eyebrow: "02 · méthode", meth_h2: "Ce que ces tests mesurent — et ne mesurent pas.",
+        meth_p: "Aucun test ne « résume » une personnalité : c'est un miroir, pas un verdict. Réponds avec ta première intuition, celle qui te ressemble le plus souvent — pas la version idéale de toi.",
+        meth_cta: "Choisir une approche",
+        mn1t: "Big Five — cinq dimensions, pas des cases",
+        mn1p: "Chaque dimension est un continuum : tout le monde se situe quelque part entre les deux pôles. Ton résultat est un profil, pas un type — c'est ce qui le rend nuancé et fiable.",
+        mn2t: "DISC — ton style face aux autres",
+        mn2p: "Le DISC décortique ton comportement observable : comment tu décides (D), tu convaincs (I), tu coopères (S) et tu structures (C). Un style dominant, jamais une limite.",
+        mn3t: "Archétypes — un portrait spontané",
+        mn3p: "Des choix concrets plutôt que des jugements sur soi-même. Le résultat révèle tes inclinaisons naturelles : une boussole pour la réflexion, pas une vérité absolue.",
+        mn4t: "Des modèles de spécialistes",
+        mn4p: "Chaque questionnaire s'appuie sur un cadre établi : Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby puis Bartholomew & Horowitz (attachement). Les items sont des formulations originales inspirées de ces cadres.",
+        mn5t: "Un outil d'introspection",
+        mn5p: "Ces tests sont indicatifs et ne remplacent ni un diagnostic, ni l'avis d'un professionnel. Utilise-les pour ouvrir la conversation avec toi-même — ou avec ton équipe.",
+        close_h2: "Prêt·e à te rencontrer ?",
+        close_p: "Dix minutes maximum, six approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.",
+        close_cta: "Commencer maintenant",
+        foot_l: "Introspec · test de personnalité · les réponses restent sur ton appareil",
+        foot_r: "Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement",
+        powered_by: "Propulsé par",
+        layer_aria: "Questionnaire", close_btn: "Fermer", progress_aria: "Progression du questionnaire",
+        quiz_back: "Question précédente",
+        count: "Question {x} / {n}", scale: "1 = {a} · 5 = {b}",
+        kbd_hint: 'Réponds au clavier : <kbd>1</kbd>–<kbd>{n}</kbd>',
+        lik_aria: "{v} sur 5 — {w}", lik_group: "Échelle de réponse en 5 points", opt_group: "Choix de réponse",
+        res_bf: "Ton profil en cinq dimensions", res_dc: "Ton style : {t}", res_ar: "Ton archétype : {t}",
+        res_hx: "Ton profil HEXACO", res_rs: "Ton code Holland : {c}", res_at: "Ton style : {t}",
+        res_redo: "Refaire ce test", res_home: "Choisir une autre approche",
+        res_note: "Résultat indicatif : un outil d'introspection et de conversation, pas un diagnostic. Plus tes réponses sont spontanées, plus le reflet est fidèle.",
+        quick: "Lecture rapide : ta dimension la plus marquée est <b>{d}</b> ({p} %). C'est ta ressource la plus visible au quotidien — les autres dimensions la nuancent.",
+        sec: "Style secondaire : <b>{l} — {t}</b>, {s}.",
+        archmeta: "Archétype dominant · {p}/{n} choix",
+        force: "Ta force", ombre: "Ta vigilance",
+        second: "Profil secondaire : <b>{n}</b> — souvent en renfort quand ton profil dominant atteint ses limites.",
+        rs_meta: "Code RIASEC · tes trois lettres dominantes",
+        rs_p: "Ces trois familles décrivent les environnements où tu t'épanouis le plus. L'ordre compte : la première lettre pèse le plus.",
+        rs_quick: "Tes familles dominantes : {list}. Explore les environnements qui combinent ces énergies.",
+        atk_meta: "Anxiété {a} % · Évitement {v} %",
+        atk_quick: "Position : anxiété {a} % · évitement {v} %. Le style se lit par quadrant — plus le point s'éloigne du centre, plus la tendance est marquée.",
+        atk_top: "Inquiétude", atk_bottom: "Sérénité", atk_left: "Proximité", atk_right: "Autonomie",
+        atk_tl: "Préoccupé", atk_tr: "Craintif", atk_bl: "Sécurisé", atk_br: "Évitant",
+        atk_b1: "Anxiété d'abandon", atk_b2: "Évitement de l'intimité",
+        share_title: "Partager mon résultat", share_copy: "Copier", share_native: "Partager…",
+        toast_copied: "Texte copié !", toast_fb: "Texte copié — colle-le dans ta publication Facebook",
+        toast_ig: "Image enregistrée — publie-la en story !", toast_dl: "Image enregistrée !",
+        share_note: "\n\nTest Introspec — demande-moi le fichier !",
+        share_bf: "Mon profil Big Five (Introspec) : dimension dominante — {d} ({p} %). Qui es-tu, vraiment ?",
+        share_hx: "Mon profil HEXACO (Introspec) : dimension dominante — {d} ({p} %). À toi !",
+        share_dc: "Mon style DISC (Introspec) : {t} ({l}). Quel est le tien ?",
+        share_rs: "Mon code Holland RIASEC (Introspec) : {c}. Trouve le tien !",
+        share_at: "Mon style d'attachement (Introspec) : {t}. Curieux de connaître le tien ?",
+        share_ar: "Mon archétype (Introspec) : {t}. Lequel es-tu ?",
+        img_foot: "Introspec · ton résultat reste sur ton appareil",
+        radar: ["Ouverture", "Conscience", "Extraversion", "Agréabilité", "Sérénité"],
+        optkeys: ["A", "B", "C", "D"],
+        theme_aria: "Choisir le thème d'affichage",
+        th_sauge: "Thème sauge", th_nuit: "Thème nuit", th_sable: "Thème sable",
+        eq: "Un équilibre entre les deux pôles de cette dimension."
+      },
+      ar: {
+        nav_1: "المناهج الستة", nav_2: "المنهجية", nav_cta: "ابدأ",
+        hero_eyebrow: "اختبار الشخصية · 6 مناهج",
+        hero_h1: 'ست نظرات نحو <span class="soft">من أنت حقًا.</span>',
+        hero_lede: "السمات الخمس، هيكساكو، ديسك، رياسيك، الارتباط أو الأنماط: اختر طريقتك في قراءة نفسك، أجب بصدق، واحصل على ملف واضح ومصوَّر قابل للمشاركة. كل شيء يبقى على جهازك — لا شيء يُرسَل إلى أي جهة.",
+        hero_cta: "ابدأ الاختبار", hero_ghost: "افهم المنهجية",
+        pv_aria: "معاينة لتقرير النتائج", pv_report: "معاينة · التقرير",
+        pv_modes_l: "المناهج", pv_modes_v: "مناهج", pv_time_l: "المدة", pv_time_v: "دقائق",
+        pv_note: "محلي 100٪ · لا تُرسَل أي بيانات",
+        ap_eyebrow: "01 · المناهج", ap_h2: "اختر طريقتك في قراءة نفسك.",
+        ap_p: "ست طرق متكاملة لاستكشاف شخصيتك: الأكثر علمية، الأكثر مهنية، الأكثر متعة — ابدأ من حيث تشاء.",
+        chip_full: "الأكثر شمولًا",
+        m_meta1: "01 · علمي", m_title1: "السمات الخمس",
+        m_p1: "النموذج الأكثر تحققًا في أبحاث علم النفس. ملف في خمس أبعاد — الانفتاح، الانضباط، الانبساطية، الودّ، الهدوء — بلا صناديق أو تصنيفات اعتباطية.",
+        m_spec1: "25 سؤالًا · ≈ 4 دقائق",
+        m_meta2: "02 · مهني", m_title2: "ديسك",
+        m_p2: "كيف تتصرف مع الآخرين، أمام التحديات والقواعد. لغة الفرق وعالم العمل.",
+        m_spec2: "20 سؤالًا · ≈ 3 دقائق",
+        m_meta3: "03 · ترفيهي", m_title3: "الأنماط",
+        m_p3: "مواقف ملموسة واختيارات عفوية — وملف شخصي يشبهك.",
+        m_spec3: "12 سؤالًا · ≈ 2 دقيقة",
+        m_meta4: "04 · بحث معمّق", m_title4: "هيكساكو",
+        m_p4: "التطور العلمي للسمات الخمس: ستة أبعاد بينها «الصدق والتواضع»، تحققها عقود من البحث الثقافي المقارن.",
+        m_spec4: "24 سؤالًا · ≈ 5 دقائق",
+        m_meta5: "05 · توجيه", m_title5: "رياسيك",
+        m_p5: "نموذج جون هولندا لفك شفرة اهتماماتك المهنية: ست عائلات، ورمز من ثلاثة أحرف يقودك إلى البيئات التي تناسبك.",
+        m_spec5: "18 سؤالًا · ≈ 3 دقائق",
+        m_meta6: "06 · العلاقات", m_title6: "الارتباط",
+        m_p6: "نظرية الارتباط (بولبي، ثم بارتولومو وهوروويتز): كيف تبني القرب — ثقة وقلق ومسافة.",
+        m_spec6: "16 سؤالًا · ≈ 4 دقائق", m_go: "ابدأ",
+        meth_eyebrow: "02 · المنهجية", meth_h2: "ما تقيسه هذه الاختبارات — وما لا تقيسه.",
+        meth_p: "لا اختبار يلخّص شخصية: إنه مرآة لا حكم. أجب بحدسك الأول، ذلك الذي يشبهك في الغالب — لا بنسختك المثالية.",
+        meth_cta: "اختر منهجًا",
+        mn1t: "السمات الخمس — أبعاد لا صناديق",
+        mn1p: "كل بُعد متصل متدرج: الجميع يقف في مكان ما بين القطبين. نتيجتك ملف لا نوع — ولهذا فهي دقيقة ومتوازنة.",
+        mn2t: "ديسك — أسلوبك مع الآخرين",
+        mn2p: "يقيس ديسك سلوكك الظاهر: كيف تقرر (D)، وتقنع (I)، وتتعاون (S)، وتنظّم (C). أسلوب مسيطر، لا حدود.",
+        mn3t: "الأنماط — صورة عفوية",
+        mn3p: "خيارات ملموسة بدل الأحكام على الذات. تكشف النتيجة ميلك الطبيعي: بوصلة للتفكير، لا حقيقة مطلقة.",
+        mn4t: "نماذج من اختصاصيين",
+        mn4p: "كل اختبار يستند إلى إطار راسخ: كوستا وماكري (السمات الخمس)، مارستون (ديسك)، هولندا (رياسيك)، أشتون ولي (هيكساكو)، بولبي ثم بارتولومو وهوروويتز (الارتباط). البنود صياغات أصلية مستوحاة من هذه الأطر.",
+        mn5t: "أداة للاستبطان",
+        mn5p: "هذه الاختبارات استرشادية ولا تغني عن تشخيص أو عن رأي مختص. استعملها لفتح الحوار مع نفسك — أو مع فريقك.",
+        close_h2: "مستعد للقاء نفسك؟",
+        close_p: "عشر دقائق كحد أقصى، ستة مناهج حسب اختيارك، ونتيجة مصوَّرة قابلة للمشاركة. حدسك الأول صحيح في الغالب.",
+        close_cta: "ابدأ الآن",
+        foot_l: "إنتروسبك · اختبار شخصية · إجاباتك تبقى على جهازك",
+        foot_r: "السمات الخمس · ديسك · الأنماط · هيكساكو · رياسيك · الارتباط",
+        powered_by: "مدعوم من",
+        layer_aria: "الاختبار", close_btn: "إغلاق", progress_aria: "تقدم الاختبار",
+        quiz_back: "السؤال السابق",
+        count: "السؤال {x} من {n}", scale: "1 = {a} · 5 = {b}",
+        kbd_hint: 'أجب من لوحة المفاتيح: <kbd>1</kbd>–<kbd>{n}</kbd>',
+        lik_aria: "{v} من 5 — {w}", lik_group: "سلم الإجابة من 5 نقاط", opt_group: "اختر إجابتك",
+        res_bf: "ملفك في خمس أبعاد", res_dc: "أسلوبك: {t}", res_ar: "نمطك: {t}",
+        res_hx: "ملفك هيكساكو", res_rs: "رمز هولندا الخاص بك: {c}", res_at: "أسلوبك: {t}",
+        res_redo: "أعد الاختبار", res_home: "اختر منهجًا آخر",
+        res_note: "نتيجة استرشادية: أداة استبطان وحوار، لا تشخيص. كلما كانت إجاباتك عفوية، كان الانعكاس أصدق.",
+        quick: "قراءة سريعة: أبرز بُعد لديك هو <b>{d}</b> ({p}٪). إنه أقوى ما يظهر منك يوميًا — والأبعاد الأخرى تضبطه.",
+        sec: "الأسلوب الثانوي: <b>{l} — {t}</b>، {s}",
+        archmeta: "النمط السائد · {p} من {n}",
+        force: "قوتك", ombre: "نقطة انتباه",
+        second: "النمط الثانوي: <b>{n}</b> — يدعمك غالبًا حين يبلغ نمطك السائد حدوده.",
+        rs_meta: "رمز رياسيك · أحرفك الثلاثة السائدة",
+        rs_p: "هذه العائلات الثلاث تصف البيئات التي تزدهر فيها أكثر. الترتيب مهم: الحرف الأول هو الأثقل.",
+        rs_quick: "عائلاتك السائدة: {list}. استكشف البيئات التي تجمع هذه الطاقات.",
+        atk_meta: "قلق {a}٪ · تجنّب {v}٪",
+        atk_quick: "الموقع: قلق {a}٪ · تجنّب {v}٪. يُقرأ الأسلوب من الربع — كلما ابتعدت النقطة عن المركز كان الميل أبرز.",
+        atk_top: "القلق", atk_bottom: "الطمأنينة", atk_left: "القرب", atk_right: "الاستقلال",
+        atk_tl: "قلق", atk_tr: "متخوف", atk_bl: "آمن", atk_br: "متجنب",
+        atk_b1: "قلق الانفصال", atk_b2: "تجنّب القرب",
+        share_title: "شارك نتيجتك", share_copy: "نسخ", share_native: "مشاركة…",
+        toast_copied: "تم النسخ!", toast_fb: "نُسخ النص — ألصقه في منشورك على فيسبوك",
+        toast_ig: "حُفظت الصورة — انشرها كستوري!", toast_dl: "حُفظت الصورة!",
+        share_note: "\n\nاختبار إنتروسبك — اطلب مني الملف!",
+        share_bf: "ملفي في السمات الخمس (إنتروسبك): البُعد الأبرز — {d} ({p}٪). ومن أنت حقًا؟",
+        share_hx: "ملفي هيكساكو (إنتروسبك): البُعد الأبرز — {d} ({p}٪). جرب أنت أيضًا!",
+        share_dc: "أسلوبي في ديسك (إنتروسبك): {t} ({l}). فما أسلوبك؟",
+        share_rs: "رمز هولندا الخاص بي (رياسيك): {c}. اكتشف رمزك!",
+        share_at: "أسلوبي في الارتباط (إنتروسبك): {t}. متحمس لمعرفة أسلوبك؟",
+        share_ar: "نمطي (إنتروسبك): {t}. وأي نمط أنت؟",
+        img_foot: "إنتروسبك · نتيجتك تبقى على جهازك",
+        radar: ["الانفتاح", "الانضباط", "الانبساطية", "الودّ", "الهدوء"],
+        optkeys: ["أ", "ب", "ج", "د"],
+        theme_aria: "اختر نمط العرض",
+        th_sauge: "نمط الأخضر", th_nuit: "نمط الليل", th_sable: "نمط الرمل",
+        eq: "توازن بين قطبي هذا البُعد."
+      },
+      en: {
+        nav_1: "The 6 approaches", nav_2: "Method", nav_cta: "Start",
+        hero_eyebrow: "Personality test · 6 approaches",
+        hero_h1: 'Six lenses on <span class="soft">who you really are.</span>',
+        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachment or archetypes: pick your lens, answer honestly, and leave with a clear, illustrated, shareable profile. Everything stays on your device — nothing is sent anywhere.",
+        hero_cta: "Take the test", hero_ghost: "Understand the method",
+        pv_aria: "Preview of a results report", pv_report: "preview · report",
+        pv_modes_l: "approaches", pv_modes_v: "modes", pv_time_l: "duration", pv_time_v: "min",
+        pv_note: "100% local · no data sent",
+        ap_eyebrow: "01 · the approaches", ap_h2: "Pick your way of reading yourself.",
+        ap_p: "Six complementary ways to explore your personality — the most scientific, the most professional, the most playful. Start wherever you like.",
+        chip_full: "Most complete",
+        m_meta1: "01 · scientific", m_title1: "Big Five",
+        m_p1: "The model most validated by psychology research. A five-dimension profile — openness, conscientiousness, social energy, agreeableness, serenity — with no arbitrary boxes or labels.",
+        m_spec1: "25 questions · ≈ 4 min",
+        m_meta2: "02 · professional", m_title2: "DISC",
+        m_p2: "How you act with others, under challenges and rules. The language of teams and work.",
+        m_spec2: "20 questions · ≈ 3 min",
+        m_meta3: "03 · playful", m_title3: "Archetypes",
+        m_p3: "Concrete situations, spontaneous choices — and a portrait that sounds like you.",
+        m_spec3: "12 questions · ≈ 2 min",
+        m_meta4: "04 · deep research", m_title4: "HEXACO",
+        m_p4: "The scientific evolution of the Big Five: six dimensions, including Honesty-Humility, validated by decades of cross-cultural research.",
+        m_spec4: "24 questions · ≈ 5 min",
+        m_meta5: "05 · career", m_title5: "RIASEC",
+        m_p5: "John Holland's model to decode your career interests: six families and a three-letter code pointing to environments where you thrive.",
+        m_spec5: "18 questions · ≈ 3 min",
+        m_meta6: "06 · relationships", m_title6: "Attachment",
+        m_p6: "Attachment theory (Bowlby, then Bartholomew & Horowitz): how you build closeness — trust, worry, distance.",
+        m_spec6: "16 questions · ≈ 4 min", m_go: "Start",
+        meth_eyebrow: "02 · method", meth_h2: "What these tests measure — and what they don't.",
+        meth_p: "No test 'sums up' a personality: it's a mirror, not a verdict. Answer with your first instinct — the one that usually sounds like you — not your ideal self.",
+        meth_cta: "Choose an approach",
+        mn1t: "Big Five — five dimensions, not boxes",
+        mn1p: "Every dimension is a continuum: everyone sits somewhere between the two poles. Your result is a profile, not a type — that's what makes it nuanced and reliable.",
+        mn2t: "DISC — your style with others",
+        mn2p: "DISC dissects your observable behaviour: how you decide (D), convince (I), cooperate (S) and structure (C). A dominant style, never a limit.",
+        mn3t: "Archetypes — a spontaneous portrait",
+        mn3p: "Concrete choices rather than judgements about yourself. The result reveals your natural inclinations: a compass for reflection, not an absolute truth.",
+        mn4t: "Frameworks built by specialists",
+        mn4p: "Every questionnaire rests on an established model: Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby then Bartholomew & Horowitz (attachment). Items are original wordings inspired by these frameworks.",
+        mn5t: "A tool for introspection",
+        mn5p: "These tests are indicative and replace neither a diagnosis nor professional advice. Use them to open the conversation with yourself — or with your team.",
+        close_h2: "Ready to meet yourself?",
+        close_p: "Ten minutes at most, six approaches to choose from, an illustrated, shareable result. Your first instinct is almost always right.",
+        close_cta: "Start now",
+        foot_l: "Introspec · personality test · your answers stay on your device",
+        foot_r: "Big Five · DISC · Archetypes · HEXACO · RIASEC · Attachment",
+        powered_by: "Powered by",
+        layer_aria: "Questionnaire", close_btn: "Close", progress_aria: "Questionnaire progress",
+        quiz_back: "Previous question",
+        count: "Question {x} / {n}", scale: "1 = {a} · 5 = {b}",
+        kbd_hint: 'Answer with keys <kbd>1</kbd>–<kbd>{n}</kbd>',
+        lik_aria: "{v} out of 5 — {w}", lik_group: "5-point response scale", opt_group: "Choose an answer",
+        res_bf: "Your five-dimension profile", res_dc: "Your style: {t}", res_ar: "Your archetype: {t}",
+        res_hx: "Your HEXACO profile", res_rs: "Your Holland code: {c}", res_at: "Your style: {t}",
+        res_redo: "Retake this test", res_home: "Choose another approach",
+        res_note: "Indicative result: a tool for introspection and conversation, not a diagnosis. The more spontaneous your answers, the truer the mirror.",
+        quick: "Quick read: your most marked dimension is <b>{d}</b> ({p}%). It's your most visible daily resource — the other dimensions nuance it.",
+        sec: "Secondary style: <b>{l} — {t}</b>, {s}.",
+        archmeta: "Dominant archetype · {p}/{n} picks",
+        force: "Your strength", ombre: "Watch out for",
+        second: "Secondary profile: <b>{n}</b> — often backing you up when your dominant style reaches its limits.",
+        rs_meta: "RIASEC code · your three dominant letters",
+        rs_p: "These three families describe the environments where you thrive most. Order matters: the first letter carries the most weight.",
+        rs_quick: "Your dominant families: {list}. Explore environments that combine these energies.",
+        atk_meta: "Anxiety {a}% · Avoidance {v}%",
+        atk_quick: "Position: anxiety {a}% · avoidance {v}%. The style is read by quadrant — the further the dot from the centre, the stronger the tendency.",
+        atk_top: "Worry", atk_bottom: "Calm", atk_left: "Closeness", atk_right: "Autonomy",
+        atk_tl: "Preoccupied", atk_tr: "Fearful", atk_bl: "Secure", atk_br: "Avoidant",
+        atk_b1: "Separation anxiety", atk_b2: "Intimacy avoidance",
+        share_title: "Share my result", share_copy: "Copy", share_native: "Share…",
+        toast_copied: "Text copied!", toast_fb: "Copied — paste it into your Facebook post",
+        toast_ig: "Image saved — post it as a story!", toast_dl: "Image saved!",
+        share_note: "\n\nIntrospec test — ask me for the file!",
+        share_bf: "My Big Five profile (Introspec): dominant dimension — {d} ({p}%). Who are you, really?",
+        share_hx: "My HEXACO profile (Introspec): dominant dimension — {d} ({p}%). Your turn!",
+        share_dc: "My DISC style (Introspec): {t} ({l}). What's yours?",
+        share_rs: "My Holland RIASEC code (Introspec): {c}. Find yours!",
+        share_at: "My attachment style (Introspec): {t}. Curious about yours?",
+        share_ar: "My archetype (Introspec): {t}. Which one are you?",
+        img_foot: "Introspec · your result stays on your device",
+        radar: ["Openness", "Conscientiousness", "Extraversion", "Agreeableness", "Serenity"],
+        optkeys: ["A", "B", "C", "D"],
+        theme_aria: "Choose display theme",
+        th_sauge: "Sage theme", th_nuit: "Night theme", th_sable: "Sand theme",
+        eq: "A balance between the two poles of this dimension."
+      }
+    };
+
+    /* ============ DONNÉES DES TESTS (trilingues) ============ */
+    const DATA = {
+      bigfive: {
+        name: T("Big Five", "السمات الخمس", "Big Five"), kind: "likert",
+        tag: T("Big Five · 25 réponses", "السمات الخمس · 25 إجابة", "Big Five · 25 answers"),
+        likert: {
+          fr: ["Pas du tout moi", "Plutôt non", "Mitigé", "Plutôt moi", "Tout à fait moi"],
+          ar: ["لا يصفني إطلاقًا", "لا يصفني كثيرًا", "محايد", "يصفني جزئيًا", "يصفني تمامًا"],
+          en: ["Not me at all", "Rather no", "Neutral", "Rather me", "Exactly me"]
+        },
+        dims: [
+          { l: T("Ouverture", "الانفتاح", "Openness"),
+            high: T("curiosité vive, imagination fertile, appétit pour le neuf.", "فضول حي، خيال خصب، شهية للجديد.", "lively curiosity, fertile imagination, appetite for the new."),
+            low: T("ancrage concret, goût du pratique et de l'éprouvé.", "تمسك بالملموس، ذوق للعملي والمُجرَّب.", "grounded in the concrete, a taste for the practical and proven.") },
+          { l: T("Conscience", "الانضباط", "Conscientiousness"),
+            high: T("méthode, constance, fiabilité au quotidien.", "منهجية، مواظبة، موثوقية في اليومي.", "method, consistency, everyday reliability."),
+            low: T("spontanéité, flexibilité, tolérance au désordre.", "عفوية، مرونة، تسامح مع الفوضى.", "spontaneity, flexibility, tolerance for mess.") },
+          { l: T("Extraversion", "الانبساطية", "Extraversion"),
+            high: T("ton énergie vient du contact et des échanges.", "طاقتك تأتي من التواصل واللقاء.", "your energy comes from contact and exchange."),
+            low: T("ton énergie vient du calme et de la profondeur.", "طاقتك تأتي من الهدوء والعمق.", "your energy comes from calm and depth.") },
+          { l: T("Agréabilité", "الودّ", "Agreeableness"),
+            high: T("chaleur, écoute, esprit d'équipe.", "دفء، إصغاء، روح فريق.", "warmth, listening, team spirit."),
+            low: T("franchise directe, esprit critique affûté.", "صراحة مباشرة، نقد حاد.", "direct frankness, a sharpened critical mind.") },
+          { l: T("Sérénité", "الهدوء", "Serenity"), inv: true,
+            high: T("humeur stable, bonne résistance au stress.", "مزاج مستقر، تحمّل جيد للضغط.", "stable mood, good stress resilience."),
+            low: T("sensibilité forte, émotions vécues intensément.", "حساسية قوية، عواطف تُعاش بشدة.", "strong sensitivity, intensely felt emotions.") }
+        ],
+        qs: [
+          { d: 0, t: T("Je suis attiré·e par les idées nouvelles, même déroutantes.", "تنجذبني الأفكار الجديدة حتى المربكة منها.", "I'm drawn to new ideas, even unsettling ones.") },
+          { d: 0, r: 1, t: T("Je préfère m'en tenir à des méthodes que je connais déjà.", "أفضّل الالتزام بالطرق التي أعرفها سلفًا.", "I prefer to stick to methods I already know.") },
+          { d: 0, t: T("Les discussions abstraites ou philosophiques m'amusent plus qu'elles ne m'ennuient.", "النقاشات المجردة أو الفلسفية تسليني أكثر مما تملّني.", "Abstract or philosophical discussions amuse me more than they bore me.") },
+          { d: 0, r: 1, t: T("La poésie et l'art abstrait me laissent généralement indifférent·e.", "الشعر والفن التجريدي لا يشدّانني غالبًا.", "Poetry and abstract art generally leave me indifferent.") },
+          { d: 0, t: T("J'aime me plonger dans des univers totalement nouveaux pour moi.", "أحب الغوص في عوالم جديدة تمامًا بالنسبة لي.", "I love diving into worlds that are completely new to me.") },
+          { d: 1, t: T("Je termine ce que je commence, même quand l'enthousiasme retombe.", "أُكمل ما أبدأه حتى حين يخبو الحماس.", "I finish what I start, even when enthusiasm fades.") },
+          { d: 1, r: 1, t: T("Mon bureau (ou mon écran) ressemble souvent à un champ de bataille.", "مكتبي (أو شاشتي) يشبه كثيرًا ساحة معركة.", "My desk (or my screen) often looks like a battlefield.") },
+          { d: 1, t: T("Avant d'agir, je planifie les étapes.", "قبل أي عمل أخطط الخطوات.", "Before acting, I plan the steps.") },
+          { d: 1, r: 1, t: T("Je repousse souvent à demain ce que je pourrais faire aujourd'hui.", "كثيرًا ما أؤجل إلى الغد ما أستطيع فعله اليوم.", "I often put off until tomorrow what I could do today.") },
+          { d: 1, t: T("Quand je m'engage, on peut compter sur moi.", "حين ألتزم، يمكن الاعتماد عليّ.", "When I commit, you can count on me.") },
+          { d: 2, t: T("Être entouré·e de monde me recharge.", "وجودي بين الناس يعيد شحن طاقتي.", "Being around people recharges me.") },
+          { d: 2, r: 1, t: T("Dans un groupe, je reste volontiers en retrait.", "في المجموعة أبقى عن طيب خاطر في الخلف.", "In a group, I'm happy to stay in the background.") },
+          { d: 2, t: T("Engager la conversation avec un inconnu ne me coûte rien.", "بدء الحديث مع شخص غريب لا يكلّفني شيئًا.", "Starting a conversation with a stranger costs me nothing.") },
+          { d: 2, r: 1, t: T("Après une longue journée bien remplie en société, j'ai surtout besoin de silence.", "بعد يوم طويل مزدحم بالناس أحتاج قبل كل شيء إلى صمت.", "After a long, people-filled day, what I need most is silence.") },
+          { d: 2, t: T("On me décrit comme quelqu'un d'enthousiaste et bavard.", "يوصفونني بالحماسة وكثرة الكلام.", "I'm described as enthusiastic and chatty.") },
+          { d: 3, t: T("Le bien-être des autres compte vraiment pour moi.", "راحة الآخرين مهمة فعلًا بالنسبة لي.", "Other people's well-being genuinely matters to me.") },
+          { d: 3, r: 1, t: T("Je dis ce que je pense, même si ça peut blesser.", "أقول ما أفكر فيه حتى لو جرح.", "I say what I think, even if it might hurt.") },
+          { d: 3, t: T("J'écoute volontiers les problèmes des autres.", "أصغي عن طيب خاطر لمشاكل الآخرين.", "I willingly listen to other people's problems.") },
+          { d: 3, r: 1, t: T("Je me méfie facilement des intentions des gens.", "أرتاب بسهولة في نوايا الناس.", "I distrust people's intentions easily.") },
+          { d: 3, t: T("En cas de désaccord, je cherche d'abord le compromis.", "عند الخلاف أبحث أولًا عن الحل الوسط.", "In a disagreement, I look for compromise first.") },
+          { d: 4, t: T("Je m'inquiète souvent pour des choses mineures.", "أقلق كثيرًا من أشياء تافهة.", "I often worry about minor things.") },
+          { d: 4, r: 1, t: T("Je reste calme même sous forte pression.", "أبقى هادئًا حتى تحت ضغط شديد.", "I stay calm even under strong pressure.") },
+          { d: 4, t: T("Mon humeur varie fortement au gré des événements.", "مزاجي يتقلب بقوة بحسب الأحداث.", "My mood swings strongly with events.") },
+          { d: 4, r: 1, t: T("Je me sens globalement serein·e au quotidien.", "أشعر عمومًا بالسكينة في حياتي اليومية.", "I generally feel serene in everyday life.") },
+          { d: 4, t: T("Je rumine longtemps après un conflit ou une erreur.", "يبقى الحدث يدور في ذهني طويلًا بعد خلاف أو خطأ.", "I ruminate for a long time after a conflict or a mistake.") }
+        ]
+      },
+      disc: {
+        name: T("DISC", "ديسك", "DISC"), kind: "likert",
+        tag: T("DISC · 20 réponses", "ديسك · 20 إجابة", "DISC · 20 answers"),
+        likert: {
+          fr: ["Jamais", "Rarement", "Parfois", "Souvent", "Toujours"],
+          ar: ["أبدًا", "نادرًا", "أحيانًا", "غالبًا", "دائمًا"],
+          en: ["Never", "Rarely", "Sometimes", "Often", "Always"]
+        },
+        dims: [
+          { letter: "D", l: T("Dominance", "السيطرة", "Dominance"), title: T("Le Décideur", "الحاسم", "The Decider"),
+            desc: T("Direct·e et décisif·ve, tu vas droit au but et tu assumes les choix. Les obstacles te stimulent plus qu'ils ne te freinent.", "مباشر وحاسم، تسير مستقيمًا نحو الهدف وتتحمّل قراراتك. العوائق تحفّزك أكثر مما تعيقك.", "Direct and decisive, you head straight for the goal and own your choices. Obstacles stimulate you more than they stop you."),
+            short: T("tu tranches vite et tu gardes le cap sur l'objectif.", "تحسم بسرعة وتبقى مرتكزًا على الهدف.", "you decide fast and keep your eyes on the goal.") },
+          { letter: "I", l: T("Influence", "التأثير", "Influence"), title: T("Le Motivateur", "المحفّز", "The Motivator"),
+            desc: T("Sociable et enthousiaste, tu communiques avec énergie et tu entraînes les autres. L'optimisme est ton moteur.", "اجتماعي ومتحمس، تتواصل بطاقة وتجر الآخرين معك. التفاؤل محركك.", "Sociable and enthusiastic, you communicate with energy and carry others along. Optimism is your engine."),
+            short: T("tu convaincs par l'enthousiasme et le contact.", "تقنع بالحماس والتواصل.", "you convince through enthusiasm and contact.") },
+          { letter: "S", l: T("Stabilité", "الثبات", "Steadiness"), title: T("Le Médiateur", "الوسيط", "The Mediator"),
+            desc: T("Patient·e et fiable, tu crées la stabilité autour de toi. Les gens savent qu'ils peuvent compter sur toi.", "صبور وموثوق، تخلق الاستقرار حولك. الناس يعرفون أنهم يستطيعون الاعتماد عليك.", "Patient and reliable, you create stability around you. People know they can count on you."),
+            short: T("tu apportes du calme et de la constance au groupe.", "تمنح المجموعة هدوءًا وثباتًا.", "you bring calm and consistency to the group.") },
+          { letter: "C", l: T("Conformité", "الالتزام", "Compliance"), title: T("L'Analyste", "المحلّل", "The Analyst"),
+            desc: T("Précis·e et rigoureux·se, tu veux des faits solides avant de trancher. La qualité passe avant la vitesse.", "دقيق ومنهجي، تريد حقائق راسخة قبل الحسم. الجودة قبل السرعة.", "Precise and rigorous, you want solid facts before deciding. Quality before speed."),
+            short: T("tu sécurises les décisions par la rigueur et le détail.", "تؤمّن القرارات بالدقة والتفاصيل.", "you secure decisions through rigour and detail.") }
+        ],
+        qs: [
+          { d: 0, t: T("Quand une décision traîne, je prends les commandes.", "حين تتأخر القرارات، آخذ بزمام القيادة.", "When a decision drags on, I take the lead.") },
+          { d: 0, t: T("Un objectif atteint vaut mieux qu'un consensus obtenu.", "تحقيق الهدف أفضل من الحصول على إجماع.", "Reaching the goal beats reaching a consensus.") },
+          { d: 0, t: T("Les longues réunions sans décision m'impatientent.", "الاجتماعات الطويلة بلا قرارات تفقد صبري.", "Long meetings without decisions test my patience.") },
+          { d: 0, t: T("Je dis directement ce que je veux.", "أقول مباشرة ما أريد.", "I say directly what I want.") },
+          { d: 0, t: T("Les défis ambitieux me stimulent plus que la routine.", "التحديات الطموحة تحفّزني أكثر من الروتين.", "Ambitious challenges stimulate me more than routine.") },
+          { d: 1, t: T("Convaincre les autres d'une idée me motive.", "إقناع الآخرين بفكرة يحفّزني.", "Convincing others of an idea motivates me.") },
+          { d: 1, t: T("Je m'exprime avec enthousiasme (et avec les mains).", "أتحدث بحماس (وباليدين).", "I speak with enthusiasm (and with my hands).") },
+          { d: 1, t: T("Travailler longtemps seul·e me pèse.", "العمل وحدي طويلًا يثقل عليّ.", "Working alone for long stretches wears me down.") },
+          { d: 1, t: T("On me remarque facilement dans un groupe.", "يلاحظني الناس بسهولة في المجموعة.", "I'm easily noticed in a group.") },
+          { d: 1, t: T("Je suis plutôt optimiste et spontané·e.", "أنا أكثر تفاؤلًا وعفوية.", "I'm rather optimistic and spontaneous.") },
+          { d: 2, t: T("Je prends le temps d'écouter avant de me prononcer.", "آخذ وقتي في الإصغاء قبل أن أتخذ موقفي.", "I take time to listen before taking a position.") },
+          { d: 2, t: T("Un changement brusque de programme me déstabilise.", "التغيير المفاجئ للبرنامج يربكني.", "An abrupt change of plan unsettles me.") },
+          { d: 2, t: T("L'harmonie du groupe compte plus que mon avis personnel.", "انسجام المجموعة أهم من رأيي الشخصي.", "Group harmony matters more than my personal opinion.") },
+          { d: 2, t: T("Je préfère un cadre stable et prévisible.", "أفضّل إطارًا مستقرًا ومتوقعًا.", "I prefer a stable, predictable framework.") },
+          { d: 2, t: T("On me dit patient·e et à l'écoute.", "يقولون عني صبورًا ومصغيًا.", "I'm told I'm patient and a good listener.") },
+          { d: 3, t: T("Je relis mon travail plusieurs fois avant de le rendre.", "أعيد قراءة عملي عدة مرات قبل تسليمه.", "I re-read my work several times before handing it in.") },
+          { d: 3, t: T("Les règles et les procédures ont du sens pour moi.", "للقواعد والإجراءات معنًى عندي.", "Rules and procedures make sense to me.") },
+          { d: 3, t: T("L'exactitude prime sur la vitesse.", "الدقة تسبق السرعة.", "Accuracy beats speed.") },
+          { d: 3, t: T("J'analyse les données avant de conclure.", "أحلل المعطيات قبل أن أستنتج.", "I analyse the data before concluding.") },
+          { d: 3, t: T("Je suis mal à l'aise quand les attentes ne sont pas claires.", "أشعر بالضيق حين تكون التوقعات غير واضحة.", "I feel uneasy when expectations aren't clear.") }
+        ]
+      },
+      arch: {
+        name: T("Archétypes", "الأنماط", "Archetypes"), kind: "opts",
+        tag: T("Archétypes · 12 choix", "الأنماط · 12 اختيارًا", "Archetypes · 12 picks"),
+        archs: [
+          { icon: "vision", n: T("Le Visionnaire", "صاحب الرؤية", "The Visionnaire"),
+            desc: T("Tu vois ce qui n'existe pas encore. Les idées neuves, les angles morts des autres, les futurs possibles — c'est ton terrain naturel.", "ترى ما لا يوجد بعد. الأفكار الجديدة، النقاط العمياء عند الآخرين، الاحتمالات المستقبلية — هذا مجالك الطبيعي.", "You see what doesn't exist yet. Fresh ideas, other people's blind spots, possible futures — that's your natural ground."),
+            force: T("Imaginer ce que personne d'autre ne voit encore", "أن ترى ما لا يراه أحد بعد", "Seeing what no one else sees yet"),
+            ombre: T("Faire atterrir tes idées dans le concret", "إنزال أفكارك إلى الأرض", "Landing your ideas in the concrete") },
+          { icon: "builder", n: T("Le Bâtisseur", "الباني", "The Builder"),
+            desc: T("Tu transformes les idées en réalité. Patience, méthode, constance : tu construis des choses qui durent.", "تحوّل الأفكار إلى واقع. صبر ومنهج ومواظبة: تبني أشياء تبقى.", "You turn ideas into reality. Patience, method, consistency: you build things that last."),
+            force: T("Construire solide, dans la durée", "أن تبني شيئًا راسخًا يصمد", "Building solid things that last"),
+            ombre: T("Laisser plus de place à l'imprévu", "إفساح مكان أكبر للعفوية", "Leaving more room for the unexpected") },
+          { icon: "explorer", n: T("L'Explorateur", "المستكشف", "The Explorer"),
+            desc: T("La curiosité te conduit. Tu oses, tu bouges, tu t'adaptes — et tu reviens toujours avec des histoires et des idées neuves.", "الفضول يقودك. تجرؤ وتتحرك وتتكيّف — وتعود دائمًا بقصص وأفكار جديدة.", "Curiosity leads you. You dare, you move, you adapt — and you always come back with new stories and ideas."),
+            force: T("Oser, bouger, s'adapter à tout terrain", "الجرأة والحركة والتكيّف", "Daring, moving, adapting anywhere"),
+            ombre: T("Tenir la distance sur un seul chemin", "الصمود على طريق واحد", "Going the distance on a single path") },
+          { icon: "strategist", n: T("Le Stratège", "الاستراتيجي", "The Strategist"),
+            desc: T("Tu décomposes, tu compares, tu décides avec lucidité. Là où d'autres voient un chaos, tu vois un plan.", "تفكك وتقارن وتقرر بوضوح. حيث يرى الآخرون فوضى، ترى خطة.", "You break things down, compare and decide with clarity. Where others see chaos, you see a plan."),
+            force: T("Décider avec clarté et recul", "القرار بوضوح وبُعد نظر", "Deciding with clarity and perspective"),
+            ombre: T("Passer à l'action sans tout avoir prévu", "الانتقال إلى الفعل قبل اكتمال الحسابات", "Acting before every calculation is done") },
+          { icon: "connector", n: T("Le Connecteur", "الرابط", "The Connector"),
+            desc: T("Les gens se sentent bien autour de toi. Tu tisses, tu apaises, tu rassembles — le collectif te doit beaucoup.", "يشعر الناس بالراحة حولك. تنسج وتلطّف وتجمع — الجماعة مدينة لك كثيرًا.", "People feel good around you. You weave, soothe and gather — the collective owes you a lot."),
+            force: T("Faire tenir les gens ensemble", "أن تجمع الناس معًا", "Holding people together"),
+            ombre: T("Prendre soin de tes propres besoins", "الاعتناء باحتياجاتك أنت أيضًا", "Caring for your own needs too") },
+          { icon: "sage", n: T("Le Sage", "الحكيم", "The Sage"),
+            desc: T("Tu cherches à comprendre en profondeur avant d'agir. Ton recul éclaire les décisions des autres autant que les tiennes.", "تسعى للفهم العميق قبل الفعل. بعد نظرك يضيء قرارات الآخرين كما قراراتك.", "You seek deep understanding before acting. Your perspective lights up others' decisions as much as your own."),
+            force: T("Comprendre en profondeur et éclairer", "فهم عميق وإضاءة للطريق", "Understanding deeply, shedding light"),
+            ombre: T("Quitter la théorie pour la pratique", "الانتقال من النظرية إلى الممارسة", "Leaving theory for practice") }
+        ],
+        qs: [
+          { t: T("Ton samedi idéal, c'est…", "سبتك المثالي هي…", "Your ideal Saturday is…"), o: [
+            [T("Avancer sur un projet qui me tient à cœur", "أقدّم في مشروع يحمله قلبي", "Moving a cherished project forward"), 1],
+            [T("Une grande tablée bruyante et joyeuse", "مائدة كبيرة مليئة بالضجيج والفرح", "A big, noisy, joyful dinner table"), 4],
+            [T("Un bouquin ou un documentaire qui m'apprend un truc", "كتاب أو فيلم وثائقي يعلّمني شيئًا", "A book or documentary that teaches me something"), 5],
+            [T("Un casse-tête, une énigme, un jeu de stratégie", "لغز أو تحدٍّ ذهني أو لعبة استراتيجية", "A puzzle, an enigma, a strategy game"), 3]] },
+          { t: T("Dans un projet de groupe, tu es plutôt celui ou celle qui…", "في مشروع جماعي، أنت بالأحرى من…", "In a group project, you're the one who…"), o: [
+            [T("Propose des idées que personne n'aurait eues", "يقترح أفكارًا ما كان أحد ليتصورها", "Suggests ideas no one else would have"), 0],
+            [T("Fait le lien entre les gens et remonte le moral", "يربط بين الناس ويرفع المعنويات", "Connects people and lifts morale"), 4],
+            [T("Fonce explorer des pistes toutes nouvelles", "ينطلق لاستكشاف مسارات جديدة كليًا", "Charges off to explore brand-new paths"), 2],
+            [T("Veut comprendre le sujet en profondeur avant d'agir", "يريد فهم الموضوع بعمق قبل التحرك", "Wants to understand the topic deeply before acting"), 5]] },
+          { t: T("Face à un problème inconnu…", "أمام مشكلة مجهولة…", "Facing an unknown problem…"), o: [
+            [T("J'imagine des solutions hors des sentiers battus", "أتخيل حلولًا خارج المسارات المعتادة", "I imagine solutions off the beaten track"), 0],
+            [T("Je construis une méthode pas à pas et je m'y tiens", "أبني منهجية خطوة بخطوة وألتزم بها", "I build a step-by-step method and stick to it"), 1],
+            [T("Je le découpe en étapes logiques", "أقسّمه إلى خطوات منطقية", "I break it into logical steps"), 3],
+            [T("J'étudie d'abord comment ça fonctionne", "أدرس أولًا كيف يعمل", "I first study how it works"), 5]] },
+          { t: T("Ton super-pouvoir secret ?", "قوتك الخارقة السرية؟", "Your secret superpower?"), o: [
+            [T("Voir ce que personne n'imagine encore", "أن أرى ما لا يتخيله أحد بعد", "Seeing what no one imagines yet"), 0],
+            [T("Tenir bon quand tout le monde lâche", "أن أصمد حين ينهار الجميع", "Holding on when everyone else lets go"), 1],
+            [T("M'adapter à n'importe quel terrain", "أتكيّف مع أي أرضية", "Adapting to any terrain"), 2],
+            [T("Créer du lien entre les gens", "أن أصنع الجسور بين الناس", "Creating bonds between people"), 4]] },
+          { t: T("Ce qui te fait le plus lever les yeux au ciel ?", "ما الذي يرفعك أكبادك أكثر؟", "What makes you roll your eyes the most?"), o: [
+            [T("Le chaos et l'improvisation permanente", "الفوضى والارتجال الدائم", "Chaos and permanent improvisation"), 1],
+            [T("Les gens qui refusent d'essayer quoi que ce soit de nouveau", "الناس الذين يرفضون تجربة أي شيء جديد", "People who refuse to try anything new"), 2],
+            [T("Les discussions qui tournent en rond sans méthode", "النقاشات التي تدور في حلقة بلا منهج", "Discussions that go in circles with no method"), 3],
+            [T("Les réponses toutes faites qu'on ne cherche jamais à creuser", "الإجابات الجاهزة التي لا يتعمق أحد فيها", "Ready-made answers nobody digs into"), 5]] },
+          { t: T("Une idée te passionne quand…", "الفكرة تشعلني حين…", "An idea excites you when…"), o: [
+            [T("Elle est belle et que personne n'y avait pensé", "تكون جميلة ولم يفكر فيها أحد من قبل", "It's beautiful and nobody had thought of it"), 0],
+            [T("Elle ouvre un territoire encore inexploré", "تفتح مجالًا لم يُستكشف بعد", "It opens unexplored territory"), 2],
+            [T("Elle est logique et tient debout de bout en bout", "تكون منطقية وقائمة من أولها إلى آخرها", "It's logical and holds up end to end"), 3],
+            [T("Elle rassemble du monde", "تجمع الناس", "It brings people together"), 4]] },
+          { t: T("Ton rapport aux règles ?", "علاقتك بالقواعد؟", "Your relationship with rules?"), o: [
+            [T("Elles sécurisent : autant s'y appuyer", "تطمئنني: ما دام متاح التمسك بها", "They're reassuring: lean on them"), 1],
+            [T("Elles sont utiles si elles mènent à un objectif clair", "مفيدة إذا كانت تقود إلى هدف واضح", "They're useful if they lead to a clear goal"), 3],
+            [T("Elles n'ont de valeur que si elles protègent l'harmonie du groupe", "لا قيمة لها إلا إذا حميت انسجام المجموعة", "They only matter if they protect group harmony"), 4],
+            [T("Je préfère les comprendre à fond avant de les suivre", "أفضّل أن أفهمها تمامًا قبل أن أتبعها", "I prefer to fully understand them before following them"), 5]] },
+          { t: T("Ton environnement de rêve ?", "بيئتك الحالمة؟", "Your dream environment?"), o: [
+            [T("Un atelier-labo où tout reste à inventer", "ورشة-مختبر كل شيء فيها يُخترع", "A workshop-lab where everything is left to invent"), 0],
+            [T("Des horizons nouveaux tous les mois", "آفاق جديدة كل شهر", "New horizons every month"), 2],
+            [T("Une communauté soudée autour de moi", "جماعة متماسكة حولي", "A close-knit community around me"), 4],
+            [T("Une bibliothèque infinie", "مكتبة لا نهائية", "An infinite library"), 5]] },
+          { t: T("Face à un échec…", "أمام فشل…", "Facing failure…"), o: [
+            [T("C'est le prix des idées qui sortent de l'ordinaire", "إنه ثمن الأفكار الخارجة عن المألوف", "It's the price of ideas out of the ordinary"), 0],
+            [T("Je repars de zéro, mais je reconstruis plus solide", "أبدأ من الصفر لكن أبني أكثر رسوخًا", "I start from zero, but rebuild stronger"), 1],
+            [T("C'est une donnée de plus pour réussir la prochaine fois", "إنه معطى إضافي لينجح المحاولة القادمة", "It's one more data point for next time"), 3],
+            [T("J'en fais une leçon qui me fait grandir", "أجعله درسًا ينمّيني", "I turn it into a lesson that grows me"), 5]] },
+          { t: T("Ce que tes proches admirent le plus chez toi ?", "ما يعجب فيك المحبون أكثر؟", "What do your loved ones admire most in you?"), o: [
+            [T("Ton imagination débordante", "خيالك الوفي", "Your overflowing imagination"), 0],
+            [T("Ta fiabilité à toute épreuve", "موثوقيتك التي لا تلين", "Your rock-solid reliability"), 1],
+            [T("Ton goût de la découverte et de la liberté", "شغفك بالاكتشاف والحرية", "Your taste for discovery and freedom"), 2],
+            [T("Ta chaleur et ta capacité à rassembler", "دفئك وقدرتك على الجمع", "Your warmth and ability to gather people"), 4]] },
+          { t: T("Le risque, c'est…", "المخاطرة هي…", "Risk is…"), o: [
+            [T("Ce qui rend la vie intéressante", "ما يجعل الحياة ممتعة", "What makes life interesting"), 2],
+            [T("Acceptable uniquement s'il est calculé", "مقبولة فقط إذا كانت محسوبة", "Acceptable only if it's calculated"), 3],
+            [T("À éviter quand on peut préparer autrement", "تُتجنب إن أمكن الاستعداد بطريقة أخرى", "To be avoided when you can prepare another way"), 1],
+            [T("Le prix normal de toute vraie connaissance", "الثمن الطبيعي لكل معرفة حقيقية", "The fair price of any real knowledge"), 5]] },
+          { t: T("Dans dix ans, tu te vois…", "بعد عشر سنوات، ترى نفسك…", "In ten years, you see yourself…"), o: [
+            [T("À la tête d'un projet qui change les règles du jeu", "على رأس مشروع يغيّر قواعد اللعبة", "Leading a project that changes the game"), 0],
+            [T("Parti·e voir ce qu'il y a au bout du monde", "مغادرًا لرؤية ما وراء آخر العالم", "Gone to see what's at the end of the world"), 2],
+            [T("Avec une vie bien orchestrée et des solutions solides derrière moi", "بحياة منظمة جيدًا وحلول راسخة خلفي", "With a well-orchestrated life and solid solutions behind me"), 3],
+            [T("Entouré·e des gens que j'aime", "محاطًا بالناس الذين أحب", "Surrounded by the people I love"), 4]] }
+        ]
+      },
+        hexaco: {
+        name: T("HEXACO", "هيكساكو", "HEXACO"), kind: "likert",
+        tag: T("HEXACO · 24 réponses", "هيكساكو · 24 إجابة", "HEXACO · 24 answers"),
+        likert: {
+          fr: ["Pas du tout d'accord", "Plutôt pas d'accord", "Mitigé", "Plutôt d'accord", "Tout à fait d'accord"],
+          ar: ["لا أوافق إطلاقًا", "لا أوافق كثيرًا", "محايد", "أوافق جزئيًا", "أوافق تمامًا"],
+          en: ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },
+        dims: [
+          { letter: "H", l: T("Honnêteté-Humilité", "الصدق والتواضع", "Honesty-Humility"), sh: T("Honnêteté", "الصدق", "Honesty"),
+            high: T("sincère, fair-play, peu impressionné·e par le statut.", "صادق منصف، قليل الإبهار بالمكانة.", "sincere, fair-minded, little impressed by status."),
+            low: T("pragmatique, à l'aise avec la négociation et le rapport de force.", "براغماتي، مرتاح للتفاوض وعلاقات القوة.", "pragmatic, comfortable with negotiation and leverage.") },
+          { letter: "E", l: T("Émotionnalité", "العاطفية", "Emotionality"), sh: T("Émotionnalité", "العاطفية", "Emotionality"),
+            high: T("liens émotionnels profonds, sensibilité aiguë.", "روابط عاطفية عميقة، حساسية لافتة.", "deep emotional bonds, keen sensitivity."),
+            low: T("détachement constant sous pression émotionnelle.", "تبريد ثابت أمام الضغط العاطفي.", "steady detachment under emotional pressure.") },
+          { letter: "X", l: T("Extraversion", "الانبساطية", "Extraversion"), sh: T("Extraversion", "الانبساطية", "Extraversion"),
+            high: T("énergie sociale, aisance sous le feu des projecteurs.", "طاقة اجتماعية، ارتياح لمحور الانتباه.", "social energy, at ease in the spotlight."),
+            low: T("tempérament calme, distance choisie.", "مزاج هادئ، مسافة مختارة.", "calm temperament, chosen distance.") },
+          { letter: "A", l: T("Agréabilité", "الودّ", "Agreeableness"), sh: T("Agréabilité", "الودّ", "Agreeableness"),
+            high: T("patience, douceur, pardon rapide.", "صبر، لين، عفو سريع.", "patience, gentleness, quick forgiveness."),
+            low: T("franchise, peu de tolérance pour l'arrogance.", "مباشرة، قلة احتمال للمتكبرين.", "directness, little tolerance for arrogance.") },
+          { letter: "C", l: T("Conscienciosité", "الانضباط", "Conscientiousness"), sh: T("Conscienciosité", "الانضباط", "Conscientiousness"),
+            high: T("organisation, discipline, tâches menées au bout.", "تنظيم، التزام، إنجاز للمهام.", "organisation, discipline, finished tasks."),
+            low: T("flexibilité, spontanéité, tolérance à l'improvisation.", "مرونة، عفوية، تسامح مع الارتجال.", "flexibility, spontaneity, tolerance for improvising.") },
+          { letter: "O", l: T("Ouverture", "الانفتاح", "Openness"), sh: T("Ouverture", "الانفتاح", "Openness"),
+            high: T("curiosité pour l'inhabituel, imagination féconde.", "فضول للغريب، خيال خصب.", "curiosity for the unusual, fertile imagination."),
+            low: T("préférence pour le concret et le familier.", "أفضلية للملموس والمألوف.", "preference for the concrete and familiar.") }
+        ],
+        qs: [
+          { d: 0, r: 1, t: T("Je serais prêt·e à tricher si cela pouvait m'avantager sans conséquence.", "كنت مستعدًا للغش إن جلب لي مكسبًا دون عواقب.", "I would be ready to cheat if it benefited me with no consequences.") },
+          { d: 0, t: T("Je me méfie quand quelqu'un me fait trop de compliments.", "أرتاب حين يبالغ أحدهم في مدحي.", "I get suspicious when someone lays on the compliments.") },
+          { d: 0, r: 1, t: T("S'il le fallait, je saurais manipuler les gens pour obtenir ce que je veux.", "إن اضطررت لأعرف كيف ألاعب الناس لأحصل على ما أريد.", "If needed, I'd know how to manipulate people to get what I want.") },
+          { d: 0, t: T("L'argent et le statut m'impressionnent moins que la plupart des gens.", "المال والمكانة يبهرانني أقل مما يبهران معظم الناس.", "Money and status impress me less than most people.") },
+          { d: 1, t: T("Les films tristes peuvent me bouleverser profondément.", "قد تهزّني الأفلام الحزينة بعمق.", "Sad films can move me deeply.") },
+          { d: 1, r: 1, t: T("Je reste de glace face aux situations dramatiques.", "أبقى باردًا أمام المواقف الدرامية.", "I stay cold-faced through dramatic situations.") },
+          { d: 1, t: T("Mon premier réflexe face au danger est la peur.", "أول رد فعلي أمام الخطر هو الخوف.", "My first reflex in the face of danger is fear.") },
+          { d: 1, r: 1, t: T("Les autres me trouvent rarement sensible ou émotif.", "لا يعدّونني ألبًا ولا عاطفيًا.", "Others rarely find me sensitive or emotional.") },
+          { d: 2, t: T("Je cherche les occasions d'être au centre de l'attention.", "أبحث عن الفرص لأكون محور الانتباه.", "I look for opportunities to be the centre of attention.") },
+          { d: 2, t: T("Dans une fête, je connais vite du monde.", "في حفلة، أعرف الناس سريعًا.", "At a party, I get to know people fast.") },
+          { d: 2, r: 1, t: T("Prendre la parole devant un groupe me paralyse presque.", "الكلام أمام مجموعة يشبه الشلل عندي تقريبًا.", "Speaking in front of a group almost paralyses me.") },
+          { d: 2, r: 1, t: T("Je préfère nettement observer que participer.", "أفضّل بوضوح الملاحظة على المشاركة.", "I clearly prefer observing to participating.") },
+          { d: 3, t: T("Mon premier jugement sur quelqu'un est plutôt indulgent.", "حكمي الأول على الناس يميل إلى التسامح.", "My first judgement of someone leans lenient.") },
+          { d: 3, r: 1, t: T("Je le fais payer aux gens quand ils me manquent de respect.", "أردّ الإساءة لمن يفتقرون إلى احترامي.", "I make people pay when they disrespect me.") },
+          { d: 3, t: T("Je donne volontiers mon temps sans rien attendre en retour.", "أبذل وقتي عن طيب خاطر دون انتظار مقابل.", "I gladly give my time without expecting anything back.") },
+          { d: 3, r: 1, t: T("Je prends plaisir à contrarier les gens arrogants.", "يلذ لي إغاظة المتكبرين.", "I enjoy ruffling arrogant people's feathers.") },
+          { d: 4, t: T("Mes décisions sont réfléchies, rarement impulsives.", "قراراتي مدروسة، نادرًا ما تكون اندفاعية.", "My decisions are thought through, rarely impulsive.") },
+          { d: 4, r: 1, t: T("Je finis souvent mes tâches à la dernière minute.", "أنجز مهامي غالبًا في اللحظة الأخيرة.", "I often finish tasks at the last minute.") },
+          { d: 4, t: T("Je garde mes affaires bien rangées.", "أحافظ على ترتيب أغراضي.", "I keep my things well organised.") },
+          { d: 4, r: 1, t: T("Les routines me donnent envie de m'échapper.", "الروتين يوحي لي بالهروب.", "Routines make me want to escape.") },
+          { d: 5, t: T("Les idées bizarres me fascinent au lieu de me rebuter.", "تستهويني الأفكار الغريبة لا تنفّرني.", "Strange ideas fascinate me rather than repel me.") },
+          { d: 5, r: 1, t: T("Je n'ai aucun intérêt pour les questions philosophiques.", "لا اهتمام لي بالأسئلة الفلسفية.", "I have no interest in philosophical questions.") },
+          { d: 5, t: T("Mon imagination me promène plusieurs fois par jour.", "يأخذني خيالي في جولات عدة مرات كل يوم.", "My imagination takes me for walks several times a day.") },
+          { d: 5, r: 1, t: T("L'art abstrait me semble du temps perdu.", "الفن التجريدي مضيعة وقت من وجهة نظري.", "Abstract art seems like a waste of time.") }
+        ]
+      },
+      riasec: {
+        name: T("RIASEC", "رياسيك", "RIASEC"), kind: "likert",
+        tag: T("RIASEC · 18 intérêts", "رياسيك · 18 اهتمامًا", "RIASEC · 18 interests"),
+        likert: {
+          fr: ["Pas du tout", "Un peu", "Moyennement", "Beaucoup", "Énormément"],
+          ar: ["لا إطلاقًا", "قليلًا", "متوسطًا", "كثيرًا", "بشدة"],
+          en: ["Not at all", "A little", "Moderately", "A lot", "Hugely"]
+        },
+        dims: [
+          { letter: "R", l: T("Réaliste", "الواقعي", "Realistic"), desc: T("pratique, concret, les mains sur le tas.", "عملي ملموس، يفضّل الأدوات والأشياء على الكلام.", "practical, hands-on, tools over talk.") },
+          { letter: "I", l: T("Investigateur", "الاستقصائي", "Investigative"), desc: T("curieux, analytique, aime comprendre.", "فضولي تحليلي، يحب الفهم والتحقق.", "curious, analytical, loves to understand.") },
+          { letter: "A", l: T("Artistique", "الفني", "Artistic"), desc: T("créatif, expressif, indépendant des cadres figés.", "مبدع معبّر، مستقل عن الأطر الجاهزة.", "creative, expressive, independent of ready-made frames.") },
+          { letter: "S", l: T("Social", "الاجتماعي", "Social"), desc: T("altruiste, pédagogue, tourné vers les relations.", "متعاطف مربٍّ، يزدهر في العلاقات والمساعدة.", "caring, pedagogical, thrives on relationships.") },
+          { letter: "E", l: T("Entreprenant", "الريادي", "Enterprising"), desc: T("persuasif, ambitieux, aime décider.", "مقنع طموح، يحب القرار والمخاطرة المحسوبة.", "persuasive, ambitious, loves to decide.") },
+          { letter: "C", l: T("Conventionnel", "التقليدي", "Conventional"), desc: T("organisé, rigoureux, aime la structure.", "منظم دقيق، يحب الوضوح والهيكلة.", "organised, precise, loves structure.") }
+        ],
+        qs: [
+          { d: 0, t: T("Réparer ou bricoler des objets mécaniques.", "تصليح الأشياء الميكانيكية أو فكّها وتركيبها.", "Repairing or tinkering with mechanical objects.") },
+          { d: 0, t: T("Travailler dehors, avec mes mains.", "العمل في الخارج، بيدي.", "Working outdoors, with my hands.") },
+          { d: 0, t: T("Piloter des machines ou des engins.", "قيادة الآلات أو المعدات.", "Operating machines or vehicles.") },
+          { d: 1, t: T("Mener une expérience pour vérifier une hypothèse.", "إجراء تجربة للتحقق من فرضية.", "Running an experiment to test a hypothesis.") },
+          { d: 1, t: T("Analyser des données pour résoudre une énigme.", "تحليل معطيات لحل لغز.", "Analysing data to crack a puzzle.") },
+          { d: 1, t: T("Lire des articles scientifiques par plaisir.", "قراءة مقالات علمية من أجل المتعة.", "Reading scientific papers for pleasure.") },
+          { d: 2, t: T("Écrire, dessiner, composer ou jouer.", "الكتابة أو الرسم أو التلحين أو التمثيل.", "Writing, drawing, composing or performing.") },
+          { d: 2, t: T("Inventer des solutions que personne n'a imaginées.", "ابتكار حلول لم يفكر فيها أحد.", "Inventing solutions nobody has imagined.") },
+          { d: 2, t: T("Travailler dans un cadre sans règles esthétiques figées.", "العمل في إطار جمالي حر بلا قواعد جامدة.", "Working in a frame with no fixed aesthetic rules.") },
+          { d: 3, t: T("Aider quelqu'un à traverser une période difficile.", "مساعدة أحدهم على تجاوز مرحلة صعبة.", "Helping someone through a rough patch.") },
+          { d: 3, t: T("Enseigner ou transmettre à d'autres.", "التعليم ونقل المعرفة للآخرين.", "Teaching and passing knowledge on.") },
+          { d: 3, t: T("Jouer les médiateurs dans un conflit.", "لعب دور الوسيط في نزاع.", "Mediating a conflict between two people.") },
+          { d: 4, t: T("Convaincre un groupe de suivre mon projet.", "إقناع مجموعة بتبني مشروعي.", "Convincing a group to back my project.") },
+          { d: 4, t: T("Lancer mon activité et prendre des risques.", "تأسيس نشاطي الخاص والمخاطرة.", "Starting my own venture and taking risks.") },
+          { d: 4, t: T("Négocier un accord avantageux.", "التفاوض على اتفاق موفّق.", "Negotiating a favourable deal.") },
+          { d: 5, t: T("Organiser des données dans des tableaux impeccables.", "تنظيم المعطيات في جداول متقنة.", "Organising data into impeccable tables.") },
+          { d: 5, t: T("Suivre une procédure précise du début à la fin.", "اتباع إجراء دقيق من البداية إلى النهاية.", "Following a precise procedure start to finish.") },
+          { d: 5, t: T("Gérer un budget et tenir des comptes exacts.", "إدارة ميزانية وحسابات دقيقة.", "Managing a budget and keeping exact accounts.") }
+        ]
+      },
+      attach: {
+        name: T("Attachement", "الارتباط", "Attachment"), kind: "likert",
+        tag: T("Attachement · 16 réponses", "الارتباط · 16 إجابة", "Attachment · 16 answers"),
+        likert: {
+          fr: ["Pas du tout moi", "Plutôt non", "Mitigé", "Plutôt moi", "Tout à fait moi"],
+          ar: ["لا يصفني إطلاقًا", "لا يصفني كثيرًا", "محايد", "يصفني جزئيًا", "يصفني تمامًا"],
+          en: ["Not me at all", "Rather no", "Neutral", "Rather me", "Exactly me"]
+        },
+        styles: [
+          { n: T("L'Équilibre", "المتوازن", "The Balanced"),
+            desc: T("Tu fais confiance et tu t'attaches sans t'oublier : la proximité te nourrit, l'autonomie ne te menace pas. C'est le style le plus stable — il s'entretient, comme tout le reste.", "تثق وترتبط دون أن تُنسى نفسك: القرب يغذيك والاستقلال لا يهددك. إنه الأسلوب الأكثر استقرارًا — ويحتاج عناية كالبقية.", "You trust and bond without losing yourself: closeness feeds you, independence doesn't threaten you. It's the most stable style — and it needs care, like the rest.") },
+          { n: T("Le Cœur en alerte", "القلب المتيقظ", "The Watchful Heart"),
+            desc: T("Le lien compte énormément pour toi — parfois au point d'attendre beaucoup de réassurance. Ta loyauté et ta sensibilité sont des forces ; apprends aussi à poser un ancrage en toi.", "العلاقة تعني لك الكثير — أحيانًا إلى حد انتظار الكثير من الطمأنة. وفاؤك وحساسيتك قوة؛ وتعلّم أيضًا أن تضع مرساة في داخلك.", "The bond means a lot to you — sometimes to the point of expecting a lot of reassurance. Your loyalty and sensitivity are strengths; learn to drop an anchor inside yourself too.") },
+          { n: T("L'Indépendant", "المستقل", "The Independent"),
+            desc: T("Tu te suffis et tu protèges ton espace : l'intimité se gagne avec patience. Ton autonomie est réelle — attention à ne pas la transformer en forteresse.", "تكفيك نفسك وتحمي مساحتك: القرب يُكتسب بالصبر. استقلاليتك حقيقية — احذر ألا تتحول إلى قلعة.", "You suffice yourself and protect your space: intimacy is earned with patience. Your autonomy is real — be careful it doesn't turn into a fortress.") },
+          { n: T("Le Prudent", "المتخوف الحذر", "The Cautious"),
+            desc: T("Tu désires le lien et tu t'en méfies à la fois : proximité et protection se disputent en toi. Nommer ce balancement est déjà la moitié du chemin.", "ترغب في العلاقة وتحذر منها في الوقت نفسه: القرب والحماية يتنازعان فيك. تسمية هذا التذبذب نصف الطريق فعلًا.", "You long for connection and are wary of it at once: closeness and protection argue inside you. Naming that push-pull is already half the way.") }
+        ],
+        qs: [
+          { a: 1, t: T("J'ai peur que les gens qui comptent pour moi finissent par partir.", "أخاف أن يغادرني في النهاية من يعنون لي.", "I'm afraid the people who matter to me will eventually leave.") },
+          { a: 1, t: T("J'ai besoin de beaucoup d'assurance pour me sentir aimé·e.", "أحتاج الكثير من الطمأنة لأشعر أنني محبوب.", "I need a lot of reassurance to feel loved.") },
+          { a: 1, t: T("Le silence d'un proche m'inquiète plus qu'il ne devrait.", "صمت شخص قريب يقلقني أكثر مما ينبغي.", "A loved one's silence worries me more than it should.") },
+          { a: 1, t: T("Quand un message reste sans réponse, ça m'occupe l'esprit.", "الرسالة التي بلا رد تشغل بالي طويلًا.", "An unanswered message occupies my mind for hours.") },
+          { a: 1, t: T("Je crains de tenir plus aux gens qu'ils ne tiennent à moi.", "أخاف أن يحملني قلبي للناس أكثر مما يحملونني لهم.", "I fear I care more about people than they care about me.") },
+          { a: 1, t: T("Une remarque anodine d'un proche peut m'occuper des heures.", "ملاحظة عابرة من قريب قد تشغلني ساعات.", "A casual remark from someone close can occupy me for hours.") },
+          { a: 1, t: T("Je me sens en sécurité quand on m'exprime ses sentiments régulièrement.", "أشعر بالأمان حين يُعبَّر لي عن المشاعر بانتظام.", "I feel safe when someone regularly expresses their feelings to me.") },
+          { a: 1, t: T("Il m'arrive de tester les gens pour vérifier leur attachement.", "أحيانًا أختبر الناس للتأكد من اهتمامهم.", "I sometimes test people to check their attachment.") },
+          { a: 0, t: T("Je suis plus à l'aise quand je garde mes distances émotionnelles.", "أرتاح أكثر حين أحافظ على مسافة عاطفية.", "I'm more comfortable keeping emotional distance.") },
+          { a: 0, t: T("Demander de l'aide me met mal à l'aise.", "طلب المساعدة يجعلني غير مرتاح.", "Asking for help makes me uncomfortable.") },
+          { a: 0, t: T("Les déclarations d'affection me gênent un peu.", "عبارات العاطفة الصريحة تحرجني قليلًا.", "Displays of affection embarrass me a bit.") },
+          { a: 0, t: T("Je préfère régler mes problèmes seul·e.", "أفضّل حل مشاكلي وحدي.", "I prefer to solve my problems alone.") },
+          { a: 0, r: 1, t: T("Je partage facilement mes peurs et mes doutes.", "أشارك خوفي وشكوكي بسهولة.", "I share my fears and doubts easily.") },
+          { a: 0, r: 1, t: T("La proximité physique et émotionnelle me semble naturelle.", "القرب الجسدي والعاطفي يبدوان لي طبيعيين.", "Physical and emotional closeness feel natural to me.") },
+          { a: 0, t: T("Quand une relation devient intense, j'ai envie de prendre l'air.", "حين تصبح علاقة ما مكثفة، أحتاج أن أتنفس.", "When a relationship gets intense, I need air.") },
+          { a: 0, r: 1, t: T("Je montre facilement aux gens qu'ils comptent pour moi.", "أُظهر بسهولة للناس أنهم مهمون لي.", "I easily show people they matter to me.") }
+        ]
+      }
+    };
+
+    /* ============ ÉTAT ============ */
+    let lang = localStorage.getItem("introspec-lang") || "fr";
+    let theme = localStorage.getItem("introspec-theme") || "sauge";
+    let mode = null, idx = 0, answers = [];
+    let lastShare = { text: "", title: "", tag: "", bars: [] };
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+    const tx = o => (o && typeof o === "object") ? o[lang] : o;
+    const fill = (tpl, vars) => tpl.replace(/\{(\w+)\}/g, (_, k) => vars[k]);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const SCREENS = { home: $("#screen-home"), quiz: $("#screen-quiz"), results: $("#screen-results") };
+    function showScreen(k) {
+      Object.values(SCREENS).forEach(s => s.classList.remove("is-active"));
+      SCREENS[k].classList.add("is-active");
+    }
+
+    /* ============ LANGUE (fr · ar · en) ============ */
+    function renderLangToggles() {
+      $$("[data-lang-toggle]").forEach(box => {
+        box.innerHTML = [["fr", "FR"], ["ar", "ع"], ["en", "EN"]]
+          .map(([k, lab]) => `<button data-set-lang="${k}" class="${lang === k ? "is-active" : ""}" aria-label="${k === "ar" ? "العربية" : (k === "fr" ? "Français" : "English")}">${lab}</button>`)
+          .join("");
+      });
+    }
+    function applyLang() {
+      document.documentElement.lang = lang;
+      document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
+      const dict = UI[lang];
+      $$("[data-i18n]").forEach(el => { const v = dict[el.dataset.i18n]; if (v !== undefined) el.innerHTML = v; });
+      $$("[data-i18n-aria]").forEach(el => { const v = dict[el.dataset.i18nAria]; if (v !== undefined) el.setAttribute("aria-label", v); });
+      renderLangToggles();
+      localStorage.setItem("introspec-lang", lang);
+      $("#hero-radar").innerHTML = radarSVG([72, 58, 64, 80, 47], dict.radar, true);
+      requestAnimationFrame(() => requestAnimationFrame(() => $("#hero-radar .radar").classList.add("go")));
+      if (!$("#app-layer").classList.contains("is-open")) return;
+      if (SCREENS.results.classList.contains("is-active")) showResults();
+      else if (mode) renderQ();
+    }
+    document.addEventListener("click", e => {
+      const b = e.target.closest("[data-set-lang]");
+      if (b && b.dataset.setLang !== lang) { lang = b.dataset.setLang; applyLang(); }
+    });
+
+    /* ============ THÈMES (sauge · nuit · sable) ============ */
+    const THEMES = [["sauge", "th_sauge", "#1F4D3F"], ["nuit", "th_nuit", "#26262C"], ["sable", "th_sable", "#B4552D"]];
+    function renderThemeToggles() {
+      const cur = document.documentElement.dataset.theme || "sauge";
+      $$("[data-theme-toggle]").forEach(box => {
+        box.setAttribute("aria-label", UI[lang].theme_aria);
+        box.innerHTML = THEMES.map(([k, key, sw]) =>
+          `<button data-set-theme="${k}" class="${cur === k ? "is-active" : ""}" aria-label="${UI[lang][key]}"><span class="sw" style="background:${sw}"></span></button>`
+        ).join("");
+      });
+    }
+    function applyTheme() {
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem("introspec-theme", theme);
+      renderThemeToggles();
+    }
+    document.addEventListener("click", e => {
+      const b = e.target.closest("[data-set-theme]");
+      if (b && b.dataset.setTheme !== theme) { theme = b.dataset.setTheme; applyTheme(); }
+    });
+
+    /* ============ RADAR SVG (multi-axes) ============ */
+    function radarSVG(values, labels, mini) {
+      const n = labels.length;
+      const W = 400, H = 280, cx = 200, cy = 150, R = 92, LR = 110;
+      const P = (i, r) => {
+        const a = -Math.PI / 2 + i * 2 * Math.PI / n;
+        return [+(cx + r * Math.cos(a)).toFixed(1), +(cy + r * Math.sin(a)).toFixed(1)];
+      };
+      const ring = f => values.map((_, i) => P(i, R * f).join(",")).join(" ");
+      let lv = "";
+      labels.forEach((t, i) => {
+        const a = -Math.PI / 2 + i * 2 * Math.PI / n, s = Math.sin(a), c = Math.cos(a);
+        const anchor = c > 0.3 ? "start" : (c < -0.3 ? "end" : "middle");
+        const [x, y] = P(i, LR);
+        const dy = s < -0.9 ? -6 : (s > 0.5 ? 12 : 4);
+        lv += `<text x="${x}" y="${y + dy}" text-anchor="${anchor}" class="r-lab">${t}</text>`;
+      });
+      const pts = values.map((v, i) => P(i, R * v / 100).join(",")).join(" ");
+      const dots = values.map((v, i) => { const [x, y] = P(i, R * v / 100); return `<circle class="radar-dot" cx="${x}" cy="${y}" r="3.5"/>`; }).join("");
+      return `<svg viewBox="0 0 ${W} ${H}" class="radar ${mini ? "radar-mini" : ""}" role="img" aria-label="${UI[lang].res_bf}">
+        <g class="radar-grid">
+          ${[0.25, 0.5, 0.75, 1].map(f => `<polygon points="${ring(f)}"/>`).join("")}
+          ${values.map((_, i) => { const [x, y] = P(i, R); return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}"/>`; }).join("")}
+        </g>
+        <polygon class="radar-poly" points="${pts}"/>${dots}${lv}
+      </svg>`;
+    }
+
+    /* ============ QUADRANT ATTACHEMENT ============ */
+    function attachSVG(avoid, anx) {
+      const dict = UI[lang];
+      const S = 340, pad = 56, size = S - pad * 2;
+      const X = pad + (avoid / 100) * size, Y = pad + ((100 - anx) / 100) * size;
+      const qx = avoid >= 50 ? 1 : 0, qy = anx >= 50 ? 1 : 0;
+      return `<svg viewBox="0 0 ${S} ${S}" class="qbox" role="img" aria-label="${dict.atk_b1} · ${dict.atk_b2}">
+        <rect class="quad-hl" x="${pad + qx * size / 2}" y="${pad + qy * size / 2}" width="${size / 2}" height="${size / 2}"/>
+        <rect class="frame" x="${pad}" y="${pad}" width="${size}" height="${size}" rx="14"/>
+        <line class="mid" x1="${S / 2}" y1="${pad}" x2="${S / 2}" y2="${pad + size}"/>
+        <line class="mid" x1="${pad}" y1="${S / 2}" x2="${pad + size}" y2="${S / 2}"/>
+        <text class="corner" x="${pad + 8}" y="${pad + 18}" text-anchor="start">${dict.atk_tl}</text>
+        <text class="corner" x="${S - pad - 8}" y="${pad + 18}" text-anchor="end">${dict.atk_tr}</text>
+        <text class="corner" x="${pad + 8}" y="${S - pad - 10}" text-anchor="start">${dict.atk_bl}</text>
+        <text class="corner" x="${S - pad - 8}" y="${S - pad - 10}" text-anchor="end">${dict.atk_br}</text>
+        <text class="axis" x="${S / 2}" y="${pad - 14}" text-anchor="middle">${dict.atk_top}</text>
+        <text class="axis" x="${S / 2}" y="${S - pad + 26}" text-anchor="middle">${dict.atk_bottom}</text>
+        <text class="axis" x="${pad - 8}" y="${S / 2 + 3}" text-anchor="end">${dict.atk_left}</text>
+        <text class="axis" x="${S - pad + 8}" y="${S / 2 + 3}" text-anchor="start">${dict.atk_right}</text>
+        <g class="q-dot" data-x="${X}" data-y="${Y}" style="transform: translate(${S / 2}px, ${S / 2}px)">
+          <circle r="7" fill="var(--accent)"/><circle r="2.6" fill="var(--canvas)"/>
+        </g>
+      </svg>`;
+    }
+
+    /* ============ COUCHE ISOLÉE ============ */
+    let lastFocus = null;
+    function openLayer() {
+      lastFocus = document.activeElement;
+      $("#app-layer").classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      $("#close-layer-btn").focus();
+    }
+    function closeLayer() {
+      $("#app-layer").classList.remove("is-open");
+      document.body.style.overflow = "";
+      showScreen("home");
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
+    $("#close-layer-btn").addEventListener("click", closeLayer);
+    document.addEventListener("keydown", e => {
+      const layer = $("#app-layer");
+      if (!layer.classList.contains("is-open")) return;
+      if (e.key === "Escape") { closeLayer(); return; }
+      if (e.key === "Tab") {
+        const f = $$("button, a[href]", layer).filter(el => el.offsetParent !== null);
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    /* ============ QUIZ ============ */
+    function startMode(k) {
+      mode = k; idx = 0; answers = new Array(DATA[k].qs.length).fill(null);
+      $("#quiz-mode").textContent = tx(DATA[k].name);
+      showScreen("quiz");
+      openLayer();
+      renderQ();
+    }
+    function renderQ() {
+      const D = DATA[mode], q = D.qs[idx], dict = UI[lang];
+      $("#quiz-count").textContent = fill(dict.count, { x: idx + 1, n: D.qs.length });
+      $("#quiz-progress").setAttribute("aria-valuenow", Math.round((idx / D.qs.length) * 100));
+      requestAnimationFrame(() => { $("#quiz-bar").style.transform = `scaleX(${idx / D.qs.length})`; });
+      $("#back-btn").hidden = idx === 0;
+      const core = $("#quiz-core");
+      core.classList.remove("q-enter"); void core.offsetWidth; core.classList.add("q-enter");
+      $("#q-text").textContent = tx(q.t);
+      const box = $("#q-answers");
+      if (D.kind === "likert") {
+        const cap = document.createElement("div");
+        cap.className = "scale-cap";
+        cap.textContent = fill(dict.scale, { a: tx(D.likert)[0], b: tx(D.likert)[4] });
+        const grid = document.createElement("div");
+        grid.className = "likert";
+        grid.setAttribute("role", "group");
+        grid.setAttribute("aria-label", dict.lik_group);
+        tx(D.likert).forEach((w, i) => {
+          const b = document.createElement("button");
+          b.className = "lik"; b.dataset.v = i + 1;
+          b.setAttribute("aria-label", fill(dict.lik_aria, { v: i + 1, w }));
+          b.innerHTML = `<span class="n">${i + 1}</span><span class="w">${w}</span>`;
+          grid.appendChild(b);
+        });
+        box.replaceChildren(cap, grid);
+        $("#kbd-hint").innerHTML = fill(dict.kbd_hint, { n: 5 });
+      } else {
+        const grid = document.createElement("div");
+        grid.className = "opts";
+        grid.setAttribute("role", "group");
+        grid.setAttribute("aria-label", dict.opt_group);
+        q.o.forEach((o, i) => {
+          const b = document.createElement("button");
+          b.className = "opt"; b.dataset.v = i;
+          b.innerHTML = `<span class="k">${dict.optkeys[i]}</span><span>${tx(o[0])}</span>`;
+          grid.appendChild(b);
+        });
+        box.replaceChildren(grid);
+        $("#kbd-hint").innerHTML = fill(dict.kbd_hint, { n: 4 });
+      }
+      if (answers[idx] !== null) {
+        const sel = box.querySelector(`[data-v="${answers[idx]}"]`);
+        if (sel) sel.classList.add("picked");
+      }
+    }
+    function pick(v) {
+      if (answers[idx] !== null) {
+        const prev = $("#q-answers").querySelector(`[data-v="${answers[idx]}"]`);
+        if (prev) prev.classList.remove("picked");
+      }
+      answers[idx] = v;
+      const btn = $("#q-answers").querySelector(`[data-v="${v}"]`);
+      if (btn) btn.classList.add("picked");
+      setTimeout(() => {
+        if (idx < DATA[mode].qs.length - 1) { idx++; renderQ(); }
+        else showResults();
+      }, reduceMotion ? 60 : 300);
+    }
+    $("#q-answers").addEventListener("click", e => {
+      const b = e.target.closest("button[data-v]");
+      if (b) pick(parseInt(b.dataset.v, 10));
+    });
+    $("#back-btn").addEventListener("click", () => { if (idx > 0) { idx--; renderQ(); } });
+    document.addEventListener("keydown", e => {
+      if (!$("#app-layer").classList.contains("is-open") || !SCREENS.quiz.classList.contains("is-active")) return;
+      if (e.key === "Escape") return;
+      const n = parseInt(e.key, 10);
+      if (!DATA[mode]) return;
+      const max = DATA[mode].kind === "likert" ? 5 : 4;
+      if (n >= 1 && n <= max) {
+        const val = DATA[mode].kind === "likert" ? n : n - 1;
+        const b = $("#q-answers").querySelector(`[data-v="${val}"]`);
+        if (b) pick(val);
+      }
+    });
+
+    /* ============ MÈTRES + ANIMATIONS ============ */
+    function meterRow(label, pct, isTop, letter, note) {
+      return `<div class="r-row">
+        <div class="t">
+          <span class="l">${label}${letter ? `<em>${letter}</em>` : ""}</span>
+          <span class="pct">${pct}%</span>
+        </div>
+        <div class="meter"><i class="${isTop ? "top" : ""}" data-w="${pct}"></i></div>
+        ${note ? `<div class="d">${note}</div>` : ""}
+      </div>`;
+    }
+    function animateBars(root) {
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        root.querySelectorAll(".meter i").forEach(i => { i.style.transform = `scaleX(${(+i.dataset.w) / 100})`; });
+        root.querySelectorAll(".radar").forEach(r => r.classList.add("go"));
+        root.querySelectorAll(".q-dot").forEach(g => { g.style.transform = `translate(${g.dataset.x}px, ${g.dataset.y}px)`; });
+      }));
+    }
+
+    /* ============ RÉSULTATS ============ */
+    function noteFor(dim, val) { return val >= 60 ? tx(dim.high) : (val <= 40 ? tx(dim.low) : UI[lang].eq); }
+    function resultsBigFive() {
+      const D = DATA.bigfive, dict = UI[lang], sums = D.dims.map(() => 0);
+      D.qs.forEach((q, i) => { let v = answers[i]; if (q.r) v = 6 - v; sums[q.d] += v; });
+      const vals = sums.map((s, d) => { const raw = Math.round(((s - 5) / 20) * 100); return D.dims[d].inv ? 100 - raw : raw; });
+      const top = vals.indexOf(Math.max(...vals));
+      const rows = D.dims.map((dim, d) => meterRow(tx(dim.l), vals[d], d === top, null, noteFor(dim, vals[d]))).join("");
+      $("#res-tag").textContent = tx(D.tag);
+      $("#res-title").textContent = dict.res_bf;
+      $("#res-body").innerHTML = `<div class="res-grid">${radarSVG(vals, dict.radar)}<div class="r-rows">${rows}</div></div><div class="r-quick">${fill(dict.quick, { d: tx(D.dims[top].l), p: vals[top] })}</div>`;
+      lastShare = { text: fill(dict.share_bf, { d: tx(D.dims[top].l), p: vals[top] }) + dict.share_note, title: dict.res_bf, tag: tx(D.tag), bars: D.dims.map((dim, d) => ({ label: tx(dim.l), pct: vals[d], top: d === top })) };
+    }
+    function resultsHexaco() {
+      const D = DATA.hexaco, dict = UI[lang], sums = D.dims.map(() => 0);
+      D.qs.forEach((q, i) => { let v = answers[i]; if (q.r) v = 6 - v; sums[q.d] += v; });
+      const vals = sums.map(s => Math.round(((s - 4) / 16) * 100));
+      const top = vals.indexOf(Math.max(...vals));
+      const rows = D.dims.map((dim, d) => meterRow(tx(dim.l), vals[d], d === top, dim.letter, noteFor(dim, vals[d]))).join("");
+      $("#res-tag").textContent = tx(D.tag);
+      $("#res-title").textContent = dict.res_hx;
+      $("#res-body").innerHTML = `<div class="res-grid">${radarSVG(vals, D.dims.map(d => tx(d.sh)))}<div class="r-rows">${rows}</div></div><div class="r-quick">${fill(dict.quick, { d: tx(D.dims[top].l), p: vals[top] })}</div>`;
+      lastShare = { text: fill(dict.share_hx, { d: tx(D.dims[top].l), p: vals[top] }) + dict.share_note, title: dict.res_hx, tag: tx(D.tag), bars: D.dims.map((dim, d) => ({ label: tx(dim.l), pct: vals[d], top: d === top })) };
+    }
+    function resultsDisc() {
+      const D = DATA.disc, dict = UI[lang], sums = D.dims.map(() => 0);
+      D.qs.forEach((q, i) => { sums[q.d] += answers[i]; });
+      const vals = sums.map(s => Math.round(((s - 5) / 20) * 100));
+      const order = vals.map((v, i) => [v, i]).sort((a, b) => b[0] - a[0]);
+      const pri = order[0][1], sec = order[1][1];
+      const pd = D.dims[pri], sd = D.dims[sec];
+      const rows = D.dims.map((dim, d) => meterRow(tx(dim.l), vals[d], d === pri, dim.letter, null)).join("");
+      const profileMeta = lang === "fr" ? `Profil ${pd.letter} · ${tx(pd.l)}` : (lang === "ar" ? `النمط ${pd.letter} · ${tx(pd.l)}` : `${pd.letter} profile · ${tx(pd.l)}`);
+      $("#res-tag").textContent = tx(D.tag);
+      $("#res-title").textContent = fill(dict.res_dc, { t: tx(pd.title) });
+      $("#res-body").innerHTML = `<div class="shell dark profile-dark" style="margin-bottom:14px;"><div class="core" style="padding:32px;"><div class="meta">${profileMeta}</div><h2>${tx(pd.title)}</h2><p>${tx(pd.desc)}</p><div class="sec">${fill(dict.sec, { l: sd.letter, t: tx(sd.title), s: tx(sd.short) })}</div></div></div><div class="r-rows">${rows}</div>`;
+      lastShare = { text: fill(dict.share_dc, { t: tx(pd.title), l: pd.letter }) + dict.share_note, title: fill(dict.res_dc, { t: tx(pd.title) }), tag: tx(D.tag), bars: D.dims.map((dim, d) => ({ label: tx(dim.l), pct: vals[d], top: d === pri })) };
+    }
+    function resultsRiasec() {
+      const D = DATA.riasec, dict = UI[lang], sums = D.dims.map(() => 0);
+      D.qs.forEach((q, i) => { sums[q.d] += answers[i]; });
+      const vals = sums.map(s => Math.round(((s - 3) / 12) * 100));
+      const order = vals.map((v, i) => [v, i]).sort((a, b) => b[0] - a[0]);
+      const code = order.slice(0, 3).map(o => D.dims[o[1]].letter).join("·");
+      const top3 = order.slice(0, 3).map(o => tx(D.dims[o[1]].l));
+      const rows = D.dims.map((dim, d) => meterRow(tx(dim.l), vals[d], d === order[0][1], dim.letter, order.slice(0, 3).some(o => o[1] === d) ? tx(dim.desc) : null)).join("");
+      $("#res-tag").textContent = tx(D.tag);
+      $("#res-title").textContent = fill(dict.res_rs, { c: code });
+      $("#res-body").innerHTML = `<div class="shell dark profile-dark" style="margin-bottom:14px;"><div class="core" style="padding:32px;"><div class="meta">${dict.rs_meta}</div><h2>${code}</h2><p>${dict.rs_p}</p></div></div><div class="res-grid">${radarSVG(vals, D.dims.map(d => tx(d.l)))}<div class="r-rows">${rows}</div></div><div class="r-quick">${fill(dict.rs_quick, { list: top3.join(" · ") })}</div>`;
+      lastShare = { text: fill(dict.share_rs, { c: code }) + dict.share_note, title: fill(dict.res_rs, { c: code }), tag: tx(D.tag), bars: D.dims.map((dim, d) => ({ label: tx(dim.l), pct: vals[d], top: d === order[0][1] })) };
+    }
+    function resultsArch() {
+      const D = DATA.arch, dict = UI[lang], pts = D.archs.map(() => 0);
+      D.qs.forEach((q, i) => { pts[q.o[answers[i]][1]] += 1; });
+      const order = pts.map((p, i) => [p, i]).sort((a, b) => b[0] - a[0]);
+      const pri = order[0][1], sec = order[1][1];
+      const pa = D.archs[pri], sa = D.archs[sec];
+      const rows = D.archs.map((a, i) => meterRow(tx(a.n), Math.round(pts[i] / 8 * 100), i === pri, null, null)).join("");
+      $("#res-tag").textContent = tx(D.tag);
+      $("#res-title").textContent = fill(dict.res_ar, { t: tx(pa.n) });
+      $("#res-body").innerHTML = `<div class="arch-head"><span class="m-ico" aria-hidden="true">${ICONS[pa.icon]}</span><span class="who"><span class="meta">${fill(dict.archmeta, { p: pts[pri], n: D.qs.length })}</span><h2>${tx(pa.n)}</h2></span></div><p class="arch-desc">${tx(pa.desc)}</p><div class="fo-grid"><div class="fo-cell"><div class="meta">${dict.force}</div><p>${tx(pa.force)}</p></div><div class="fo-cell"><div class="meta">${dict.ombre}</div><p>${tx(pa.ombre)}</p></div></div><div class="r-rows">${rows}</div><div class="res-second">${fill(dict.second, { n: tx(sa.n) })}</div>`;
+      lastShare = { text: fill(dict.share_ar, { t: tx(pa.n) }) + dict.share_note, title: fill(dict.res_ar, { t: tx(pa.n) }), tag: tx(D.tag), bars: D.archs.map((a, i) => ({ label: tx(a.n), pct: Math.round(pts[i] / 8 * 100), top: i === pri })) };
+    }
+    function resultsAttach() {
+      const D = DATA.attach, dict = UI[lang];
+      let sumA = 0, sumV = 0;
+      D.qs.forEach((q, i) => { let v = answers[i]; if (q.r) v = 6 - v; if (q.a) sumA += v; else sumV += v; });
+      const anx = Math.round((sumA - 8) / 32 * 100), avo = Math.round((sumV - 8) / 32 * 100);
+      const st = (anx >= 50 ? 1 : 0) + (avo >= 50 ? 2 : 0);
+      const style = D.styles[st];
+      const rows = meterRow(dict.atk_b1, anx, false, null, null) + meterRow(dict.atk_b2, avo, false, null, null);
+      $("#res-tag").textContent = tx(D.tag);
+      $("#res-title").textContent = fill(dict.res_at, { t: tx(style.n) });
+      $("#res-body").innerHTML = `<div class="shell dark profile-dark" style="margin-bottom:14px;"><div class="core" style="padding:32px;"><div class="meta">${fill(dict.atk_meta, { a: anx, v: avo })}</div><h2>${tx(style.n)}</h2><p>${tx(style.desc)}</p></div></div><div class="res-grid">${attachSVG(avo, anx)}<div class="r-rows">${rows}</div></div><div class="r-quick">${fill(dict.atk_quick, { a: anx, v: avo })}</div>`;
+      lastShare = { text: fill(dict.share_at, { t: tx(style.n) }) + dict.share_note, title: fill(dict.res_at, { t: tx(style.n) }), tag: tx(D.tag), bars: [{ label: dict.atk_b1, pct: anx, top: false }, { label: dict.atk_b2, pct: avo, top: false }] };
+    }
+    function showResults() {
+      if (mode === "bigfive") resultsBigFive();
+      else if (mode === "disc") resultsDisc();
+      else if (mode === "arch") resultsArch();
+      else if (mode === "hexaco") resultsHexaco();
+      else if (mode === "riasec") resultsRiasec();
+      else resultsAttach();
+      showScreen("results");
+      animateBars($("#res-body"));
+    }
+
+    /* ============ PARTAGE ============ */
+    function toast(msg) {
+      const t = $("#toast");
+      t.textContent = msg; t.classList.add("show");
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => t.classList.remove("show"), 2600);
+    }
+    function fallbackCopy(t, done) {
+      const ta = document.createElement("textarea");
+      ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) {}
+      ta.remove();
+    }
+    function copyText(t) {
+      const done = () => toast(UI[lang].toast_copied);
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(t).then(done).catch(() => fallbackCopy(t, done));
+      } else fallbackCopy(t, done);
+    }
+    function roundRect(x, px, py, w, h, r) {
+      if (x.roundRect) { x.beginPath(); x.roundRect(px, py, w, h, r); x.fill(); }
+      else x.fillRect(px, py, w, h);
+    }
+    function hexToRgba(hex, a) {
+      const m = (hex || "#000000").replace("#", "");
+      const v = m.length === 3 ? m.split("").map(ch => ch + ch).join("") : m;
+      const n = parseInt(v, 16);
+      return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+    }
+    async function buildShareImage() {
+      try { await document.fonts.ready; } catch (e) {}
+      const cs = getComputedStyle(document.documentElement);
+      const cv = k => cs.getPropertyValue(k).trim();
+      const isRTL = lang === "ar";
+      const fam = isRTL ? "'IBM Plex Sans Arabic'" : "'Plus Jakarta Sans'";
+      const c = document.createElement("canvas"); c.width = 1080; c.height = 1080;
+      const x = c.getContext("2d");
+      x.fillStyle = cv("--canvas") || "#FDFBF7"; x.fillRect(0, 0, 1080, 1080);
+      const g = x.createRadialGradient(160, 140, 20, 160, 140, 560);
+      g.addColorStop(0, hexToRgba(cv("--accent-glow"), 0.16)); g.addColorStop(1, "rgba(0,0,0,0)");
+      x.fillStyle = g; x.fillRect(0, 0, 1080, 1080);
+      x.fillStyle = cv("--accent"); roundRect(x, 84, 84, 60, 60, 18);
+      x.fillStyle = cv("--ink"); x.textBaseline = "middle";
+      x.font = `800 46px ${fam}`; x.textAlign = isRTL ? "right" : "left";
+      x.fillText(isRTL ? "إنتروسبك" : "Introspec", isRTL ? 996 : 168, 116);
+      x.font = `600 26px ${fam}`; x.fillStyle = cv("--muted");
+      x.fillText(lastShare.tag, isRTL ? 996 : 84, 190);
+      x.font = `700 74px ${fam}`; x.fillStyle = cv("--ink"); x.textAlign = "center";
+      const lines = []; let ln = "";
+      lastShare.title.split(" ").forEach(w => {
+        const test = ln ? ln + " " + w : w;
+        if (x.measureText(test).width > 920 && ln) { lines.push(ln); ln = w; } else ln = test;
+      });
+      if (ln) lines.push(ln);
+      let ty = 300;
+      lines.slice(0, 3).forEach(l => { x.fillText(l, 540, ty); ty += 90; });
+      const rows = lastShare.bars.slice(0, 6);
+      const by0 = Math.max(ty + 30, 560);
+      const step = Math.min(92, (990 - by0 - 20) / Math.max(rows.length, 1));
+      rows.forEach((r, i) => {
+        const y = by0 + i * step;
+        x.textBaseline = "alphabetic";
+        x.font = `600 28px ${fam}`; x.fillStyle = cv("--ink");
+        if (isRTL) { x.textAlign = "right"; x.fillText(r.label, 996, y - 14); }
+        else { x.textAlign = "left"; x.fillText(r.label, 84, y - 14); }
+        x.font = `500 26px ${fam}`; x.fillStyle = cv("--muted");
+        if (isRTL) { x.textAlign = "left"; x.fillText(r.pct + "%", 84, y - 14); }
+        else { x.textAlign = "right"; x.fillText(r.pct + "%", 996, y - 14); }
+        x.fillStyle = hexToRgba(cv("--ink"), 0.08); roundRect(x, 84, y, 912, 16, 8);
+        const w = Math.max(16, 912 * r.pct / 100);
+        x.fillStyle = r.top ? cv("--accent") : cv("--accent-glow");
+        if (isRTL) roundRect(x, 84 + 912 - w, y, w, 16, 8); else roundRect(x, 84, y, w, 16, 8);
+      });
+      x.textAlign = "center"; x.font = `500 24px ${fam}`; x.fillStyle = cv("--muted");
+      x.fillText(UI[lang].img_foot, 540, 1012);
+      return c;
+    }
+    function downloadShareImage() {
+      buildShareImage().then(c => {
+        c.toBlob(b => {
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(b); a.download = `introspec-${mode}-${lang}.png`;
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+          toast(UI[lang].toast_dl);
+        }, "image/png");
+      });
+    }
+    $("#share-wa").addEventListener("click", () => window.open("https://wa.me/?text=" + encodeURIComponent(lastShare.text), "_blank", "noopener"));
+    $("#share-fb").addEventListener("click", () => { copyText(lastShare.text); window.open("https://www.facebook.com/", "_blank", "noopener"); toast(UI[lang].toast_fb); });
+    $("#share-ig").addEventListener("click", () => { downloadShareImage(); window.open("https://www.instagram.com/", "_blank", "noopener"); toast(UI[lang].toast_ig); });
+    $("#share-copy").addEventListener("click", () => copyText(lastShare.text));
+    if (navigator.share) {
+      const nb = $("#share-native"); nb.hidden = false;
+      nb.addEventListener("click", () => navigator.share({ title: "Introspec", text: lastShare.text }).catch(() => {}));
+    }
+
+    /* ============ LANCEMENT + INIT ============ */
+    $("#redo-btn").addEventListener("click", () => { idx = 0; answers = new Array(DATA[mode].qs.length).fill(null); showScreen("quiz"); renderQ(); });
+    $("#home-btn").addEventListener("click", closeLayer);
+    document.querySelectorAll(".mode-card").forEach(c => c.addEventListener("click", () => startMode(c.dataset.mode)));
+    const io = new IntersectionObserver(es => {
+      for (const e of es) if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+    }, { threshold: 0.1, rootMargin: "0px 0px -10% 0px" });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+    applyTheme();
+    applyLang();
+  </script>
+</body>
+</html>
