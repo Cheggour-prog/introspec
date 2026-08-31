@@ -1,6 +1,0 @@
-{
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/", "destination": "/v3 questionnaire de personnalité.html" }
-  ]
-}
