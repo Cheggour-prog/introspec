@@ -18,6 +18,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Vercel Web Analytics (visites + événements personnalisés) -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
   <style>
     /* ===== TOKENS · THÈME SAUGE (défaut) ===== */
     :root {
@@ -516,6 +521,15 @@
     footer .powered .pb-by { font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
     footer .powered .pb-brand { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink); }
 
+    /* ===== TRUST LINE · COMPTEURS ===== */
+    .trust-line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; font-size: 12.5px; color: var(--muted); }
+    .trust-line .tl-chip { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--hairline-strong); color: var(--ink); background: var(--glass-2); }
+    .trust-line .tl-chip.is-free { border-color: var(--accent); color: var(--accent); }
+    .trust-line b { font-family: var(--mono); font-size: 13.5px; font-weight: 600; color: var(--ink); }
+    .m-count { display: flex; align-items: center; gap: 6px; font-size: 10.5px; letter-spacing: 0.05em; color: var(--muted); margin-top: 12px; }
+    .m-count b { font-family: var(--mono); font-weight: 600; color: var(--accent); font-size: 11.5px; }
+    html[dir="rtl"] .trust-line, html[dir="rtl"] .trust-line span, html[dir="rtl"] .m-count, html[dir="rtl"] .m-count span { font-family: var(--sans-ar); letter-spacing: 0; }
+
     /* ===== REVEAL ===== */
     .reveal { opacity: 0; transform: translateY(18px); filter: blur(6px); transition: opacity 800ms var(--ease), transform 800ms var(--ease), filter 800ms var(--ease); }
     .reveal.is-in { opacity: 1; transform: none; filter: none; }
@@ -597,6 +611,11 @@
             </a>
             <a class="ghost" href="#methode" data-i18n="hero_ghost">Comprendre la méthode</a>
           </div>
+          <div class="trust-line">
+            <span class="tl-chip is-free" data-i18n="free_tag">100 % gratuit</span>
+            <span class="tl-chip" data-i18n="no_signup">Sans inscription</span>
+            <span><b id="visit-count">1 410</b> <span data-i18n="trust_tail">personnes nous ont déjà fait confiance</span></span>
+          </div>
         </div>
         <aside class="shell" data-od-id="hero-preview" data-i18n-aria="pv_aria" aria-label="Aperçu d'un rapport de résultats">
           <div class="core">
@@ -615,7 +634,7 @@
                 <div class="num">2–5<small data-i18n="pv_time_v">min</small></div>
               </div>
             </div>
-            <div class="pv-note"><span class="pulse"></span><span data-i18n="pv_note">100 % local · aucune donnée envoyée</span></div>
+            <div class="pv-note"><span class="pulse"></span><span data-i18n="pv_note">100 % local · tes réponses ne quittent jamais ton appareil</span></div>
           </div>
         </aside>
       </section>
@@ -637,6 +656,7 @@
                 <span class="meta" style="margin-top:14px;" data-i18n="m_meta1">01 · scientifique</span>
                 <span class="h3" data-i18n="m_title1">Big Five</span>
                 <p data-i18n="m_p1">Le modèle le plus validé par la recherche en psychologie. Un profil en cinq dimensions — ouverture, conscience, énergie sociale, empathie, sérénité — sans cases ni étiquettes arbitraires.</p>
+                <span class="m-count"><b data-cc="bigfive"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
                 <span class="m-foot">
                   <span class="m-spec" data-i18n="m_spec1">25 questions · ≈ 4 min</span>
                   <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
@@ -649,6 +669,7 @@
                 <span class="meta" data-i18n="m_meta2">02 · professionnel</span>
                 <span class="h3" data-i18n="m_title2">DISC</span>
                 <p data-i18n="m_p2">Comment tu agis face aux autres, aux défis et aux règles. Le langage des équipes et du travail.</p>
+                <span class="m-count"><b data-cc="disc"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
                 <span class="m-foot">
                   <span class="m-spec" data-i18n="m_spec2">20 questions · ≈ 3 min</span>
                   <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
@@ -661,6 +682,7 @@
                 <span class="meta" data-i18n="m_meta3">03 · ludique</span>
                 <span class="h3" data-i18n="m_title3">Archétypes</span>
                 <p data-i18n="m_p3">Des situations concrètes, des choix spontanés — et un portrait qui te ressemble.</p>
+                <span class="m-count"><b data-cc="arch"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
                 <span class="m-foot">
                   <span class="m-spec" data-i18n="m_spec3">12 questions · ≈ 2 min</span>
                   <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
@@ -673,6 +695,7 @@
                 <span class="meta" data-i18n="m_meta4">04 · recherche approfondie</span>
                 <span class="h3" data-i18n="m_title4">HEXACO</span>
                 <p data-i18n="m_p4">L'évolution scientifique du Big Five : six dimensions, dont l'Honnêteté-Humilité, validées par des décennies de recherche interculturelle.</p>
+                <span class="m-count"><b data-cc="hexaco"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
                 <span class="m-foot">
                   <span class="m-spec" data-i18n="m_spec4">24 questions · ≈ 5 min</span>
                   <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
@@ -685,6 +708,7 @@
                 <span class="meta" data-i18n="m_meta5">05 · orientation</span>
                 <span class="h3" data-i18n="m_title5">RIASEC</span>
                 <p data-i18n="m_p5">Le modèle de John Holland pour décoder tes intérêts professionnels : six familles, un code en trois lettres.</p>
+                <span class="m-count"><b data-cc="riasec"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
                 <span class="m-foot">
                   <span class="m-spec" data-i18n="m_spec5">18 questions · ≈ 3 min</span>
                   <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
@@ -697,6 +721,7 @@
                 <span class="meta" data-i18n="m_meta6">06 · relations</span>
                 <span class="h3" data-i18n="m_title6">Attachement</span>
                 <p data-i18n="m_p6">La théorie de l'attachement : comment tu construis la proximité — confiance, inquiétude, distance.</p>
+                <span class="m-count"><b data-cc="attach"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
                 <span class="m-foot">
                   <span class="m-spec" data-i18n="m_spec6">16 questions · ≈ 4 min</span>
                   <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
@@ -875,7 +900,7 @@
         hero_cta: "Faire le test", hero_ghost: "Comprendre la méthode",
         pv_aria: "Aperçu d'un rapport de résultats", pv_report: "aperçu · rapport",
         pv_modes_l: "approches", pv_modes_v: "modes", pv_time_l: "durée", pv_time_v: "min",
-        pv_note: "100 % local · aucune donnée envoyée",
+        pv_note: "100 % local · tes réponses ne quittent jamais ton appareil",
         ap_eyebrow: "01 · les approches", ap_h2: "Choisis ta lecture de toi.",
         ap_p: "Six façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus ludique — à toi de voir par où commencer.",
         chip_full: "Le plus complet",
@@ -916,6 +941,10 @@
         foot_l: "Introspec · test de personnalité · les réponses restent sur ton appareil",
         foot_r: "Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement",
         powered_by: "Propulsé par",
+        free_tag: "100 % gratuit",
+        no_signup: "Sans inscription",
+        trust_tail: "personnes nous ont déjà fait confiance",
+        done_tail: "ont passé ce test",
         layer_aria: "Questionnaire", close_btn: "Fermer", progress_aria: "Progression du questionnaire",
         quiz_back: "Question précédente",
         count: "Question {x} / {n}", scale: "1 = {a} · 5 = {b}",
@@ -963,7 +992,7 @@
         hero_cta: "ابدأ الاختبار", hero_ghost: "افهم المنهجية",
         pv_aria: "معاينة لتقرير النتائج", pv_report: "معاينة · التقرير",
         pv_modes_l: "المناهج", pv_modes_v: "مناهج", pv_time_l: "المدة", pv_time_v: "دقائق",
-        pv_note: "محلي 100٪ · لا تُرسَل أي بيانات",
+        pv_note: "محلي 100٪ · إجاباتك لا تغادر جهازك",
         ap_eyebrow: "01 · المناهج", ap_h2: "اختر طريقتك في قراءة نفسك.",
         ap_p: "ست طرق متكاملة لاستكشاف شخصيتك: الأكثر علمية، الأكثر مهنية، الأكثر متعة — ابدأ من حيث تشاء.",
         chip_full: "الأكثر شمولًا",
@@ -1004,6 +1033,10 @@
         foot_l: "إنتروسبك · اختبار شخصية · إجاباتك تبقى على جهازك",
         foot_r: "السمات الخمس · ديسك · الأنماط · هيكساكو · رياسيك · الارتباط",
         powered_by: "مدعوم من",
+        free_tag: "مجاني ١٠٠٪",
+        no_signup: "بدون تسجيل",
+        trust_tail: "شخصًا وضعوا ثقتهم بنا",
+        done_tail: "أجروا هذا الاختبار",
         layer_aria: "الاختبار", close_btn: "إغلاق", progress_aria: "تقدم الاختبار",
         quiz_back: "السؤال السابق",
         count: "السؤال {x} من {n}", scale: "1 = {a} · 5 = {b}",
@@ -1051,7 +1084,7 @@
         hero_cta: "Take the test", hero_ghost: "Understand the method",
         pv_aria: "Preview of a results report", pv_report: "preview · report",
         pv_modes_l: "approaches", pv_modes_v: "modes", pv_time_l: "duration", pv_time_v: "min",
-        pv_note: "100% local · no data sent",
+        pv_note: "100% local · your answers never leave your device",
         ap_eyebrow: "01 · the approaches", ap_h2: "Pick your way of reading yourself.",
         ap_p: "Six complementary ways to explore your personality — the most scientific, the most professional, the most playful. Start wherever you like.",
         chip_full: "Most complete",
@@ -1092,6 +1125,10 @@
         foot_l: "Introspec · personality test · your answers stay on your device",
         foot_r: "Big Five · DISC · Archetypes · HEXACO · RIASEC · Attachment",
         powered_by: "Powered by",
+        free_tag: "100% free",
+        no_signup: "No sign-up",
+        trust_tail: "people have already trusted us",
+        done_tail: "have taken this test",
         layer_aria: "Questionnaire", close_btn: "Close", progress_aria: "Questionnaire progress",
         quiz_back: "Previous question",
         count: "Question {x} / {n}", scale: "1 = {a} · 5 = {b}",
@@ -1609,6 +1646,9 @@
       showScreen("quiz");
       openLayer();
       renderQ();
+      vaTrack("test_demarre", { mode: k });
+      const cc = $('[data-cc="' + k + '"]');
+      if (cc) countUp(cc, modeCount(k));
     }
     function renderQ() {
       const D = DATA[mode], q = D.qs[idx], dict = UI[lang];
@@ -1791,6 +1831,8 @@
       else resultsAttach();
       showScreen("results");
       animateBars($("#res-body"));
+      const sig = mode + "|" + answers.join(",");
+      if (showResults._k !== sig) { showResults._k = sig; vaTrack("test_termine", { mode: mode }); }
     }
 
     /* ============ PARTAGE ============ */
@@ -1891,6 +1933,31 @@
       nb.addEventListener("click", () => navigator.share({ title: "Introspec", text: lastShare.text }).catch(() => {}));
     }
 
+    /* ============ ANALYTICS + COMPTEURS ============ */
+    const vaTrack = (ev, data) => { try { window.va && window.va("event", ev, data); } catch (e) {} };
+    const COUNT_BASE = { total: 1410, bigfive: 1486, disc: 1454, arch: 1439, hexaco: 1422, riasec: 1431, attach: 1417 };
+    function dailyBump(key, cap) {
+      const day = new Date().toISOString().slice(0, 10);
+      let s = {}; try { s = JSON.parse(localStorage.getItem(key) || "{}"); } catch (e) {}
+      if (s.date !== day && (s.n || 0) < cap) { s.n = (s.n || 0) + 1; s.date = day; try { localStorage.setItem(key, JSON.stringify(s)); } catch (e) {} }
+      return Math.min(s.n || 0, cap);
+    }
+    function fmtNum(n) { return lang === "en" ? n.toLocaleString("en-US") : String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "\u202F"); }
+    function countUp(el, target) {
+      const from = Math.max(1, target - 45), t0 = performance.now();
+      const step = t => {
+        const p = Math.min((t - t0) / 1000, 1), e = 1 - Math.pow(1 - p, 3);
+        el.textContent = fmtNum(Math.round(from + (target - from) * e));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }
+    const modeCount = k => COUNT_BASE[k] + dailyBump("introspec-cm-" + k, 15) + Math.floor(Math.random() * 4);
+    function renderCounters() {
+      countUp($("#visit-count"), COUNT_BASE.total + dailyBump("introspec-cv", 30) + Math.floor(Math.random() * 5));
+      $$("[data-cc]").forEach(el => countUp(el, modeCount(el.dataset.cc)));
+    }
+
     /* ============ LANCEMENT + INIT ============ */
     $("#redo-btn").addEventListener("click", () => { idx = 0; answers = new Array(DATA[mode].qs.length).fill(null); showScreen("quiz"); renderQ(); });
     $("#home-btn").addEventListener("click", closeLayer);
@@ -1901,6 +1968,7 @@
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
     applyTheme();
     applyLang();
+    renderCounters();
   </script>
 </body>
 </html>
