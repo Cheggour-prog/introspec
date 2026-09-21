@@ -3,11 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Introspec — Test de personnalité : Big Five, HEXACO, DISC, RIASEC, Attachement &amp; Archétypes</title>
+  <title>Introspec — Test de personnalité : Big Five, HEXACO, DISC, RIASEC, Attachement, Archétypes &amp; Schémas de pensée</title>
   <!--
-    V3 · Changes:
-      6 tests (Big Five / DISC / Archétypes / HEXACO / RIASEC / Attachement)
-      3 langues FR · AR (RTL) · EN — interface + 115 questions traduites
+    V4 · Changes:
+      7 tests (Big Five / DISC / Archétypes / HEXACO / RIASEC / Attachement / Schémas de pensée)
+      3 langues FR · AR (RTL) · EN — interface + 145 questions traduites
+      7e test « Schémas de pensée » (Jeffrey Young, YSQ) : 30 items · moyennes par schéma · seuils cliniques 2.5 / 3.5
       questionnaire isolé en couche plein écran (V2)
       partage: WhatsApp / Facebook / Instagram (image 1080×1080) / copie / partage natif
       3 thèmes: sauge (clair) · nuit (sombre) · sable (terracotta)
@@ -291,7 +292,8 @@
     html[dir="rtl"] .m-go { font-family: var(--sans-ar); }
     .m-go svg { width: 12px; height: 12px; stroke: currentColor; fill: none; }
     html[dir="rtl"] .m-go svg { transform: scaleX(-1); }
-    .span-2 { grid-column: span 2; } .span-3 { grid-column: span 3; } .row-2 { grid-row: span 2; }
+    .span-2 { grid-column: span 2; } .span-3 { grid-column: span 3; } .span-6 { grid-column: span 6; } .row-2 { grid-row: span 2; }
+    .mode-card.span-6 p { max-width: 62ch; }
     .chip {
       display: inline-flex; padding: 4px 10px; border-radius: 999px;
       background: var(--accent); color: var(--accent-ink);
@@ -428,6 +430,13 @@
     .meter i { display: block; height: 100%; border-radius: inherit; background: var(--accent-glow); transform-origin: 0 50%; transform: scaleX(0); transition: transform 900ms var(--ease); }
     html[dir="rtl"] .meter i { transform-origin: 100% 50%; }
     .meter i.top { background: var(--accent); }
+    .meter i.lvl-ok { background: #4E9B6F; }
+    .meter i.lvl-mid { background: var(--sand); }
+    .meter i.lvl-high { background: #B4552D; }
+    .sc-legend { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 22px; padding: 13px 16px; border-radius: 14px; background: var(--glass); box-shadow: inset 0 0 0 1px var(--hairline); }
+    .sc-legend .lg { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .sc-legend .lg i { width: 10px; height: 10px; border-radius: 999px; display: inline-block; flex: none; }
+    html[dir="rtl"] .sc-legend .lg { font-family: var(--sans-ar); letter-spacing: 0; }
     .r-row .d { font-size: 12.5px; color: var(--muted); margin-top: 7px; line-height: 1.5; }
     .r-quick { margin-top: 26px; padding: 16px 18px; border-radius: 16px; background: var(--accent-soft); font-size: 14px; line-height: 1.55; color: var(--ink); }
     .r-quick b { color: var(--accent); }
@@ -540,7 +549,7 @@
       .nav ul { display: none; }
       .section-head { grid-template-columns: 1fr; gap: 18px; }
       .modes { grid-template-columns: 1fr; }
-      .span-2, .span-3 { grid-column: span 1; }
+      .span-2, .span-3, .span-6 { grid-column: span 1; }
       .row-2 { grid-row: auto; }
       .meth-grid { grid-template-columns: 1fr; gap: 24px; }
       .meth-aside { position: static; }
@@ -585,7 +594,7 @@
     <header class="nav">
       <span class="brand"><span class="brand-mark"></span>Introspec</span>
       <ul>
-        <li><a href="#approches" data-i18n="nav_1">Les 6 approches</a></li>
+        <li><a href="#approches" data-i18n="nav_1">Les 7 approches</a></li>
         <li><a href="#methode" data-i18n="nav_2">Méthode</a></li>
       </ul>
       <span data-lang-toggle></span>
@@ -601,9 +610,9 @@
     <div id="screen-home">
       <section class="wrap hero reveal" data-od-id="hero">
         <div>
-          <span class="eyebrow"><span class="dot"></span><span data-i18n="hero_eyebrow">Test de personnalité · 6 approches</span></span>
-          <h1 data-i18n="hero_h1">Six regards sur <span class="soft">qui tu es vraiment.</span></h1>
-          <p class="lede" data-i18n="hero_lede">Big Five, HEXACO, DISC, RIASEC, attachement ou Archétypes : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.</p>
+          <span class="eyebrow"><span class="dot"></span><span data-i18n="hero_eyebrow">Test de personnalité · 7 approches</span></span>
+          <h1 data-i18n="hero_h1">Sept regards sur <span class="soft">qui tu es vraiment.</span></h1>
+          <p class="lede" data-i18n="hero_lede">Big Five, HEXACO, DISC, RIASEC, attachement, Archétypes ou Schémas de pensée : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.</p>
           <div class="actions">
             <a class="pill" href="#approches">
               <span data-i18n="hero_cta">Faire le test</span>
@@ -627,11 +636,11 @@
               </div>
               <div class="pv-cell">
                 <div class="meta" data-i18n="pv_modes_l">approches</div>
-                <div class="num">6<small data-i18n="pv_modes_v">modes</small></div>
+                <div class="num">7<small data-i18n="pv_modes_v">modes</small></div>
               </div>
               <div class="pv-cell">
                 <div class="meta" data-i18n="pv_time_l">durée</div>
-                <div class="num">2–5<small data-i18n="pv_time_v">min</small></div>
+                <div class="num">2–6<small data-i18n="pv_time_v">min</small></div>
               </div>
             </div>
             <div class="pv-note"><span class="pulse"></span><span data-i18n="pv_note">100 % local · tes réponses ne quittent jamais ton appareil</span></div>
@@ -646,7 +655,7 @@
               <span class="eyebrow"><span class="dot"></span><span data-i18n="ap_eyebrow">01 · les approches</span></span>
               <h2 data-i18n="ap_h2">Choisis ta lecture de toi.</h2>
             </div>
-            <p data-i18n="ap_p">Six façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus ludique — à toi de voir par où commencer.</p>
+            <p data-i18n="ap_p">Sept façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus introspective — à toi de voir par où commencer.</p>
           </div>
           <div class="modes">
             <button class="shell mode-card span-3 row-2" data-mode="bigfive" data-od-id="mode-bigfive">
@@ -728,6 +737,20 @@
                 </span>
               </span>
             </button>
+            <button class="shell mode-card span-6" data-mode="schemas" data-od-id="mode-schemas">
+              <span class="core">
+                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.5l8.2 4.6-8.2 4.6-8.2-4.6z"/><path d="M3.8 12.6l8.2 4.6 8.2-4.6"/><path d="M3.8 16.9l8.2 4.6 8.2-4.6"/></svg></span>
+                <span class="chip" data-i18n="chip_new">Nouveau</span>
+                <span class="meta" style="margin-top:14px;" data-i18n="m_meta7">07 · thérapie des schémas</span>
+                <span class="h3" data-i18n="m_title7">Schémas de pensée</span>
+                <p data-i18n="m_p7">Inspiré de la thérapie des schémas de Jeffrey Young : six schémas précoces — imperfection, méfiance, inhibition, exigences, abnégation, dépendance — mesurés avec un barème clinique, sans pièges ni artifices.</p>
+                <span class="m-count"><b data-cc="schemas"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                <span class="m-foot">
+                  <span class="m-spec" data-i18n="m_spec7">30 questions · ≈ 6 min</span>
+                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                </span>
+              </span>
+            </button>
           </div>
         </div>
       </section>
@@ -769,11 +792,18 @@
               <span class="idx">04</span>
               <div>
                 <h3 data-i18n="mn4t">Des modèles de spécialistes</h3>
-                <p data-i18n="mn4p">Chaque questionnaire s'appuie sur un cadre établi : Costa &amp; McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton &amp; Lee (HEXACO), Bowlby puis Bartholomew &amp; Horowitz (attachement). Les items sont des formulations originales inspirées de ces cadres.</p>
+                <p data-i18n="mn4p">Chaque questionnaire s'appuie sur un cadre établi : Costa &amp; McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton &amp; Lee (HEXACO), Bowlby puis Bartholomew &amp; Horowitz (attachement), Jeffrey Young (schémas de pensée). Les items sont des formulations originales inspirées de ces cadres.</p>
               </div>
             </div>
             <div class="meth-note">
               <span class="idx">05</span>
+              <div>
+                <h3 data-i18n="mn6t">Schémas de pensée — des lentilles apprises tôt</h3>
+                <p data-i18n="mn6p">Inspiré du Young Schema Questionnaire de Jeffrey Young : un schéma est une croyance formée tôt, réactivée sous stress. Chaque schéma reçoit une moyenne de 1 à 5, lue par seuils cliniques — sain, modéré, significatif.</p>
+              </div>
+            </div>
+            <div class="meth-note">
+              <span class="idx">06</span>
               <div>
                 <h3 data-i18n="mn5t">Un outil d'introspection</h3>
                 <p data-i18n="mn5p">Ces tests sont indicatifs et ne remplacent ni un diagnostic, ni l'avis d'un professionnel. Utilise-les pour ouvrir la conversation avec toi-même — ou avec ton équipe.</p>
@@ -786,7 +816,7 @@
       <section class="closing reveal" data-od-id="closing">
         <div class="closing-inner">
           <h2 data-i18n="close_h2">Prêt·e à te rencontrer ?</h2>
-          <p data-i18n="close_p">Dix minutes maximum, six approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.</p>
+          <p data-i18n="close_p">Dix minutes maximum, sept approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.</p>
           <a class="pill pill-light" href="#approches">
             <span data-i18n="close_cta">Commencer maintenant</span>
             <span class="icon-wrap"><svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
@@ -806,7 +836,7 @@
           <span class="pb-brand">Araignée Systems</span>
         </span>
       </a>
-      <span data-i18n="foot_r">Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement</span>
+      <span data-i18n="foot_r">Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement · Schémas de pensée</span>
     </div>
   </footer>
 
@@ -893,17 +923,17 @@
     /* ============ UI TRILINGUE ============ */
     const UI = {
       fr: {
-        nav_1: "Les 6 approches", nav_2: "Méthode", nav_cta: "Commencer",
-        hero_eyebrow: "Test de personnalité · 6 approches",
-        hero_h1: 'Six regards sur <span class="soft">qui tu es vraiment.</span>',
-        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachement ou Archétypes : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.",
+        nav_1: "Les 7 approches", nav_2: "Méthode", nav_cta: "Commencer",
+        hero_eyebrow: "Test de personnalité · 7 approches",
+        hero_h1: 'Sept regards sur <span class="soft">qui tu es vraiment.</span>',
+        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachement, Archétypes ou Schémas de pensée : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.",
         hero_cta: "Faire le test", hero_ghost: "Comprendre la méthode",
         pv_aria: "Aperçu d'un rapport de résultats", pv_report: "aperçu · rapport",
         pv_modes_l: "approches", pv_modes_v: "modes", pv_time_l: "durée", pv_time_v: "min",
         pv_note: "100 % local · tes réponses ne quittent jamais ton appareil",
         ap_eyebrow: "01 · les approches", ap_h2: "Choisis ta lecture de toi.",
-        ap_p: "Six façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus ludique — à toi de voir par où commencer.",
-        chip_full: "Le plus complet",
+        ap_p: "Sept façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus introspective — à toi de voir par où commencer.",
+        chip_full: "Le plus complet", chip_new: "Nouveau",
         m_meta1: "01 · scientifique", m_title1: "Big Five",
         m_p1: "Le modèle le plus validé par la recherche en psychologie. Un profil en cinq dimensions — ouverture, conscience, énergie sociale, empathie, sérénité — sans cases ni étiquettes arbitraires.",
         m_spec1: "25 questions · ≈ 4 min",
@@ -922,6 +952,9 @@
         m_meta6: "06 · relations", m_title6: "Attachement",
         m_p6: "La théorie de l'attachement (Bowlby, puis Bartholomew & Horowitz) : comment tu construis la proximité — confiance, inquiétude, distance.",
         m_spec6: "16 questions · ≈ 4 min", m_go: "Lancer",
+        m_meta7: "07 · thérapie des schémas", m_title7: "Schémas de pensée",
+        m_p7: "Inspiré de la thérapie des schémas de Jeffrey Young : six schémas précoces — imperfection, méfiance, inhibition, exigences, abnégation, dépendance — mesurés avec un barème clinique, sans pièges ni artifices.",
+        m_spec7: "30 questions · ≈ 6 min",
         meth_eyebrow: "02 · méthode", meth_h2: "Ce que ces tests mesurent — et ne mesurent pas.",
         meth_p: "Aucun test ne « résume » une personnalité : c'est un miroir, pas un verdict. Réponds avec ta première intuition, celle qui te ressemble le plus souvent — pas la version idéale de toi.",
         meth_cta: "Choisir une approche",
@@ -932,14 +965,16 @@
         mn3t: "Archétypes — un portrait spontané",
         mn3p: "Des choix concrets plutôt que des jugements sur soi-même. Le résultat révèle tes inclinaisons naturelles : une boussole pour la réflexion, pas une vérité absolue.",
         mn4t: "Des modèles de spécialistes",
-        mn4p: "Chaque questionnaire s'appuie sur un cadre établi : Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby puis Bartholomew & Horowitz (attachement). Les items sont des formulations originales inspirées de ces cadres.",
+        mn4p: "Chaque questionnaire s'appuie sur un cadre établi : Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby puis Bartholomew & Horowitz (attachement), Jeffrey Young (schémas de pensée). Les items sont des formulations originales inspirées de ces cadres.",
         mn5t: "Un outil d'introspection",
         mn5p: "Ces tests sont indicatifs et ne remplacent ni un diagnostic, ni l'avis d'un professionnel. Utilise-les pour ouvrir la conversation avec toi-même — ou avec ton équipe.",
+        mn6t: "Schémas de pensée — des lentilles apprises tôt",
+        mn6p: "Inspiré du Young Schema Questionnaire de Jeffrey Young : un schéma est une croyance formée tôt, réactivée sous stress. Chaque schéma reçoit une moyenne de 1 à 5, lue par seuils cliniques — sain, modéré, significatif.",
         close_h2: "Prêt·e à te rencontrer ?",
-        close_p: "Dix minutes maximum, six approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.",
+        close_p: "Dix minutes maximum, sept approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.",
         close_cta: "Commencer maintenant",
         foot_l: "Introspec · test de personnalité · les réponses restent sur ton appareil",
-        foot_r: "Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement",
+        foot_r: "Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement · Schémas de pensée",
         powered_by: "Propulsé par",
         free_tag: "100 % gratuit",
         no_signup: "Sans inscription",
@@ -951,7 +986,7 @@
         kbd_hint: 'Réponds au clavier : <kbd>1</kbd>–<kbd>{n}</kbd>',
         lik_aria: "{v} sur 5 — {w}", lik_group: "Échelle de réponse en 5 points", opt_group: "Choix de réponse",
         res_bf: "Ton profil en cinq dimensions", res_dc: "Ton style : {t}", res_ar: "Ton archétype : {t}",
-        res_hx: "Ton profil HEXACO", res_rs: "Ton code Holland : {c}", res_at: "Ton style : {t}",
+        res_hx: "Ton profil HEXACO", res_rs: "Ton code Holland : {c}", res_at: "Ton style : {t}", res_sc: "Ton schéma prédominant : {t}",
         res_redo: "Refaire ce test", res_home: "Choisir une autre approche",
         res_note: "Résultat indicatif : un outil d'introspection et de conversation, pas un diagnostic. Plus tes réponses sont spontanées, plus le reflet est fidèle.",
         quick: "Lecture rapide : ta dimension la plus marquée est <b>{d}</b> ({p} %). C'est ta ressource la plus visible au quotidien — les autres dimensions la nuancent.",
@@ -967,6 +1002,10 @@
         atk_top: "Inquiétude", atk_bottom: "Sérénité", atk_left: "Proximité", atk_right: "Autonomie",
         atk_tl: "Préoccupé", atk_tr: "Craintif", atk_bl: "Sécurisé", atk_br: "Évitant",
         atk_b1: "Anxiété d'abandon", atk_b2: "Évitement de l'intimité",
+        sc_meta: "Schéma prédominant · moyenne {m} / 5",
+        sc_tip: "Conseil d'apaisement", sc_second: "Schéma suivant : <b>{n}</b> — souvent en renfort du premier.",
+        sc_ok: "sain · &lt; 2,5", sc_mid: "modéré · 2,5–3,4", sc_high: "significatif · ≥ 3,5",
+        sc_quick: "Lecture rapide : ton schéma le plus actif est <b>{d}</b> ({s}/5). Un schéma n'est pas un verdict — nommé et compris, il perd de sa prise et s'apaise.",
         share_title: "Partager mon résultat", share_copy: "Copier", share_native: "Partager…",
         toast_copied: "Texte copié !", toast_fb: "Texte copié — colle-le dans ta publication Facebook",
         toast_ig: "Image enregistrée — publie-la en story !", toast_dl: "Image enregistrée !",
@@ -977,6 +1016,7 @@
         share_rs: "Mon code Holland RIASEC (Introspec) : {c}. Trois lettres qui trahissent ton environnement idéal.",
         share_at: "Mon style d'attachement (Introspec) : {t}. Anxieux, évitant, sûr... dans quel carré es-tu ?",
         share_ar: "Mon archétype (Introspec) : {t}. 12 situations, et tu découvre qui tu es vraiment.",
+        share_sc: "Mon schéma prédominant (Introspec) : {d} ({s}/5). Lesquels des six guident tes réactions ?",
         img_foot: "Test gratuit · introspec.vercel.app · ton résultat reste sur ton appareil",
         radar: ["Ouverture", "Conscience", "Extraversion", "Agréabilité", "Sérénité"],
         optkeys: ["A", "B", "C", "D"],
@@ -985,17 +1025,17 @@
         eq: "Un équilibre entre les deux pôles de cette dimension."
       },
       ar: {
-        nav_1: "المناهج الستة", nav_2: "المنهجية", nav_cta: "ابدأ",
-        hero_eyebrow: "اختبار الشخصية · 6 مناهج",
-        hero_h1: 'ست نظرات نحو <span class="soft">من أنت حقًا.</span>',
-        hero_lede: "السمات الخمس، هيكساكو، ديسك، رياسيك، الارتباط أو الأنماط: اختر طريقتك في قراءة نفسك، أجب بصدق، واحصل على ملف واضح ومصوَّر قابل للمشاركة. كل شيء يبقى على جهازك — لا شيء يُرسَل إلى أي جهة.",
+        nav_1: "المناهج السبعة", nav_2: "المنهجية", nav_cta: "ابدأ",
+        hero_eyebrow: "اختبار الشخصية · 7 مناهج",
+        hero_h1: 'سبع نظرات نحو <span class="soft">من أنت حقًا.</span>',
+        hero_lede: "السمات الخمس، هيكساكو، ديسك، رياسيك، الارتباط، الأنماط أو المخططات الذهنية: اختر طريقتك في قراءة نفسك، أجب بصدق، واحصل على ملف واضح ومصوَّر قابل للمشاركة. كل شيء يبقى على جهازك — لا شيء يُرسَل إلى أي جهة.",
         hero_cta: "ابدأ الاختبار", hero_ghost: "افهم المنهجية",
         pv_aria: "معاينة لتقرير النتائج", pv_report: "معاينة · التقرير",
         pv_modes_l: "المناهج", pv_modes_v: "مناهج", pv_time_l: "المدة", pv_time_v: "دقائق",
         pv_note: "محلي 100٪ · إجاباتك لا تغادر جهازك",
         ap_eyebrow: "01 · المناهج", ap_h2: "اختر طريقتك في قراءة نفسك.",
-        ap_p: "ست طرق متكاملة لاستكشاف شخصيتك: الأكثر علمية، الأكثر مهنية، الأكثر متعة — ابدأ من حيث تشاء.",
-        chip_full: "الأكثر شمولًا",
+        ap_p: "سبع طرق متكاملة لاستكشاف شخصيتك: الأكثر علمية، الأكثر مهنية، الأكثر استبطانًا — ابدأ من حيث تشاء.",
+        chip_full: "الأكثر شمولًا", chip_new: "جديد",
         m_meta1: "01 · علمي", m_title1: "السمات الخمس",
         m_p1: "النموذج الأكثر تحققًا في أبحاث علم النفس. ملف في خمس أبعاد — الانفتاح، الانضباط، الانبساطية، الودّ، الهدوء — بلا صناديق أو تصنيفات اعتباطية.",
         m_spec1: "25 سؤالًا · ≈ 4 دقائق",
@@ -1014,6 +1054,9 @@
         m_meta6: "06 · العلاقات", m_title6: "الارتباط",
         m_p6: "نظرية الارتباط (بولبي، ثم بارتولومو وهوروويتز): كيف تبني القرب — ثقة وقلق ومسافة.",
         m_spec6: "16 سؤالًا · ≈ 4 دقائق", m_go: "ابدأ",
+        m_meta7: "07 · علاج المخططات", m_title7: "المخططات الذهنية",
+        m_p7: "مستوحى من علاج المخططات لجيفري يونغ: ستة مخططات مبكرة — النقص، انعدام الثقة، الكبت، المتطلبات العالية، الإيثار المفرط، الاعتمادية — تُقاس بمعادلة إكلينيكية، بلا حيل ولا استعراض.",
+        m_spec7: "30 سؤالًا · ≈ 6 دقائق",
         meth_eyebrow: "02 · المنهجية", meth_h2: "ما تقيسه هذه الاختبارات — وما لا تقيسه.",
         meth_p: "لا اختبار يلخّص شخصية: إنه مرآة لا حكم. أجب بحدسك الأول، ذلك الذي يشبهك في الغالب — لا بنسختك المثالية.",
         meth_cta: "اختر منهجًا",
@@ -1024,14 +1067,16 @@
         mn3t: "الأنماط — صورة عفوية",
         mn3p: "خيارات ملموسة بدل الأحكام على الذات. تكشف النتيجة ميلك الطبيعي: بوصلة للتفكير، لا حقيقة مطلقة.",
         mn4t: "نماذج من اختصاصيين",
-        mn4p: "كل اختبار يستند إلى إطار راسخ: كوستا وماكري (السمات الخمس)، مارستون (ديسك)، هولندا (رياسيك)، أشتون ولي (هيكساكو)، بولبي ثم بارتولومو وهوروويتز (الارتباط). البنود صياغات أصلية مستوحاة من هذه الأطر.",
+        mn4p: "كل اختبار يستند إلى إطار راسخ: كوستا وماكري (السمات الخمس)، مارستون (ديسك)، هولندا (رياسيك)، أشتون ولي (هيكساكو)، بولبي ثم بارتولومو وهوروويتز (الارتباط)، جيفري يونغ (المخططات الذهنية). البنود صياغات أصلية مستوحاة من هذه الأطر.",
         mn5t: "أداة للاستبطان",
         mn5p: "هذه الاختبارات استرشادية ولا تغني عن تشخيص أو عن رأي مختص. استعملها لفتح الحوار مع نفسك — أو مع فريقك.",
+        mn6t: "المخططات الذهنية — مرشّحات تعلّمتها مبكرًا",
+        mn6p: "مستوحى من استبيان يونغ للمخططات: المخطط معتقد تشكّل مبكرًا وينشط تحت الضغط. يحصل كل مخطط على متوسط من 1 إلى 5 يُقرأ بعتبات إكلينيكية — سليم، متوسط، بارز.",
         close_h2: "مستعد للقاء نفسك؟",
-        close_p: "عشر دقائق كحد أقصى، ستة مناهج حسب اختيارك، ونتيجة مصوَّرة قابلة للمشاركة. حدسك الأول صحيح في الغالب.",
+        close_p: "عشر دقائق كحد أقصى، سبعة مناهج حسب اختيارك، ونتيجة مصوَّرة قابلة للمشاركة. حدسك الأول صحيح في الغالب.",
         close_cta: "ابدأ الآن",
         foot_l: "إنتروسبك · اختبار شخصية · إجاباتك تبقى على جهازك",
-        foot_r: "السمات الخمس · ديسك · الأنماط · هيكساكو · رياسيك · الارتباط",
+        foot_r: "السمات الخمس · ديسك · الأنماط · هيكساكو · رياسيك · الارتباط · المخططات الذهنية",
         powered_by: "مدعوم من",
         free_tag: "مجاني ١٠٠٪",
         no_signup: "بدون تسجيل",
@@ -1043,7 +1088,7 @@
         kbd_hint: 'أجب من لوحة المفاتيح: <kbd>1</kbd>–<kbd>{n}</kbd>',
         lik_aria: "{v} من 5 — {w}", lik_group: "سلم الإجابة من 5 نقاط", opt_group: "اختر إجابتك",
         res_bf: "ملفك في خمس أبعاد", res_dc: "أسلوبك: {t}", res_ar: "نمطك: {t}",
-        res_hx: "ملفك هيكساكو", res_rs: "رمز هولندا الخاص بك: {c}", res_at: "أسلوبك: {t}",
+        res_hx: "ملفك هيكساكو", res_rs: "رمز هولندا الخاص بك: {c}", res_at: "أسلوبك: {t}", res_sc: "مخططك السائد: {t}",
         res_redo: "أعد الاختبار", res_home: "اختر منهجًا آخر",
         res_note: "نتيجة استرشادية: أداة استبطان وحوار، لا تشخيص. كلما كانت إجاباتك عفوية، كان الانعكاس أصدق.",
         quick: "قراءة سريعة: أبرز بُعد لديك هو <b>{d}</b> ({p}٪). إنه أقوى ما يظهر منك يوميًا — والأبعاد الأخرى تضبطه.",
@@ -1059,6 +1104,10 @@
         atk_top: "القلق", atk_bottom: "الطمأنينة", atk_left: "القرب", atk_right: "الاستقلال",
         atk_tl: "قلق", atk_tr: "متخوف", atk_bl: "آمن", atk_br: "متجنب",
         atk_b1: "قلق الانفصال", atk_b2: "تجنّب القرب",
+        sc_meta: "المخطط السائد · متوسط {m} / 5",
+        sc_tip: "نصيحة تهدئة", sc_second: "المخطط التالي: <b>{n}</b> — يعزز الأول غالبًا.",
+        sc_ok: "سليم · أقل من 2.5", sc_mid: "متوسط · 2.5–3.4", sc_high: "بارز · 3.5 فأكثر",
+        sc_quick: "قراءة سريعة: مخططك الأكثر نشاطًا هو <b>{d}</b> ({s}/5). المخطط ليس حكمًا — حين يُسمّى ويُفهم تتراخى قبضته.",
         share_title: "شارك نتيجتك", share_copy: "نسخ", share_native: "مشاركة…",
         toast_copied: "تم النسخ!", toast_fb: "نُسخ النص — ألصقه في منشورك على فيسبوك",
         toast_ig: "حُفظت الصورة — انشرها كستوري!", toast_dl: "حُفظت الصورة!",
@@ -1069,6 +1118,7 @@
         share_rs: "رمز هولاند رياسيك (إنتروسبك): {c}. ثلاثة أحرف تكشف بيئتك المثالية.",
         share_at: "أسلوبي في الارتباط (إنتروسبك): {t}. قلق، متجنّب، أم آمن؟",
         share_ar: "نمطي بين الأنماط (إنتروسبك): {t}. اثنتا عشرة حالة تكشف من أنت حقًا.",
+        share_sc: "مخططي السائد (إنتروسبك): {d} ({s}/5). فأي المخططات الستة يحرّك ردود أفعالك؟",
         img_foot: "اختبار مجاني · introspec.vercel.app · نتيجتك تبقى على جهازك",
         radar: ["الانفتاح", "الانضباط", "الانبساطية", "الودّ", "الهدوء"],
         optkeys: ["أ", "ب", "ج", "د"],
@@ -1077,17 +1127,17 @@
         eq: "توازن بين قطبي هذا البُعد."
       },
       en: {
-        nav_1: "The 6 approaches", nav_2: "Method", nav_cta: "Start",
-        hero_eyebrow: "Personality test · 6 approaches",
-        hero_h1: 'Six lenses on <span class="soft">who you really are.</span>',
-        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachment or archetypes: pick your lens, answer honestly, and leave with a clear, illustrated, shareable profile. Everything stays on your device — nothing is sent anywhere.",
+        nav_1: "The 7 approaches", nav_2: "Method", nav_cta: "Start",
+        hero_eyebrow: "Personality test · 7 approaches",
+        hero_h1: 'Seven lenses on <span class="soft">who you really are.</span>',
+        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachment, archetypes or thought schemas: pick your lens, answer honestly, and leave with a clear, illustrated, shareable profile. Everything stays on your device — nothing is sent anywhere.",
         hero_cta: "Take the test", hero_ghost: "Understand the method",
         pv_aria: "Preview of a results report", pv_report: "preview · report",
         pv_modes_l: "approaches", pv_modes_v: "modes", pv_time_l: "duration", pv_time_v: "min",
         pv_note: "100% local · your answers never leave your device",
         ap_eyebrow: "01 · the approaches", ap_h2: "Pick your way of reading yourself.",
-        ap_p: "Six complementary ways to explore your personality — the most scientific, the most professional, the most playful. Start wherever you like.",
-        chip_full: "Most complete",
+        ap_p: "Seven complementary ways to explore your personality — the most scientific, the most professional, the most introspective. Start wherever you like.",
+        chip_full: "Most complete", chip_new: "New",
         m_meta1: "01 · scientific", m_title1: "Big Five",
         m_p1: "The model most validated by psychology research. A five-dimension profile — openness, conscientiousness, social energy, agreeableness, serenity — with no arbitrary boxes or labels.",
         m_spec1: "25 questions · ≈ 4 min",
@@ -1106,6 +1156,9 @@
         m_meta6: "06 · relationships", m_title6: "Attachment",
         m_p6: "Attachment theory (Bowlby, then Bartholomew & Horowitz): how you build closeness — trust, worry, distance.",
         m_spec6: "16 questions · ≈ 4 min", m_go: "Start",
+        m_meta7: "07 · schema therapy", m_title7: "Thinking schemas",
+        m_p7: "Inspired by Jeffrey Young's schema therapy: six early schemas — defectiveness, mistrust, inhibition, unrelenting standards, self-sacrifice, dependence — measured with a clinical scoring scale, no tricks, no pseudo-science.",
+        m_spec7: "30 questions · ≈ 6 min",
         meth_eyebrow: "02 · method", meth_h2: "What these tests measure — and what they don't.",
         meth_p: "No test 'sums up' a personality: it's a mirror, not a verdict. Answer with your first instinct — the one that usually sounds like you — not your ideal self.",
         meth_cta: "Choose an approach",
@@ -1116,14 +1169,16 @@
         mn3t: "Archetypes — a spontaneous portrait",
         mn3p: "Concrete choices rather than judgements about yourself. The result reveals your natural inclinations: a compass for reflection, not an absolute truth.",
         mn4t: "Frameworks built by specialists",
-        mn4p: "Every questionnaire rests on an established model: Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby then Bartholomew & Horowitz (attachment). Items are original wordings inspired by these frameworks.",
+        mn4p: "Every questionnaire rests on an established model: Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby then Bartholomew & Horowitz (attachment), Jeffrey Young (schemas). Items are original wordings inspired by these frameworks.",
         mn5t: "A tool for introspection",
         mn5p: "These tests are indicative and replace neither a diagnosis nor professional advice. Use them to open the conversation with yourself — or with your team.",
+        mn6t: "Thinking schemas — lenses learned early",
+        mn6p: "Inspired by the Young Schema Questionnaire: a schema is a belief formed early, reactivated under stress. Each schema gets a 1-to-5 mean, read against clinical thresholds — healthy, moderate, significant.",
         close_h2: "Ready to meet yourself?",
-        close_p: "Ten minutes at most, six approaches to choose from, an illustrated, shareable result. Your first instinct is almost always right.",
+        close_p: "Ten minutes at most, seven approaches to choose from, an illustrated, shareable result. Your first instinct is almost always right.",
         close_cta: "Start now",
         foot_l: "Introspec · personality test · your answers stay on your device",
-        foot_r: "Big Five · DISC · Archetypes · HEXACO · RIASEC · Attachment",
+        foot_r: "Big Five · DISC · Archetypes · HEXACO · RIASEC · Attachment · Thinking schemas",
         powered_by: "Powered by",
         free_tag: "100% free",
         no_signup: "No sign-up",
@@ -1135,7 +1190,7 @@
         kbd_hint: 'Answer with keys <kbd>1</kbd>–<kbd>{n}</kbd>',
         lik_aria: "{v} out of 5 — {w}", lik_group: "5-point response scale", opt_group: "Choose an answer",
         res_bf: "Your five-dimension profile", res_dc: "Your style: {t}", res_ar: "Your archetype: {t}",
-        res_hx: "Your HEXACO profile", res_rs: "Your Holland code: {c}", res_at: "Your style: {t}",
+        res_hx: "Your HEXACO profile", res_rs: "Your Holland code: {c}", res_at: "Your style: {t}", res_sc: "Your dominant schema: {t}",
         res_redo: "Retake this test", res_home: "Choose another approach",
         res_note: "Indicative result: a tool for introspection and conversation, not a diagnosis. The more spontaneous your answers, the truer the mirror.",
         quick: "Quick read: your most marked dimension is <b>{d}</b> ({p}%). It's your most visible daily resource — the other dimensions nuance it.",
@@ -1151,6 +1206,10 @@
         atk_top: "Worry", atk_bottom: "Calm", atk_left: "Closeness", atk_right: "Autonomy",
         atk_tl: "Preoccupied", atk_tr: "Fearful", atk_bl: "Secure", atk_br: "Avoidant",
         atk_b1: "Separation anxiety", atk_b2: "Intimacy avoidance",
+        sc_meta: "Dominant schema · mean {m} / 5",
+        sc_tip: "Soothing tip", sc_second: "Next schema: <b>{n}</b> — often reinforcing the first.",
+        sc_ok: "healthy · &lt; 2.5", sc_mid: "moderate · 2.5–3.4", sc_high: "significant · ≥ 3.5",
+        sc_quick: "Quick read: your most active schema is <b>{d}</b> ({s}/5). A schema is not a verdict — once named and understood, its grip loosens.",
         share_title: "Share my result", share_copy: "Copy", share_native: "Share…",
         toast_copied: "Text copied!", toast_fb: "Copied — paste it into your Facebook post",
         toast_ig: "Image saved — post it as a story!", toast_dl: "Image saved!",
@@ -1161,6 +1220,7 @@
         share_rs: "My Holland RIASEC code (Introspec): {c}. Three letters revealing your ideal environment.",
         share_at: "My attachment style (Introspec): {t}. Anxious, avoidant, secure... which quarter are you in?",
         share_ar: "My archetype (Introspec): {t}. 12 situations and you discover who you really are.",
+        share_sc: "My dominant schema (Introspec): {d} ({s}/5). Which of the six drives your reactions?",
         img_foot: "Free test · introspec.vercel.app · your result stays on your device",
         radar: ["Openness", "Conscientiousness", "Extraversion", "Agreeableness", "Serenity"],
         optkeys: ["A", "B", "C", "D"],
@@ -1490,6 +1550,73 @@
           { a: 0, t: T("Quand une relation devient intense, j'ai envie de prendre l'air.", "حين تصبح علاقة ما مكثفة، أحتاج أن أتنفس.", "When a relationship gets intense, I need air.") },
           { a: 0, r: 1, t: T("Je montre facilement aux gens qu'ils comptent pour moi.", "أُظهر بسهولة للناس أنهم مهمون لي.", "I easily show people they matter to me.") }
         ]
+      },
+      schemas: {
+        name: T("Schémas de pensée", "المخططات الذهنية", "Thinking schemas"), kind: "likert",
+        tag: T("Schémas · 18 réponses", "المخططات · 18 إجابة", "Schemas · 18 answers"),
+        likert: {
+          fr: ["Pas du tout d'accord", "Plutôt pas d'accord", "Neutre", "Plutôt d'accord", "Tout à fait d'accord"],
+          ar: ["لا أوافق إطلاقًا", "لا أوافق كثيرًا", "محايد", "أوافق جزئيًا", "أوافق تمامًا"],
+          en: ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },
+        dims: [
+          { l: T("Imperfection", "النقص", "Defectiveness"),
+            dom: T("Séparation et rejet", "الانفصال والرفض", "Disconnection & rejection"),
+            desc: T("Ce schéma te fait porter un regard sévère sur ta propre valeur : l'idée d'être « pas à la hauteur » colore tes relations et te pousse à te cacher ou à trop t'excuser.", "يجعلك هذا المخطط تنظر بعين قاسية إلى قيمتك الذاتية: فكرة «لست في المستوى» تلوّن علاقاتك وتدفعك إلى الاختباء أو الاعتذار المفرط.", "This schema makes you judge your own worth harshly: the feeling of 'not being good enough' colours your relationships and pushes you to hide or over-apologise."),
+            conseil: T("Note chaque jour une preuve contraire — un moment où tu as été aimé·e, utile, ou simplement toi. La dignité se reconstruit par petites expériences répétées.", "دوّن كل يوم دليلًا معاكسًا — لحظة أُحببت فيها أو كنت مفيدًا أو كنت ببساطة نفسك. تُبنى الكرامة بتجارب صغيرة متكررة.", "Note one counter-example every day — a moment when you were loved, useful, or simply yourself. Self-worth rebuilds through small repeated experiences.") },
+          { l: T("Méfiance", "انعدام الثقة", "Mistrust"),
+            dom: T("Séparation et rejet", "الانفصال والرفض", "Disconnection & rejection"),
+            desc: T("Tu protèges en anticipant la trahison : tu analyses, tu testes, tu gardes une sortie. Ce bouclier t'a peut-être servi un jour — il filtre aussi aujourd'hui les gens honnêtes.", "تحمي نفسك باستباق الخيانة: تحلّل وتختبر وتحتفظ بمخرج. ربما أفادك هذا الدرع يومًا — لكنه يرشّح اليوم أيضًا الناس الصادقين.", "You protect yourself by anticipating betrayal: analysing, testing, keeping an exit. This shield may have served you once — today it also filters out honest people."),
+            conseil: T("Distingue la prudence (vérifier une fois) de la méfiance (revérifier sans fin) : une expérience de confiance à la fois, en petites doses.", "فرّق بين الحذر (التحقق مرة) والارتياب (إعادة التحقق بلا نهاية): تجربة ثقة واحدة في كل مرة، بجرعات صغيرة.", "Tell prudence (checking once) apart from mistrust (re-checking endlessly): one trust experiment at a time, in small doses.") },
+          { l: T("Inhibition émotionnelle", "الكبت العاطفي", "Emotional inhibition"),
+            dom: T("Survigilance", "اليقظة المفرطة", "Overvigilance"),
+            desc: T("Tes émotions sont gérées comme des risques : tu les contiens pour ne pas déranger, paraître faible ou perdre le contrôle. Le calme obtenu coûte de l'intimité — avec les autres et avec toi-même.", "تُدار مشاعرك كأنها مخاطر: تحبسها كي لا تزعج أحدًا أو تبدو ضعيفًا أو تفقد السيطرة. الهدوء الناتج يكلّفك القرب — من الآخرين ومن نفسك.", "Your emotions are managed like risks: contained so as not to disturb, look weak, or lose control. The calm you gain costs intimacy — with others and with yourself."),
+            conseil: T("Nomme l'émotion en une phrase avant de la fermer (« je suis frustré·e »). Partagée à une seule personne de confiance, elle perd la moitié de sa charge.", "سمِّ الشعور في جملة واحدة قبل أن تغلقه («أنا محبط»). إذا شاركته مع شخص واحد تثق به، فقد نصف ثقله.", "Name the feeling in one sentence before closing it ('I'm frustrated'). Shared with one trusted person, it loses half its weight.") },
+          { l: T("Exigences élevées", "المتطلبات العالية", "Unrelenting standards"),
+            dom: T("Survigilance", "اليقظة المفرطة", "Overvigilance"),
+            desc: T("La barre monte dès qu'elle est atteinte : le repos paraît coupable, l'erreur menace, et « bien » ne devient jamais « assez ». Ça donne beaucoup — et ça épuise.", "ترتفع العتبة بمجرد بلوغها: الراحة تبدو مذنبة، والخطأ تهديد، و«الجيد» لا يصير «كافيًا» أبدًا. إنجاز كثير — وإرهاق كثير.", "The bar rises as soon as it's reached: rest feels guilty, mistakes feel threatening, and 'good' never becomes 'enough'. Lots delivered — and lots of fatigue."),
+            conseil: T("Définis par écrit le « assez bien » avant chaque tâche et arrête-toi là, une fois par jour au moins. Célèbre un jalon avant d'en ouvrir un autre.", "حدّد كتابةً معنى «كافٍ» قبل كل مهمة وتوقف عنده، مرة يوميًا على الأقل. احتفل بإنجاز قبل أن تفتتح غيره.", "Define in writing what 'good enough' means before each task and stop there, at least once a day. Celebrate a milestone before opening the next.") },
+          { l: T("Abnégation", "الإيثار المفرط", "Self-sacrifice"),
+            dom: T("Orientation vers autrui", "التوجه نحو الآخرين", "Other-directedness"),
+            desc: T("Tu prends soin de tout le monde avec une attention qui ne te laisse presque plus de place. Cette générosité est réelle — mais les besoins que tu étouffes finissent par parler en fatigue ou en ressentiment.", "تهتم بالجميع بعناية لا تكاد تترك لك مكانًا. كرمك حقيقي — لكن الاحتياجات التي تكتمها تنتهي بالتحدث بلسان الإرهاق أو الاستياء.", "You care for everyone with an attention that leaves almost no room for you. The generosity is real — but the needs you mute eventually speak through fatigue or resentment."),
+            conseil: T("Chaque jour, exprime un besoin à voix haute avant d'aider qui que ce soit. Donner se nourrit de savoir recevoir, sans dette.", "كل يوم، عبّر عن حاجة واحدة بصوت عالٍ قبل أن تساعد أي أحد. العطاء يتغذى على معرفة الاستلام، بلا مديونية.", "Each day, voice one of your own needs before helping anyone. Giving is fed by knowing how to receive, debt-free.") },
+          { l: T("Dépendance", "الاعتمادية", "Dependence"),
+            dom: T("Manque d'autonomie", "ضعف الاستقلالية", "Impaired autonomy"),
+            desc: T("Devant les décisions, ta boussole interne s'efface au profit des validations extérieures. Tu es capable — c'est la confiance en cette capacité qui manque, pas la capacité elle-même.", "أمام القرارات، ينسحب بوصلك الداخلي لصالح التصديقات الخارجية. أنت قادر — ما ينقص هو الثقة بهذه القدرة، لا القدرة ذاتها.", "When decisions come, your inner compass recedes in favour of external validation. You are capable — what's missing is trust in that capacity, not the capacity itself."),
+            conseil: T("Tranche d'abord seul·e les décisions à faible enjeu (menu, itinéraire, achat) puis écoute ton ressenti. La confiance se construit par répétition.", "احسم أولًا وحدك القرارات قليلة الرهان (وجبة، مسار، شراء) ثم أنصت لما شعرت به. الثقة تُبنى بالتكرار.", "Decide alone first on low-stakes calls (meal, route, purchase), then check how it felt. Confidence is built by repetition.") }
+        ],
+        qs: [
+          { d: 0, t: T("J'ai souvent le sentiment qu'il y a quelque chose qui ne va pas fondamentalement chez moi.", "غالبًا ما أشعر أن هناك شيئًا جوهريًا خاطئًا فيّ.", "I often feel there is something fundamentally wrong with me.") },
+          { d: 1, t: T("Je pars du principe que les gens finiront par me blesser ou me trahir.", "أبدأ من افتراض أن الناس سيؤذونني أو يخونونني عاجلًا أم آجلًا.", "I start from the assumption that people will eventually hurt or betray me.") },
+          { d: 2, t: T("Je garde mes émotions fortes pour moi, même quand elles me pèsent.", "أحتفظ بمشاعري القوية لنفسي حتى عندما تثقلني.", "I keep my strong emotions to myself, even when they weigh on me.") },
+          { d: 3, t: T("Je me sens obligé·e de tout faire parfaitement, sans laisser de place à l'erreur.", "أشعر بإلزام أن أفعل كل شيء بإتقان تام، دون ترك مجال للخطأ.", "I feel compelled to do everything perfectly, leaving no room for error.") },
+          { d: 4, t: T("Je passe les besoins des autres avant les miens, même quand ça m'épuise.", "أقدّم احتياجات الآخرين على احتياجاتي، حتى عندما ينهكني ذلك.", "I put other people's needs before mine, even when it drains me.") },
+          { d: 5, t: T("Prendre une décision importante seul·e me fait douter de moi.", "اتخاذ قرار مهم وحدي يجعلني أشك في نفسي.", "Making an important decision on my own fills me with self-doubt.") },
+          { d: 0, t: T("Si les gens voyaient vraiment qui je suis, ils pourraient cesser de m'apprécier.", "لو رأى الناس حقًا من أنا، فقد يتوقفون عن تقديري.", "If people truly saw who I am, they might stop caring about me.") },
+          { d: 1, t: T("Je cache mes faiblesses de peur qu'on s'en serve contre moi.", "أخفي نقاط ضعفي خوفًا من أن يستخدمها أحد ضدي.", "I hide my weaknesses for fear they'll be used against me.") },
+          { d: 2, t: T("Montrer ma colère ou ma tristesse me semble risqué, voire inutile.", "إظهار غضبي أو حزني يبدو لي محفوفًا بالمخاطر أو بلا فائدة.", "Showing my anger or sadness feels risky, or simply pointless.") },
+          { d: 3, t: T("Dès qu'un objectif est atteint, je relève la barre au lieu de me féliciter.", "بمجرد بلوغ هدف، أرفع السقف بدل أن أهنّئ نفسي.", "As soon as a goal is reached, I raise the bar instead of congratulating myself.") },
+          { d: 4, t: T("Dire non me remplit de culpabilité, comme si j'avais failli à mon devoir.", "قول «لا» يملؤني بالذنب، وكأنني أخلّ بواجبي.", "Saying no fills me with guilt, as if I had failed a duty.") },
+          { d: 5, t: T("J'ai besoin que quelqu'un me confirme que je vais dans la bonne direction.", "أحتاج أن يؤكد لي أحدهم أنني في الاتجاه الصحيح.", "I need someone to confirm that I'm heading in the right direction.") },
+          { d: 0, t: T("J'ai du mal à croire que je mérite d'être aimé·e tel·le que je suis.", "يصعب عليّ تصديق أنني أستحق الحب كما أنا.", "I find it hard to believe I deserve to be loved as I am.") },
+          { d: 1, t: T("Quand quelqu'un est gentil avec moi, je me demande souvent ce qu'il cherche vraiment.", "حين يلطف أحدهم معي، أتساءل كثيرًا عمّا يريده فعلًا.", "When someone is kind to me, I often wonder what they really want.") },
+          { d: 2, t: T("Devant les autres, je contrôle mes réactions émotionnelles, même les plus naturelles.", "أمام الآخرين أتحكم في ردود أفعالي العاطفية، حتى أكثرها طبيعية.", "In front of others, I control my emotional reactions, even the most natural ones.") },
+          { d: 3, t: T("Je me prive de repos tant que tout n'est pas parfaitement en ordre.", "أحرم نفسي الراحة ما دام كل شيء ليس مرتبًا بشكل مثالي.", "I deny myself rest as long as everything isn't perfectly in order.") },
+          { d: 4, t: T("Je me rends compte que je m'oublie dans les relations qui comptent pour moi.", "ألاحظ أنني أنسى نفسي في العلاقات التي تعنيني.", "I notice I lose myself in the relationships that matter to me.") },
+          { d: 5, t: T("Je doute souvent de ma capacité à gérer les choses du quotidien tout·e seul·e.", "أشك كثيرًا في قدرتي على تدبير شؤون اليومية بمفردي.", "I often doubt my ability to manage everyday things on my own.") },
+          { d: 0, t: T("Il m'arrive de cacher une partie de moi par peur d'être jugé·e.", "يحدث أن أخفي جزءًا مني خوفًا من أن يُحكم عليّ.", "I sometimes hide parts of myself for fear of being judged.") },
+          { d: 1, t: T("Avant de confier quelque chose de personnel, je pèse longuement les risques.", "قبل أن أبوح بشيء شخصي، أزن المخاطر طويلًا.", "Before sharing something personal, I weigh the risks at length.") },
+          { d: 2, t: T("On me décrit souvent comme quelqu'un de très calme, alors qu'il se passe beaucoup à l'intérieur.", "غالبًا ما يصفني الناس بهدوء شديد، بينما يدور في داخلي الكثير.", "People often describe me as very calm, while a lot is going on inside.") },
+          { d: 3, t: T("Quand je réussis quelque chose, je pense surtout à ce qui aurait pu être mieux.", "عندما أنجح في شيء، أفكر أساسًا في ما كان يمكن أن يكون أفضل.", "When I succeed at something, I mostly think about what could have been better.") },
+          { d: 4, t: T("Je sens vite quand quelqu'un a besoin d'aide, et je me propose avant qu'on me le demande.", "أشعر سريعًا حين يحتاج أحدهم إلى المساعدة، وأعرض نفسي قبل أن يُطلب مني.", "I quickly sense when someone needs help, and I offer before being asked.") },
+          { d: 5, t: T("Quand un imprévu survient, mon premier réflexe est d'appeler quelqu'un.", "حين يقع أمر مفاجئ، أول ما أفكر فيه هو الاتصال بشخص ما.", "When something unexpected happens, my first reflex is to call someone.") },
+          { d: 0, t: T("Quand on me complimente, j'ai du mal à y croire sincèrement.", "عندما يمتدحني أحدهم، يصعب عليّ تصديق ذلك بصدق.", "When someone compliments me, I find it hard to genuinely believe it.") },
+          { d: 1, t: T("Il m'arrive de prendre mes distances avant même d'avoir été blessé·e.", "يحدث أن أبتعد عن أحدهم حتى قبل أن يجرحني.", "I sometimes pull away from people before I've even been hurt.") },
+          { d: 2, t: T("Laisser éclater ma joie devant les autres me met mal à l'aise.", "إظهار فرحي أمام الآخرين يجعلني غير مرتاح.", "Letting my joy burst out in front of others makes me uncomfortable.") },
+          { d: 3, t: T("Je relis ou revérifie plusieurs fois ce que je fais.", "أعيد القراءة أو التدقيق في ما أفعله عدة مرات.", "I re-read or double-check what I do several times.") },
+          { d: 4, t: T("J'ai du mal à réclamer ce qu'on me doit, de peur de déranger.", "يصعب عليّ المطالبة بحقي خشية الإزعاج.", "I struggle to claim what I'm owed, for fear of bothering others.") },
+          { d: 5, t: T("J'ai parfois l'impression que les autres trouvent la vie quotidienne plus simple que moi.", "أشعر أحيانًا أن الآخرين يجدون الحياة اليومية أسهل مني.", "I sometimes feel others find everyday life easier than I do.") }
+        ]
       }
     };
 
@@ -1728,13 +1855,14 @@
     });
 
     /* ============ MÈTRES + ANIMATIONS ============ */
-    function meterRow(label, pct, isTop, letter, note) {
+    function meterRow(label, pct, isTop, letter, note, cls, valTxt) {
+      const icls = [cls || "", isTop ? "top" : ""].filter(Boolean).join(" ");
       return `<div class="r-row">
         <div class="t">
           <span class="l">${label}${letter ? `<em>${letter}</em>` : ""}</span>
-          <span class="pct">${pct}%</span>
+          <span class="pct">${valTxt || (pct + "%")}</span>
         </div>
-        <div class="meter"><i class="${isTop ? "top" : ""}" data-w="${pct}"></i></div>
+        <div class="meter"><i class="${icls}" data-w="${pct}"></i></div>
         ${note ? `<div class="d">${note}</div>` : ""}
       </div>`;
     }
@@ -1822,12 +1950,33 @@
       $("#res-body").innerHTML = `<div class="shell dark profile-dark" style="margin-bottom:14px;"><div class="core" style="padding:32px;"><div class="meta">${fill(dict.atk_meta, { a: anx, v: avo })}</div><h2>${tx(style.n)}</h2><p>${tx(style.desc)}</p></div></div><div class="res-grid">${attachSVG(avo, anx)}<div class="r-rows">${rows}</div></div><div class="r-quick">${fill(dict.atk_quick, { a: anx, v: avo })}</div>`;
       lastShare = { text: fill(dict.share_at, { t: tx(style.n) }) + dict.share_note, title: fill(dict.res_at, { t: tx(style.n) }), tag: tx(D.tag), bars: [{ label: dict.atk_b1, pct: anx, top: false }, { label: dict.atk_b2, pct: avo, top: false }] };
     }
+    function resultsSchemas() {
+      const D = DATA.schemas, dict = UI[lang];
+      const sums = D.dims.map(() => 0), cnts = D.dims.map(() => 0);
+      D.qs.forEach((q, i) => { sums[q.d] += answers[i]; cnts[q.d]++; });
+      const means = sums.map((s, i) => s / cnts[i]);
+      const top = means.indexOf(Math.max(...means));
+      const order = means.map((m, i) => [m, i]).sort((a, b) => b[0] - a[0]);
+      const sec = order[1][1];
+      const fmtM = m => (lang === "fr" ? m.toFixed(1).replace(".", ",") : m.toFixed(1));
+      const lvl = m => m < 2.5 ? 0 : (m < 3.5 ? 1 : 2);
+      const lvls = [dict.sc_ok, dict.sc_mid, dict.sc_high];
+      const lvlsCls = ["lvl-ok", "lvl-mid", "lvl-high"];
+      const pct = m => Math.round((m - 1) / 4 * 100);
+      const rows = D.dims.map((dim, d) => meterRow(tx(dim.l), pct(means[d]), false, null, `${lvls[lvl(means[d])]} · ${tx(dim.dom)}`, lvlsCls[lvl(means[d])], `${fmtM(means[d])} / 5`)).join("");
+      const pd = D.dims[top];
+      $("#res-tag").textContent = tx(D.tag);
+      $("#res-title").textContent = fill(dict.res_sc, { t: tx(pd.l) });
+      $("#res-body").innerHTML = `<div class="shell dark profile-dark" style="margin-bottom:14px;"><div class="core" style="padding:32px;"><div class="meta">${fill(dict.sc_meta, { m: fmtM(means[top]) })}</div><h2>${tx(pd.l)}</h2><p>${tx(pd.desc)}</p><div class="sec"><b>${dict.sc_tip} :</b> ${tx(pd.conseil)}</div></div></div><div class="r-rows">${rows}</div><div class="sc-legend"><span class="lg"><i style="background:#4E9B6F"></i>${dict.sc_ok}</span><span class="lg"><i style="background:var(--sand)"></i>${dict.sc_mid}</span><span class="lg"><i style="background:#B4552D"></i>${dict.sc_high}</span></div><div class="r-quick">${fill(dict.sc_quick, { d: tx(pd.l), s: fmtM(means[top]) })}</div><div class="res-second">${fill(dict.sc_second, { n: tx(D.dims[sec].l) })}</div>`;
+      lastShare = { text: fill(dict.share_sc, { d: tx(pd.l), s: fmtM(means[top]) }) + dict.share_note, title: fill(dict.res_sc, { t: tx(pd.l) }), tag: tx(D.tag), bars: D.dims.map((dim, d) => ({ label: tx(dim.l), pct: pct(means[d]), top: d === top })) };
+    }
     function showResults() {
       if (mode === "bigfive") resultsBigFive();
       else if (mode === "disc") resultsDisc();
       else if (mode === "arch") resultsArch();
       else if (mode === "hexaco") resultsHexaco();
       else if (mode === "riasec") resultsRiasec();
+      else if (mode === "schemas") resultsSchemas();
       else resultsAttach();
       showScreen("results");
       animateBars($("#res-body"));
@@ -1935,7 +2084,7 @@
 
     /* ============ ANALYTICS + COMPTEURS ============ */
     const vaTrack = (ev, data) => { try { window.va && window.va("event", ev, data); } catch (e) {} };
-    const COUNT_BASE = { total: 1410, bigfive: 1486, disc: 1454, arch: 1439, hexaco: 1422, riasec: 1431, attach: 1417 };
+    const COUNT_BASE = { total: 1410, bigfive: 1486, disc: 1454, arch: 1439, hexaco: 1422, riasec: 1431, attach: 1417, schemas: 1413 };
     function dailyBump(key, cap) {
       const day = new Date().toISOString().slice(0, 10);
       let s = {}; try { s = JSON.parse(localStorage.getItem(key) || "{}"); } catch (e) {}
