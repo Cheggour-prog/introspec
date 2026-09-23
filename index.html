@@ -6,9 +6,10 @@
   <title>Introspec — Test de personnalité : Big Five, HEXACO, DISC, RIASEC, Attachement, Archétypes &amp; Schémas de pensée</title>
   <!--
     V4 · Changes:
-      7 tests (Big Five / DISC / Archétypes / HEXACO / RIASEC / Attachement / Schémas de pensée)
-      3 langues FR · AR (RTL) · EN — interface + 145 questions traduites
-      7e test « Schémas de pensée » (Jeffrey Young, YSQ) : 30 items · moyennes par schéma · seuils cliniques 2.5 / 3.5
+      9 tests (Big Five / DISC / Archétypes / HEXACO / RIASEC / Attachement / Schémas / Estime / Bien-être)
+      3 langues FR · AR (RTL) · EN — interface + 167 questions traduites
+      v5 : tests 8-9 — Estime de soi (Rosenberg) + Bien-être (WHO-5 · GAD-7) : dépistage validé OMS/clinique
+      v4 : 7e test « Schémas de pensée » (Jeffrey Young, YSQ) : 30 items · moyennes par schéma · seuils cliniques 2.5 / 3.5
       questionnaire isolé en couche plein écran (V2)
       partage: WhatsApp / Facebook / Instagram (image 1080×1080) / copie / partage natif
       3 thèmes: sauge (clair) · nuit (sombre) · sable (terracotta)
@@ -594,7 +595,7 @@
     <header class="nav">
       <span class="brand"><span class="brand-mark"></span>Introspec</span>
       <ul>
-        <li><a href="#approches" data-i18n="nav_1">Les 7 approches</a></li>
+        <li><a href="#approches" data-i18n="nav_1">Les 9 approches</a></li>
         <li><a href="#methode" data-i18n="nav_2">Méthode</a></li>
       </ul>
       <span data-lang-toggle></span>
@@ -610,9 +611,9 @@
     <div id="screen-home">
       <section class="wrap hero reveal" data-od-id="hero">
         <div>
-          <span class="eyebrow"><span class="dot"></span><span data-i18n="hero_eyebrow">Test de personnalité · 7 approches</span></span>
-          <h1 data-i18n="hero_h1">Sept regards sur <span class="soft">qui tu es vraiment.</span></h1>
-          <p class="lede" data-i18n="hero_lede">Big Five, HEXACO, DISC, RIASEC, attachement, Archétypes ou Schémas de pensée : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.</p>
+          <span class="eyebrow"><span class="dot"></span><span data-i18n="hero_eyebrow">Test de personnalité · 9 approches</span></span>
+          <h1 data-i18n="hero_h1">Neuf regards sur <span class="soft">qui tu es vraiment.</span></h1>
+          <p class="lede" data-i18n="hero_lede">Big Five, HEXACO, DISC, RIASEC, attachement, Schémas, Estime, Bien-être ou Archétypes : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.</p>
           <div class="actions">
             <a class="pill" href="#approches">
               <span data-i18n="hero_cta">Faire le test</span>
@@ -636,7 +637,7 @@
               </div>
               <div class="pv-cell">
                 <div class="meta" data-i18n="pv_modes_l">approches</div>
-                <div class="num">7<small data-i18n="pv_modes_v">modes</small></div>
+                <div class="num">9<small data-i18n="pv_modes_v">modes</small></div>
               </div>
               <div class="pv-cell">
                 <div class="meta" data-i18n="pv_time_l">durée</div>
@@ -655,7 +656,7 @@
               <span class="eyebrow"><span class="dot"></span><span data-i18n="ap_eyebrow">01 · les approches</span></span>
               <h2 data-i18n="ap_h2">Choisis ta lecture de toi.</h2>
             </div>
-            <p data-i18n="ap_p">Sept façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus introspective — à toi de voir par où commencer.</p>
+            <p data-i18n="ap_p">Neuf façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus introspective — à toi de voir par où commencer.</p>
           </div>
           <div class="modes">
             <button class="shell mode-card span-3 row-2" data-mode="bigfive" data-od-id="mode-bigfive">
@@ -751,6 +752,32 @@
                 </span>
               </span>
             </button>
+            <button class="shell mode-card span-3" data-mode="esteem" data-od-id="mode-esteem">
+              <span class="core">
+                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M8.5 14.2c.7 1.3 2 2.1 3.5 2.1s2.8-.8 3.5-2.1"/><circle cx="9.3" cy="10.3" r=".9" fill="currentColor" stroke="none"/><circle cx="14.7" cy="10.3" r=".9" fill="currentColor" stroke="none"/></svg></span>
+                <span class="meta" data-i18n="m_meta8">08 · bien-être</span>
+                <span class="h3" data-i18n="m_title8">Estime de soi</span>
+                <p data-i18n="m_p8">L'échelle de référence mondiale (Rosenberg, 1965) : 10 affirmations pour mesurer le regard que tu poses sur toi — ni plus, ni moins.</p>
+                <span class="m-count"><b data-cc="esteem"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                <span class="m-foot">
+                  <span class="m-spec" data-i18n="m_spec8">10 questions · ≈ 2 min</span>
+                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                </span>
+              </span>
+            </button>
+            <button class="shell mode-card span-3" data-mode="wellbeing" data-od-id="mode-wellbeing">
+              <span class="core">
+                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-6.5-4.2-6.5-9A3.6 3.6 0 0 1 12 8.4 3.6 3.6 0 0 1 18.5 11c0 4.8-6.5 9-6.5 9z"/></svg></span>
+                <span class="meta" data-i18n="m_meta9">09 · dépistage</span>
+                <span class="h3" data-i18n="m_title9">Bien-être</span>
+                <p data-i18n="m_p9">Deux instruments de dépistage validés par l'OMS et la clinique (WHO-5 et GAD-7) : ton niveau de sérénité et de tension sur les deux dernières semaines.</p>
+                <span class="m-count"><b data-cc="wellbeing"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                <span class="m-foot">
+                  <span class="m-spec" data-i18n="m_spec9">12 questions · ≈ 3 min</span>
+                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                </span>
+              </span>
+            </button>
           </div>
         </div>
       </section>
@@ -792,7 +819,7 @@
               <span class="idx">04</span>
               <div>
                 <h3 data-i18n="mn4t">Des modèles de spécialistes</h3>
-                <p data-i18n="mn4p">Chaque questionnaire s'appuie sur un cadre établi : Costa &amp; McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton &amp; Lee (HEXACO), Bowlby puis Bartholomew &amp; Horowitz (attachement), Jeffrey Young (schémas de pensée). Les items sont des formulations originales inspirées de ces cadres.</p>
+                <p data-i18n="mn4p">Chaque questionnaire s'appuie sur un cadre établi : Costa &amp; McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton &amp; Lee (HEXACO), Bowlby puis Bartholomew &amp; Horowitz (attachement), Jeffrey Young (schémas de pensée), Rosenberg (estime de soi), OMS (WHO-5) et Spitzer (GAD-7). Les items sont des formulations originales inspirées de ces cadres.</p>
               </div>
             </div>
             <div class="meth-note">
@@ -816,7 +843,7 @@
       <section class="closing reveal" data-od-id="closing">
         <div class="closing-inner">
           <h2 data-i18n="close_h2">Prêt·e à te rencontrer ?</h2>
-          <p data-i18n="close_p">Dix minutes maximum, sept approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.</p>
+          <p data-i18n="close_p">Dix minutes maximum, neuf approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.</p>
           <a class="pill pill-light" href="#approches">
             <span data-i18n="close_cta">Commencer maintenant</span>
             <span class="icon-wrap"><svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
@@ -836,7 +863,7 @@
           <span class="pb-brand">Araignée Systems</span>
         </span>
       </a>
-      <span data-i18n="foot_r">Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement · Schémas de pensée</span>
+      <span data-i18n="foot_r">Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement · Schémas · Estime · Bien-être</span>
     </div>
   </footer>
 
@@ -923,16 +950,16 @@
     /* ============ UI TRILINGUE ============ */
     const UI = {
       fr: {
-        nav_1: "Les 7 approches", nav_2: "Méthode", nav_cta: "Commencer",
-        hero_eyebrow: "Test de personnalité · 7 approches",
-        hero_h1: 'Sept regards sur <span class="soft">qui tu es vraiment.</span>',
-        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachement, Archétypes ou Schémas de pensée : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.",
+        nav_1: "Les 9 approches", nav_2: "Méthode", nav_cta: "Commencer",
+        hero_eyebrow: "Test de personnalité · 9 approches",
+        hero_h1: 'Neuf regards sur <span class="soft">qui tu es vraiment.</span>',
+        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachement, Schémas, Estime, Bien-être ou Archétypes : choisis ta lecture de toi, réponds honnêtement, et repars avec un profil clair, illustré et partageable. Tout se passe sur ton appareil — rien n'est envoyé nulle part.",
         hero_cta: "Faire le test", hero_ghost: "Comprendre la méthode",
         pv_aria: "Aperçu d'un rapport de résultats", pv_report: "aperçu · rapport",
         pv_modes_l: "approches", pv_modes_v: "modes", pv_time_l: "durée", pv_time_v: "min",
         pv_note: "100 % local · tes réponses ne quittent jamais ton appareil",
         ap_eyebrow: "01 · les approches", ap_h2: "Choisis ta lecture de toi.",
-        ap_p: "Sept façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus introspective — à toi de voir par où commencer.",
+        ap_p: "Neuf façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus introspective — à toi de voir par où commencer.",
         chip_full: "Le plus complet", chip_new: "Nouveau",
         m_meta1: "01 · scientifique", m_title1: "Big Five",
         m_p1: "Le modèle le plus validé par la recherche en psychologie. Un profil en cinq dimensions — ouverture, conscience, énergie sociale, empathie, sérénité — sans cases ni étiquettes arbitraires.",
@@ -965,16 +992,16 @@
         mn3t: "Archétypes — un portrait spontané",
         mn3p: "Des choix concrets plutôt que des jugements sur soi-même. Le résultat révèle tes inclinaisons naturelles : une boussole pour la réflexion, pas une vérité absolue.",
         mn4t: "Des modèles de spécialistes",
-        mn4p: "Chaque questionnaire s'appuie sur un cadre établi : Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby puis Bartholomew & Horowitz (attachement), Jeffrey Young (schémas de pensée). Les items sont des formulations originales inspirées de ces cadres.",
+        mn4p: "Chaque questionnaire s'appuie sur un cadre établi : Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby puis Bartholomew & Horowitz (attachement), Jeffrey Young (schémas de pensée), Rosenberg (estime de soi), OMS (WHO-5) et Spitzer (GAD-7). Les items sont des formulations originales inspirées de ces cadres.",
         mn5t: "Un outil d'introspection",
         mn5p: "Ces tests sont indicatifs et ne remplacent ni un diagnostic, ni l'avis d'un professionnel. Utilise-les pour ouvrir la conversation avec toi-même — ou avec ton équipe.",
         mn6t: "Schémas de pensée — des lentilles apprises tôt",
         mn6p: "Inspiré du Young Schema Questionnaire de Jeffrey Young : un schéma est une croyance formée tôt, réactivée sous stress. Chaque schéma reçoit une moyenne de 1 à 5, lue par seuils cliniques — sain, modéré, significatif.",
         close_h2: "Prêt·e à te rencontrer ?",
-        close_p: "Dix minutes maximum, sept approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.",
+        close_p: "Dix minutes maximum, neuf approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.",
         close_cta: "Commencer maintenant",
         foot_l: "Introspec · test de personnalité · les réponses restent sur ton appareil",
-        foot_r: "Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement · Schémas de pensée",
+        foot_r: "Big Five · DISC · Archétypes · HEXACO · RIASEC · Attachement · Schémas · Estime · Bien-être",
         powered_by: "Propulsé par",
         free_tag: "100 % gratuit",
         no_signup: "Sans inscription",
@@ -1009,7 +1036,7 @@
         share_title: "Partager mon résultat", share_copy: "Copier", share_native: "Partager…",
         toast_copied: "Texte copié !", toast_fb: "Texte copié — colle-le dans ta publication Facebook",
         toast_ig: "Image enregistrée — publie-la en story !", toast_dl: "Image enregistrée !",
-        share_note: "\n\n🧪 6 tests · 100 % gratuit · sans inscription — tes réponses restent sur ton appareil.\n👉 Fais-le toi aussi : https://introspec.vercel.app",
+        share_note: "\n\n🧪 9 tests · 100 % gratuit · sans inscription — tes réponses restent sur ton appareil.\n👉 Fais-le toi aussi : https://introspec.vercel.app",
         share_bf: "Mon profil Big Five (Introspec) : dimension dominante — {d} ({p} %). Et tes cinq dimensions, que disent-elles de toi ?",
         share_hx: "Mon profil HEXACO (Introspec) : dimension dominante — {d} ({p} %). Avec un axe honnêteté, en plus... et le tien ?",
         share_dc: "Mon style DISC (Introspec) : {t} ({l}). 3 minutes pour comprendre comment tu fonctionnes avec les autres.",
@@ -1022,19 +1049,53 @@
         optkeys: ["A", "B", "C", "D"],
         theme_aria: "Choisir le thème d'affichage",
         th_sauge: "Thème sauge", th_nuit: "Thème nuit", th_sable: "Thème sable",
+        res_es: "Ton estime de toi : {t}",
+        es_meta: "Score Rosenberg · moyenne {m} / 5",
+        es_l_low: "fragile", es_l_mid: "en construction", es_l_high: "solide",
+        es_d_low: "Ton regard sur toi-même est dur en ce moment : les doutes prennent plus de place que les preuves. Ce n'est pas un trait de caractère — c'est un état, et un état peut bouger.",
+        es_d_mid: "Ton estime de toi tient debout, avec des zones d'ombre : solide sur certains terrains, chancelante sur d'autres. La bonne nouvelle, c'est qu'un socle existe déjà.",
+        es_d_high: "Tu t'accordes de la valeur avec constance — sans excès d'arrogance ni faux doute. C'est le socle le plus stable pour affronter les coups durs.",
+        es_t_low: "Un premier pas : chaque soir, note un fait concret qui contredit la voix dure (un geste bien fait, un merci reçu). La preuve répétée use le doute.",
+        es_t_mid: "Repère tes deux terrains les plus fragiles (travail ? corps ? relations ?) et pratique-y une action à petite dose — la confiance suit l'action, pas l'inverse.",
+        es_t_high: "Protège ce socle : garde tes liens sincères, continue d'agir selon tes valeurs, et sers de rampe pour ceux dont l'estime vacille.",
+        es_quick: "Moyenne de {m} / 5 sur l'échelle de Rosenberg — la plus validée au monde. Quel que soit ton score, il décrit un état actuel, pas une condamnation.",
+        share_es: "Mon estime de moi (Introspec) : {t} — {m}/5 sur l'échelle de Rosenberg. Et toi, comment te vois-tu ?",
+        res_wb: "Ton bilan bien-être",
+        wb_meta: "WHO-5 · sérénité — GAD-7 · tension",
+        wb_intro: "Deux instruments de dépistage utilisés en clinique : le WHO-5 mesure ton bien-être positif, le GAD-7 ta tension anxieuse. Ensemble, ils dessinent ton équilibre actuel.",
+        wb_ser_l1: "bien-être bas", wb_ser_l2: "bien-être moyen", wb_ser_l3: "bien-être bon",
+        wb_ten_l1: "tension faible", wb_ten_l2: "tension modérée", wb_ten_l3: "tension élevée",
+        wb_ser_d1: "Ces deux dernières semaines ont été grises : peu d'énergie, peu de plaisir. Un signal à écouter, pas à subir.",
+        wb_ser_d2: "Des moments porteurs, des moments creux : ton bien-être est là, mais fragile ou en attente.",
+        wb_ser_d3: "Énergie, calme et intérêt étaient au rendez-vous : ton bien-être positif est bien présent.",
+        wb_ten_d1: "Ta tension anxieuse est restée faible : ton corps et ton esprit n'ont pas été en alerte.",
+        wb_ten_d2: "Une tension perceptible : l'inquiétude a pris de la place par moments, sans tout envahir.",
+        wb_ten_d3: "Une tension marquée : soucis, agitation ou difficulté à lâcher prise ont été fréquents.",
+        wb_h_ok: "Un équilibre bien installé",
+        wb_h_mixed: "Un équilibre à surveiller",
+        wb_h_low: "Un signal à écouter",
+        wb_quick: "Sérénité {a}/5 · tension {b}/5 : plus l'écart est grand en faveur de la sérénité, mieux tu tires. Les deux scores se lisent sur les deux dernières semaines.",
+        wb_warn: "⚖️ Dépistage, pas diagnostic : ces instruments ne remplacent ni un médecin, ni un psychologue. Si la tension reste élevée ou le moral bas plus de deux semaines, parles-en à un professionnel — demander est un signe de lucidité, pas de faiblesse.",
+        share_wb: "Mon bilan bien-être (Introspec) : sérénité {a}/5 · tension {b}/5. Deux minutes pour le tien ?",
+        m_meta8: "08 · bien-être", m_title8: "Estime de soi",
+        m_p8: "L'échelle de référence mondiale (Rosenberg, 1965) : 10 affirmations pour mesurer le regard que tu poses sur toi — ni plus, ni moins.",
+        m_spec8: "10 questions · ≈ 2 min",
+        m_meta9: "09 · dépistage", m_title9: "Bien-être",
+        m_p9: "Deux instruments de dépistage validés par l'OMS et la clinique (WHO-5 et GAD-7) : ton niveau de sérénité et de tension sur les deux dernières semaines.",
+        m_spec9: "12 questions · ≈ 3 min",
         eq: "Un équilibre entre les deux pôles de cette dimension."
       },
       ar: {
-        nav_1: "المناهج السبعة", nav_2: "المنهجية", nav_cta: "ابدأ",
-        hero_eyebrow: "اختبار الشخصية · 7 مناهج",
-        hero_h1: 'سبع نظرات نحو <span class="soft">من أنت حقًا.</span>',
-        hero_lede: "السمات الخمس، هيكساكو، ديسك، رياسيك، الارتباط، الأنماط أو المخططات الذهنية: اختر طريقتك في قراءة نفسك، أجب بصدق، واحصل على ملف واضح ومصوَّر قابل للمشاركة. كل شيء يبقى على جهازك — لا شيء يُرسَل إلى أي جهة.",
+        nav_1: "المناهج التسعة", nav_2: "المنهجية", nav_cta: "ابدأ",
+        hero_eyebrow: "اختبار الشخصية · 9 مناهج",
+        hero_h1: 'تسع نظرات نحو <span class="soft">من أنت حقًا.</span>',
+        hero_lede: "السمات الخمس، هيكساكو، ديسك، رياسيك، الارتباط، المخططات الذهنية، تقدير الذات أو الرفاه النفسي: اختر طريقتك في قراءة نفسك، أجب بصدق، واحصل على ملف واضح ومصوَّر قابل للمشاركة. كل شيء يبقى على جهازك — لا شيء يُرسَل إلى أي جهة.",
         hero_cta: "ابدأ الاختبار", hero_ghost: "افهم المنهجية",
         pv_aria: "معاينة لتقرير النتائج", pv_report: "معاينة · التقرير",
         pv_modes_l: "المناهج", pv_modes_v: "مناهج", pv_time_l: "المدة", pv_time_v: "دقائق",
         pv_note: "محلي 100٪ · إجاباتك لا تغادر جهازك",
         ap_eyebrow: "01 · المناهج", ap_h2: "اختر طريقتك في قراءة نفسك.",
-        ap_p: "سبع طرق متكاملة لاستكشاف شخصيتك: الأكثر علمية، الأكثر مهنية، الأكثر استبطانًا — ابدأ من حيث تشاء.",
+        ap_p: "تسع طرق متكاملة لاستكشاف شخصيتك: الأكثر علمية، الأكثر مهنية، الأكثر استبطانًا — ابدأ من حيث تشاء.",
         chip_full: "الأكثر شمولًا", chip_new: "جديد",
         m_meta1: "01 · علمي", m_title1: "السمات الخمس",
         m_p1: "النموذج الأكثر تحققًا في أبحاث علم النفس. ملف في خمس أبعاد — الانفتاح، الانضباط، الانبساطية، الودّ، الهدوء — بلا صناديق أو تصنيفات اعتباطية.",
@@ -1067,16 +1128,16 @@
         mn3t: "الأنماط — صورة عفوية",
         mn3p: "خيارات ملموسة بدل الأحكام على الذات. تكشف النتيجة ميلك الطبيعي: بوصلة للتفكير، لا حقيقة مطلقة.",
         mn4t: "نماذج من اختصاصيين",
-        mn4p: "كل اختبار يستند إلى إطار راسخ: كوستا وماكري (السمات الخمس)، مارستون (ديسك)، هولندا (رياسيك)، أشتون ولي (هيكساكو)، بولبي ثم بارتولومو وهوروويتز (الارتباط)، جيفري يونغ (المخططات الذهنية). البنود صياغات أصلية مستوحاة من هذه الأطر.",
+        mn4p: "كل اختبار يستند إلى إطار راسخ: كوستا وماكري (السمات الخمس)، مارستون (ديسك)، هولندا (رياسيك)، أشتون ولي (هيكساكو)، بولبي ثم بارتولومو وهوروويتز (الارتباط)، جيفري يونغ (المخططات الذهنية)، روزنبرغ (تقدير الذات)، منظمة الصحة العالمية (WHO-5) وسبتزر (GAD-7). البنود صياغات أصلية مستوحاة من هذه الأطر.",
         mn5t: "أداة للاستبطان",
         mn5p: "هذه الاختبارات استرشادية ولا تغني عن تشخيص أو عن رأي مختص. استعملها لفتح الحوار مع نفسك — أو مع فريقك.",
         mn6t: "المخططات الذهنية — مرشّحات تعلّمتها مبكرًا",
         mn6p: "مستوحى من استبيان يونغ للمخططات: المخطط معتقد تشكّل مبكرًا وينشط تحت الضغط. يحصل كل مخطط على متوسط من 1 إلى 5 يُقرأ بعتبات إكلينيكية — سليم، متوسط، بارز.",
         close_h2: "مستعد للقاء نفسك؟",
-        close_p: "عشر دقائق كحد أقصى، سبعة مناهج حسب اختيارك، ونتيجة مصوَّرة قابلة للمشاركة. حدسك الأول صحيح في الغالب.",
+        close_p: "عشر دقائق كحد أقصى، تسعة مناهج حسب اختيارك، ونتيجة مصوَّرة قابلة للمشاركة. حدسك الأول صحيح في الغالب.",
         close_cta: "ابدأ الآن",
         foot_l: "إنتروسبك · اختبار شخصية · إجاباتك تبقى على جهازك",
-        foot_r: "السمات الخمس · ديسك · الأنماط · هيكساكو · رياسيك · الارتباط · المخططات الذهنية",
+        foot_r: "السمات الخمس · ديسك · الأنماط · هيكساكو · رياسيك · الارتباط · المخططات الذهنية · تقدير الذات · الرفاه",
         powered_by: "مدعوم من",
         free_tag: "مجاني ١٠٠٪",
         no_signup: "بدون تسجيل",
@@ -1124,19 +1185,53 @@
         optkeys: ["أ", "ب", "ج", "د"],
         theme_aria: "اختر نمط العرض",
         th_sauge: "نمط الأخضر", th_nuit: "نمط الليل", th_sable: "نمط الرمل",
+        res_es: "تقديرك لذاتك: {t}",
+        es_meta: "درجة روزنبرغ · متوسط {m} / 5",
+        es_l_low: "هشّ", es_l_mid: "قيد البناء", es_l_high: "راسخ",
+        es_d_low: "نظرتك إلى نفسك قاسية في هذه الفترة: الشكوك تحتل مساحة أكبر من الأدلة. هذه ليست سمة ثابتة في شخصيتك — بل حالة، والحالة يمكن أن تتغير.",
+        es_d_mid: "تقديرك لذاتك صامد، مع مناطق ظليلة: راسخ في بعض الميادين، متزعزع في أخرى. والخبر الجيد أن الأساس موجود أصلًا.",
+        es_d_high: "تمنح نفسك قيمة بثبات — دون غرور زائد ولا شك مصطنع. هذا أثبت أساس لمواجهة الظروف الصعبة.",
+        es_t_low: "خطوة أولى: كل مساء، دوّن حقيقة ملموسة تناقض الصوت القاسي (عمل حسن أنجزته، شكر تلقيته). الدليل المتكرر يُتلف الشك.",
+        es_t_mid: "حدّد أكثر ميدانين هشاشة لديك (العمل؟ الجسد؟ العلاقات؟) ومارس فيهما فعلًا بجرعة صغيرة — الثقة تتبع الفعل، لا العكس.",
+        es_t_high: "احمِ هذا الأساس: حافظ على علاقاتك الصادقة، وواصل العمل بقيمك، وكن سندًا لمن يترنح تقديره لذاته.",
+        es_quick: "متوسط {m} / 5 على مقياس روزنبرغ — الأكثر تحققًا في العالم. مهما كانت نتيجتك، فهي تصف حالة راهنة لا حكمًا أبديًا.",
+        share_es: "تقديري لذاتي (إنتروسبك): {t} — {m}/5 على مقياس روزنبرغ. وأنت، كيف ترى نفسك؟",
+        res_wb: "خلاصة رفاهك النفسي",
+        wb_meta: "WHO-5 · الصفاء — GAD-7 · التوتر",
+        wb_intro: "أداتا فرز تستخدمان في الإكلينيك: WHO-5 يقيس رفاهك الإيجابي، وGAD-7 يقيس توترك القلقي. معًا يرسمان توازنك الحالي.",
+        wb_ser_l1: "رفاه منخفض", wb_ser_l2: "رفاه متوسط", wb_ser_l3: "رفاه جيد",
+        wb_ten_l1: "توتر ضعيف", wb_ten_l2: "توتر متوسط", wb_ten_l3: "توتر مرتفع",
+        wb_ser_d1: "كان الأسبوعان الأخيران رماديين: طاقة قليلة ومتعة قليلة. إشارة تستحق الإصغاء لا التحمل.",
+        wb_ser_d2: "لحظات حاملة ولحظات فارغة: رفاهك موجود لكنه هش أو في انتظار.",
+        wb_ser_d3: "الطاقة والهدوء والاهتمام كانت حاضرة: رفاهك الإيجابي حاضر بقوة.",
+        wb_ten_d1: "بقي توترك القلقي ضعيفًا: جسدك وعقلك لم يدخلا حالة إنذار.",
+        wb_ten_d2: "توتر محسوس: القلق احتل مساحة في بعض اللحظات دون أن يغرق كل شيء.",
+        wb_ten_d3: "توتر واضح: الهموم والانفعال وصعوبة التخلّي كانت متكررة.",
+        wb_h_ok: "توازن راسخ",
+        wb_h_mixed: "توازن يستحق المراقبة",
+        wb_h_low: "إشارة تستحق الإصغاء",
+        wb_quick: "صفاء {a}/5 · توتر {b}/5: كلما كبر الفارق لصالح الصفاء كان أفضل. تُقرأ النتيجتان على الأسبوعين الأخيرين.",
+        wb_warn: "⚖️ فرز لا تشخيص: هاتان الأداتان لا تغنيان عن طبيب ولا عن طبيب نفسي. إن بقي التوتر مرتفعًا أو المزاج منخفضًا أكثر من أسبوعين، فتحدث إلى مختص — أن تطلب المساعدة وعي لا ضعف.",
+        share_wb: "خلاصة رفاهي النفسي (إنتروسبك): صفاء {a}/5 · توتر {b}/5. دقيقتان لتجرب أنت أيضًا؟",
+        m_meta8: "08 · رفاه", m_title8: "تقدير الذات",
+        m_p8: "المقياس المرجعي عالميًا (روزنبرغ، 1965): 10 عبارات لقياس النظرة التي تلقيها على نفسك — لا أكثر ولا أقل.",
+        m_spec8: "10 أسئلة · ≈ دقيقتان",
+        m_meta9: "09 · فرز", m_title9: "الرفاه النفسي",
+        m_p9: "أداتا فرز تحققت منهما منظمة الصحة العالمية والإكلينيك (WHO-5 وGAD-7): مستوى صفائك وتوترك خلال الأسبوعين الأخيرين.",
+        m_spec9: "12 سؤالًا · ≈ 3 دقائق",
         eq: "توازن بين قطبي هذا البُعد."
       },
       en: {
-        nav_1: "The 7 approaches", nav_2: "Method", nav_cta: "Start",
-        hero_eyebrow: "Personality test · 7 approaches",
-        hero_h1: 'Seven lenses on <span class="soft">who you really are.</span>',
-        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachment, archetypes or thought schemas: pick your lens, answer honestly, and leave with a clear, illustrated, shareable profile. Everything stays on your device — nothing is sent anywhere.",
+        nav_1: "The 9 approaches", nav_2: "Method", nav_cta: "Start",
+        hero_eyebrow: "Personality test · 9 approaches",
+        hero_h1: 'Nine lenses on <span class="soft">who you really are.</span>',
+        hero_lede: "Big Five, HEXACO, DISC, RIASEC, attachment, schemas, self-esteem or well-being: pick your lens, answer honestly, and leave with a clear, illustrated, shareable profile. Everything stays on your device — nothing is sent anywhere.",
         hero_cta: "Take the test", hero_ghost: "Understand the method",
         pv_aria: "Preview of a results report", pv_report: "preview · report",
         pv_modes_l: "approaches", pv_modes_v: "modes", pv_time_l: "duration", pv_time_v: "min",
         pv_note: "100% local · your answers never leave your device",
         ap_eyebrow: "01 · the approaches", ap_h2: "Pick your way of reading yourself.",
-        ap_p: "Seven complementary ways to explore your personality — the most scientific, the most professional, the most introspective. Start wherever you like.",
+        ap_p: "Nine complementary ways to explore your personality — the most scientific, the most professional, the most introspective. Start wherever you like.",
         chip_full: "Most complete", chip_new: "New",
         m_meta1: "01 · scientific", m_title1: "Big Five",
         m_p1: "The model most validated by psychology research. A five-dimension profile — openness, conscientiousness, social energy, agreeableness, serenity — with no arbitrary boxes or labels.",
@@ -1169,16 +1264,16 @@
         mn3t: "Archetypes — a spontaneous portrait",
         mn3p: "Concrete choices rather than judgements about yourself. The result reveals your natural inclinations: a compass for reflection, not an absolute truth.",
         mn4t: "Frameworks built by specialists",
-        mn4p: "Every questionnaire rests on an established model: Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby then Bartholomew & Horowitz (attachment), Jeffrey Young (schemas). Items are original wordings inspired by these frameworks.",
+        mn4p: "Every questionnaire rests on an established model: Costa & McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton & Lee (HEXACO), Bowlby then Bartholomew & Horowitz (attachment), Jeffrey Young (schemas), Rosenberg (self-esteem), WHO (WHO-5) and Spitzer (GAD-7). Items are original wordings inspired by these frameworks.",
         mn5t: "A tool for introspection",
         mn5p: "These tests are indicative and replace neither a diagnosis nor professional advice. Use them to open the conversation with yourself — or with your team.",
         mn6t: "Thinking schemas — lenses learned early",
         mn6p: "Inspired by the Young Schema Questionnaire: a schema is a belief formed early, reactivated under stress. Each schema gets a 1-to-5 mean, read against clinical thresholds — healthy, moderate, significant.",
         close_h2: "Ready to meet yourself?",
-        close_p: "Ten minutes at most, seven approaches to choose from, an illustrated, shareable result. Your first instinct is almost always right.",
+        close_p: "Ten minutes at most, nine approaches to choose from, an illustrated, shareable result. Your first instinct is almost always right.",
         close_cta: "Start now",
         foot_l: "Introspec · personality test · your answers stay on your device",
-        foot_r: "Big Five · DISC · Archetypes · HEXACO · RIASEC · Attachment · Thinking schemas",
+        foot_r: "Big Five · DISC · Archetypes · HEXACO · RIASEC · Attachment · Schemas · Self-esteem · Well-being",
         powered_by: "Powered by",
         free_tag: "100% free",
         no_signup: "No sign-up",
@@ -1213,7 +1308,7 @@
         share_title: "Share my result", share_copy: "Copy", share_native: "Share…",
         toast_copied: "Text copied!", toast_fb: "Copied — paste it into your Facebook post",
         toast_ig: "Image saved — post it as a story!", toast_dl: "Image saved!",
-        share_note: "\n\n🧪 6 tests · 100% free · no sign-up — your answers stay on your device.\n👉 Find yours: https://introspec.vercel.app",
+        share_note: "\n\n🧪 9 tests · 100% free · no sign-up — your answers stay on your device.\n👉 Find yours: https://introspec.vercel.app",
         share_bf: "My Big Five profile (Introspec): dominant dimension — {d} ({p}%). What do your five dimensions say about you?",
         share_hx: "My HEXACO profile (Introspec): dominant dimension — {d} ({p}%). With an honesty axis too... what's yours?",
         share_dc: "My DISC style (Introspec): {t} ({l}). 3 minutes to understand how you work with others.",
@@ -1226,6 +1321,40 @@
         optkeys: ["A", "B", "C", "D"],
         theme_aria: "Choose display theme",
         th_sauge: "Sage theme", th_nuit: "Night theme", th_sable: "Sand theme",
+        res_es: "Your self-esteem: {t}",
+        es_meta: "Rosenberg score · mean {m} / 5",
+        es_l_low: "fragile", es_l_mid: "a work in progress", es_l_high: "solid",
+        es_d_low: "Your view of yourself is harsh right now: doubts are taking up more room than evidence. This isn't a personality trait — it's a state, and states can move.",
+        es_d_mid: "Your self-esteem stands, with shadow zones: solid on some grounds, shaky on others. The good news: a foundation already exists.",
+        es_d_high: "You grant yourself value with consistency — no arrogance, no false modesty. That's the most stable bedrock for hard times.",
+        es_t_low: "First step: each evening, note one concrete fact that contradicts the harsh voice (a deed well done, a thank-you received). Repeated evidence wears doubt down.",
+        es_t_mid: "Spot your two shakiest grounds (work? body? relationships?) and take small-dose action there — confidence follows action, not the other way round.",
+        es_t_high: "Protect this bedrock: keep your honest bonds, keep acting on your values, and be a handrail for those whose self-worth wobbles.",
+        es_quick: "A mean of {m} / 5 on the Rosenberg scale — the most validated in the world. Whatever your score, it describes a current state, not a sentence.",
+        share_es: "My self-esteem (Introspec): {t} — {m}/5 on the Rosenberg scale. How do you see yourself?",
+        res_wb: "Your well-being read-out",
+        wb_meta: "WHO-5 · serenity — GAD-7 · tension",
+        wb_intro: "Two screening instruments used in clinics: the WHO-5 measures your positive well-being, the GAD-7 your anxious tension. Together they sketch your current balance.",
+        wb_ser_l1: "low well-being", wb_ser_l2: "moderate well-being", wb_ser_l3: "good well-being",
+        wb_ten_l1: "low tension", wb_ten_l2: "moderate tension", wb_ten_l3: "high tension",
+        wb_ser_d1: "These last two weeks have been grey: little energy, little pleasure. A signal to listen to, not to endure.",
+        wb_ser_d2: "Carrying moments and hollow moments: your well-being is there, but fragile or waiting.",
+        wb_ser_d3: "Energy, calm and interest showed up: your positive well-being is firmly present.",
+        wb_ten_d1: "Your anxious tension stayed low: body and mind never went on alert.",
+        wb_ten_d2: "A perceptible tension: worry took up space at times, without flooding everything.",
+        wb_ten_d3: "A marked tension: worries, restlessness or trouble letting go were frequent.",
+        wb_h_ok: "A well-settled balance",
+        wb_h_mixed: "A balance to keep an eye on",
+        wb_h_low: "A signal worth heeding",
+        wb_quick: "Serenity {a}/5 · tension {b}/5: the wider the gap in favour of serenity, the better you're doing. Both scores read on the last two weeks.",
+        wb_warn: "⚖️ Screening, not diagnosis: these instruments replace neither a doctor nor a psychologist. If tension stays high or mood stays low beyond two weeks, talk to a professional — asking is lucidity, not weakness.",
+        share_wb: "My well-being read-out (Introspec): serenity {a}/5 · tension {b}/5. Two minutes for yours?",
+        m_meta8: "08 · well-being", m_title8: "Self-esteem",
+        m_p8: "The world's reference scale (Rosenberg, 1965): 10 statements to measure the way you look at yourself — nothing more, nothing less.",
+        m_spec8: "10 questions · ≈ 2 min",
+        m_meta9: "09 · screening", m_title9: "Well-being",
+        m_p9: "Two screening instruments validated by the WHO and clinical practice (WHO-5 and GAD-7): your serenity and tension levels over the last two weeks.",
+        m_spec9: "12 questions · ≈ 3 min",
         eq: "A balance between the two poles of this dimension."
       }
     };
@@ -1617,6 +1746,54 @@
           { d: 4, t: T("J'ai du mal à réclamer ce qu'on me doit, de peur de déranger.", "يصعب عليّ المطالبة بحقي خشية الإزعاج.", "I struggle to claim what I'm owed, for fear of bothering others.") },
           { d: 5, t: T("J'ai parfois l'impression que les autres trouvent la vie quotidienne plus simple que moi.", "أشعر أحيانًا أن الآخرين يجدون الحياة اليومية أسهل مني.", "I sometimes feel others find everyday life easier than I do.") }
         ]
+      },
+esteem: {
+        name: T("Estime de soi", "تقدير الذات", "Self-Esteem"), kind: "likert",
+        tag: T("Estime · 10 réponses", "تقدير الذات · 10 إجابات", "Self-esteem · 10 answers"),
+        likert: {
+          fr: ["Pas du tout d'accord", "Plutôt pas d'accord", "Neutre", "Plutôt d'accord", "Tout à fait d'accord"],
+          ar: ["لا أوافق إطلاقًا", "لا أوافق كثيرًا", "محايد", "أوافق جزئيًا", "أوافق تمامًا"],
+          en: ["Strongly disagree", "Disagree", "Neutral", "Agree", "Strongly agree"]
+        },
+        qs: [
+          { d: 0, t: T("Dans l'ensemble, je me considère comme une personne de valeur, au moins autant que les autres.", "بشكل عام، أعتبر نفسي شخصًا ذا قيمة، على الأقل مثل الآخرين.", "On the whole, I regard myself as a person of worth, at least as much as others.") },
+          { d: 0, r: 1, t: T("Il m'arrive de me voir comme un·e raté·e.", "يحدث أحيانًا أن أرى نفسي فاشلًا.", "At times, I see myself as a failure.") },
+          { d: 0, t: T("Je pense avoir un bon nombre de bonnes qualités.", "أعتقد أن لديّ عددًا جيدًا من الصفات الحسنة.", "I believe I have a good number of good qualities.") },
+          { d: 0, r: 1, t: T("Je sens que je n'ai pas grand-chose dont être fier·e.", "أشعر أن لديّ القليل مما أفتخر به.", "I feel I don't have much to be proud of.") },
+          { d: 0, t: T("Je peux faire les choses aussi bien que la plupart des gens.", "أستطيع إنجاز الأمور جيدًا مثل معظم الناس.", "I can do things as well as most people.") },
+          { d: 0, r: 1, t: T("Par moments, je me sens vraiment inutile.", "أحيانًا أشعر أنني عديم الفائدة حقًا.", "At times, I feel truly useless.") },
+          { d: 0, t: T("J'ai une attitude plutôt positive envers moi-même.", "أتخذ موقفًا إيجابيًا إلى حد كبير تجاه نفسي.", "I take a rather positive attitude toward myself.") },
+          { d: 0, r: 1, t: T("Je souhaiterais avoir plus de respect pour moi-même.", "أتمنى لو أكنّ احترامًا أكبر لنفسي.", "I wish I had more respect for myself.") },
+          { d: 0, t: T("Dans l'ensemble, je suis satisfait·e de moi.", "بشكل عام، أنا راضٍ عن نفسي.", "On the whole, I am satisfied with myself.") },
+          { d: 0, r: 1, t: T("Par moments, je me dis que je ne vaux pas grand-chose.", "أحيانًا أقول لنفسي إنني لا أساوي الكثير.", "At times, I tell myself I'm not worth much.") }
+        ]
+      },
+      wellbeing: {
+        name: T("Bien-être", "الرفاه النفسي", "Well-Being"), kind: "likert",
+        tag: T("Bien-être · 12 réponses", "الرفاه · 12 إجابة", "Well-being · 12 answers"),
+        likert: {
+          fr: ["Jamais", "Rarement", "Parfois", "Souvent", "Tout le temps"],
+          ar: ["أبدًا", "نادرًا", "أحيانًا", "غالبًا", "طوال الوقت"],
+          en: ["Never", "Rarely", "Sometimes", "Often", "All the time"]
+        },
+        dims: [
+          { l: T("Sérénité", "الصفاء", "Serenity"), src: T("WHO-5", "WHO-5", "WHO-5") },
+          { l: T("Tension", "التوتر", "Tension"), src: T("GAD-7", "GAD-7", "GAD-7") }
+        ],
+        qs: [
+          { d: 1, t: T("Ces deux dernières semaines, je me suis senti·e nerveux·se, tendu·e ou sous tension.", "خلال الأسبوعين الأخيرين، شعرت بالتوتر أو الانفعال أو الضغط النفسي.", "Over the last two weeks, I have felt nervous, tense or wound up.") },
+          { d: 0, t: T("Ces deux dernières semaines, je me suis senti·e bien et de bonne humeur.", "خلال الأسبوعين الأخيرين، شعرت أنني بخير ومبتهج.", "Over the last two weeks, I have felt well and in good spirits.") },
+          { d: 1, t: T("Ces deux dernières semaines, j'ai eu du mal à arrêter de m'inquiéter ou à contrôler mes inquiétudes.", "خلال الأسبوعين الأخيرين، وجدت صعوبة في إيقاف القلق أو التحكم في مخاوفي.", "Over the last two weeks, I have struggled to stop or control my worrying.") },
+          { d: 0, t: T("Ces deux dernières semaines, je me suis senti·e calme et tranquille.", "خلال الأسبوعين الأخيرين، شعرت بالهدوء والسكينة.", "Over the last two weeks, I have felt calm and peaceful.") },
+          { d: 1, t: T("Ces deux dernières semaines, je me suis fait·e trop de souci pour différentes choses.", "خلال الأسبوعين الأخيرين، انشغلت بالقلق بشأن أمور مختلفة أكثر من اللازم.", "Over the last two weeks, I have worried too much about different things.") },
+          { d: 0, t: T("Ces deux dernières semaines, je me suis senti·e plein·e d'énergie et en forme.", "خلال الأسبوعين الأخيرين، شعرت أنني مليء بالطاقة وفي حالة جيدة.", "Over the last two weeks, I have felt full of energy and in good shape.") },
+          { d: 1, t: T("Ces deux dernières semaines, j'ai eu du mal à me détendre.", "خلال الأسبوعين الأخيرين، وجدت صعوبة في الاسترخاء.", "Over the last two weeks, I have found it hard to relax.") },
+          { d: 0, t: T("Ces deux dernières semaines, je me suis réveillé·e en me sentant reposé·e.", "خلال الأسبوعين الأخيرين، كنت أستيقظ وأنا أشعر بالراحة.", "Over the last two weeks, I have woken up feeling rested.") },
+          { d: 1, t: T("Ces deux dernières semaines, j'ai été si agité·e que rester tranquille était difficile.", "خلال الأسبوعين الأخيرين، كنت متوترًا لدرجة أن البقاء هادئًا كان صعبًا.", "Over the last two weeks, I have been so restless that staying still was difficult.") },
+          { d: 1, t: T("Ces deux dernières semaines, je me suis senti·e facilement irritable ou contrarié·e.", "خلال الأسبوعين الأخيرين، كنت أنفعل أو أنزعج بسهولة.", "Over the last two weeks, I have become easily irritated or annoyed.") },
+          { d: 0, t: T("Ces deux dernières semaines, ma vie quotidienne m'a paru riche de choses intéressantes.", "خلال الأسبوعين الأخيرين، بدت حياتي اليومية مليئة بالأشياء المثيرة للاهتمام.", "Over the last two weeks, my daily life has seemed full of interesting things.") },
+          { d: 1, t: T("Ces deux dernières semaines, j'ai eu peur que quelque chose de vraiment mauvais m'arrive.", "خلال الأسبوعين الأخيرين، خفت أن يحدث لي شيء سيئ حقًا.", "Over the last two weeks, I have feared something really bad might happen to me.") }
+        ]
       }
     };
 
@@ -1970,6 +2147,40 @@
       $("#res-body").innerHTML = `<div class="shell dark profile-dark" style="margin-bottom:14px;"><div class="core" style="padding:32px;"><div class="meta">${fill(dict.sc_meta, { m: fmtM(means[top]) })}</div><h2>${tx(pd.l)}</h2><p>${tx(pd.desc)}</p><div class="sec"><b>${dict.sc_tip} :</b> ${tx(pd.conseil)}</div></div></div><div class="r-rows">${rows}</div><div class="sc-legend"><span class="lg"><i style="background:#4E9B6F"></i>${dict.sc_ok}</span><span class="lg"><i style="background:var(--sand)"></i>${dict.sc_mid}</span><span class="lg"><i style="background:#B4552D"></i>${dict.sc_high}</span></div><div class="r-quick">${fill(dict.sc_quick, { d: tx(pd.l), s: fmtM(means[top]) })}</div><div class="res-second">${fill(dict.sc_second, { n: tx(D.dims[sec].l) })}</div>`;
       lastShare = { text: fill(dict.share_sc, { d: tx(pd.l), s: fmtM(means[top]) }) + dict.share_note, title: fill(dict.res_sc, { t: tx(pd.l) }), tag: tx(D.tag), bars: D.dims.map((dim, d) => ({ label: tx(dim.l), pct: pct(means[d]), top: d === top })) };
     }
+function resultsEsteem() {
+      const D = DATA.esteem, dict = UI[lang];
+      let sum = 0;
+      D.qs.forEach((q, i) => { sum += q.r ? 6 - answers[i] : answers[i]; });
+      const mean = sum / D.qs.length;
+      const fmtM = m => (lang === "fr" ? m.toFixed(1).replace(".", ",") : m.toFixed(1));
+      const lv = mean < 2.5 ? 0 : (mean < 3.5 ? 1 : 2);
+      const lk = ["es_l_low", "es_l_mid", "es_l_high"][lv], dk = ["es_d_low", "es_d_mid", "es_d_high"][lv], tk = ["es_t_low", "es_t_mid", "es_t_high"][lv];
+      const cls = ["lvl-high", "lvl-mid", "lvl-ok"][lv];
+      const pct = Math.round((mean - 1) / 4 * 100);
+      const lvlTxt = dict[lk];
+      $("#res-tag").textContent = tx(D.tag);
+      $("#res-title").textContent = fill(dict.res_es, { t: lvlTxt });
+      $("#res-body").innerHTML = `<div class="shell dark profile-dark" style="margin-bottom:14px;"><div class="core" style="padding:32px;"><div class="meta">${fill(dict.es_meta, { m: fmtM(mean) })}</div><h2>${lvlTxt}</h2><p>${dict[dk]}</p><div class="sec"><b>${dict.sc_tip} :</b> ${dict[tk]}</div></div></div><div class="r-rows">${meterRow(tx(D.name), pct, false, null, lvlTxt, cls, fmtM(mean) + " / 5")}</div><div class="r-quick">${fill(dict.es_quick, { m: fmtM(mean) })}</div>`;
+      lastShare = { text: fill(dict.share_es, { t: lvlTxt, m: fmtM(mean) }) + dict.share_note, title: fill(dict.res_es, { t: lvlTxt }), tag: tx(D.tag), bars: [{ label: tx(D.name), pct: pct, top: true }] };
+    }
+    function resultsWellbeing() {
+      const D = DATA.wellbeing, dict = UI[lang];
+      const sums = [0, 0], cnts = [0, 0];
+      D.qs.forEach((q, i) => { sums[q.d] += answers[i]; cnts[q.d]++; });
+      const fmtM = m => (lang === "fr" ? m.toFixed(1).replace(".", ",") : m.toFixed(1));
+      const ser = sums[0] / cnts[0], ten = sums[1] / cnts[1];
+      const serLv = ser >= 4 ? 3 : (ser >= 3 ? 2 : 1);
+      const tenC = ten >= 3 ? 3 : (ten >= 2 ? 2 : 1);
+      const serL = dict["wb_ser_l" + serLv], tenL = dict["wb_ten_l" + tenC];
+      const serCls = ["", "lvl-high", "lvl-mid", "lvl-ok"][serLv];
+      const tenCls = ["", "lvl-ok", "lvl-mid", "lvl-high"][tenC];
+      const combo = (serLv === 1 || tenC === 3) ? dict.wb_h_low : ((serLv === 3 && tenC === 1) ? dict.wb_h_ok : dict.wb_h_mixed);
+      const rows = meterRow(tx(D.dims[0].l), Math.round((ser - 1) / 4 * 100), false, tx(D.dims[0].src), serL + " — " + dict["wb_ser_d" + serLv], serCls, fmtM(ser) + " / 5") + meterRow(tx(D.dims[1].l), Math.round((ten - 1) / 4 * 100), false, tx(D.dims[1].src), tenL + " — " + dict["wb_ten_d" + tenC], tenCls, fmtM(ten) + " / 5");
+      $("#res-tag").textContent = tx(D.tag);
+      $("#res-title").textContent = dict.res_wb;
+      $("#res-body").innerHTML = `<div class="shell dark profile-dark" style="margin-bottom:14px;"><div class="core" style="padding:32px;"><div class="meta">${dict.wb_meta}</div><h2>${combo}</h2><p>${dict.wb_intro}</p></div></div><div class="r-rows">${rows}</div><div class="r-quick">${fill(dict.wb_quick, { a: fmtM(ser), b: fmtM(ten) })}</div><div class="r-quick" style="margin-top:10px;">${dict.wb_warn}</div>`;
+      lastShare = { text: fill(dict.share_wb, { a: fmtM(ser), b: fmtM(ten) }) + dict.share_note, title: dict.res_wb, tag: tx(D.tag), bars: [{ label: tx(D.dims[0].l), pct: Math.round((ser - 1) / 4 * 100), top: serLv === 3 }, { label: tx(D.dims[1].l), pct: Math.round((ten - 1) / 4 * 100), top: tenC === 1 }] };
+    }
     function showResults() {
       if (mode === "bigfive") resultsBigFive();
       else if (mode === "disc") resultsDisc();
@@ -1977,6 +2188,8 @@
       else if (mode === "hexaco") resultsHexaco();
       else if (mode === "riasec") resultsRiasec();
       else if (mode === "schemas") resultsSchemas();
+      else if (mode === "esteem") resultsEsteem();
+      else if (mode === "wellbeing") resultsWellbeing();
       else resultsAttach();
       showScreen("results");
       animateBars($("#res-body"));
@@ -2084,7 +2297,7 @@
 
     /* ============ ANALYTICS + COMPTEURS ============ */
     const vaTrack = (ev, data) => { try { window.va && window.va("event", ev, data); } catch (e) {} };
-    const COUNT_BASE = { total: 1410, bigfive: 1486, disc: 1454, arch: 1439, hexaco: 1422, riasec: 1431, attach: 1417, schemas: 1413 };
+    const COUNT_BASE = { total: 1410, bigfive: 1486, disc: 1454, arch: 1439, hexaco: 1422, riasec: 1431, attach: 1417, schemas: 1413, esteem: 1409, wellbeing: 1406 };
     function dailyBump(key, cap) {
       const day = new Date().toISOString().slice(0, 10);
       let s = {}; try { s = JSON.parse(localStorage.getItem(key) || "{}"); } catch (e) {}
