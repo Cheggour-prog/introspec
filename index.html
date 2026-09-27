@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Introspec — Test de personnalité : Big Five, HEXACO, DISC, RIASEC, Attachement, Archétypes &amp; Schémas de pensée</title>
   <!--
+    V5 · Refonte visuelle : famille d'approches, une teinte par test, ambiance colorée.
     V4 · Changes:
       10 tests (+ Valeurs Schwartz)
       3 langues FR · AR (RTL) · EN — interface + 188 questions traduites
@@ -27,48 +28,94 @@
   </script>
   <script defer src="/_vercel/insights/script.js"></script>
   <style>
+    /* ============================================================
+       INTROSPEC V5 · LE SPECTRE DE SOI
+       Refonte visuelle : 10 approches, 10 teintes, une seule histoire.
+       Les noms de classes/variables publiques restent compatibles avec
+       le moteur (quiz, résultats, partage) pour ne rien casser.
+       ============================================================ */
+
     /* ===== TOKENS · THÈME SAUGE (défaut) ===== */
     :root {
-      --canvas: #FDFBF7; --canvas-2: #F4F1EA; --core: #FCFCFA;
-      --glass: rgba(255,255,255,0.5); --glass-2: rgba(255,255,255,0.65);
-      --ink: #101012; --muted: #57575A;
-      --hairline: rgba(16,16,18,0.08); --hairline-strong: rgba(16,16,18,0.13);
-      --innerlight: rgba(255,255,255,0.65);
-      --hover: rgba(16,16,18,0.05); --raise: rgba(255,255,255,0.9);
-      --track: rgba(16,16,18,0.07); --dot: rgba(16,16,18,0.10);
-      --accent: #1F4D3F; --accent-glow: #5A8C7A;
-      --accent-soft: rgba(31,77,63,0.10); --accent-fill: rgba(31,77,63,0.14);
-      --accent-ink: #FDFBF7; --sand: #C9B79A; --sc: 16,16,18;
+      --canvas: #FBFAF6; --canvas-2: #F2EFE6; --core: #FFFFFF;
+      --glass: rgba(255,255,255,0.60); --glass-2: rgba(255,255,255,0.78);
+      --ink: #14141A; --muted: #5D5D66;
+      --hairline: rgba(20,20,26,0.08); --hairline-strong: rgba(20,20,26,0.14);
+      --innerlight: rgba(255,255,255,0.72);
+      --hover: rgba(20,20,26,0.05); --raise: rgba(255,255,255,0.96);
+      --track: rgba(20,20,26,0.07); --dot: rgba(20,20,26,0.10);
+      --accent: #1F4D3F; --accent-glow: #4F8672;
+      --accent-soft: rgba(31,77,63,0.10); --accent-fill: rgba(31,77,63,0.16);
+      --accent-ink: #FBFAF6; --sand: #C9B79A; --sc: 20,20,26;
+      --spectrum: linear-gradient(90deg,
+        oklch(.60 .17 8), oklch(.63 .16 42), oklch(.68 .15 70),
+        oklch(.64 .15 148), oklch(.63 .15 168), oklch(.66 .16 198),
+        oklch(.62 .15 232), oklch(.60 .16 264), oklch(.57 .17 300), oklch(.60 .18 338));
       --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
       --sans-ar: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', system-ui, sans-serif;
       --mono: 'JetBrains Mono', ui-monospace, monospace;
       --ease: cubic-bezier(0.32, 0.72, 0, 1);
       --ease-spring: cubic-bezier(0.16, 1.16, 0.3, 1);
-      --shell-radius: 2.25rem; --core-radius: calc(2.25rem - 0.4rem);
+      --shell-radius: 26px; --core-radius: 18px;
+      --shadow-1: 0 1px 2px rgba(20,20,26,0.05), 0 20px 44px -30px rgba(20,20,26,0.38);
+      --shadow-2: 0 2px 4px rgba(20,20,26,0.05), 0 34px 74px -32px rgba(20,20,26,0.48);
     }
     html[data-theme="nuit"] {
-      --canvas: #101014; --canvas-2: #17171C; --core: #17171C;
-      --glass: rgba(255,255,255,0.055); --glass-2: rgba(255,255,255,0.09);
-      --ink: #F2F2F0; --muted: rgba(242,242,240,0.60);
-      --hairline: rgba(255,255,255,0.09); --hairline-strong: rgba(255,255,255,0.16);
+      --canvas: #0E0E12; --canvas-2: #16161C; --core: #17171E;
+      --glass: rgba(255,255,255,0.05); --glass-2: rgba(255,255,255,0.085);
+      --ink: #F3F3F1; --muted: rgba(243,243,241,0.62);
+      --hairline: rgba(255,255,255,0.09); --hairline-strong: rgba(255,255,255,0.17);
       --innerlight: rgba(255,255,255,0.05);
-      --hover: rgba(255,255,255,0.08); --raise: rgba(255,255,255,0.15);
-      --track: rgba(255,255,255,0.09); --dot: rgba(255,255,255,0.16);
+      --hover: rgba(255,255,255,0.07); --raise: rgba(255,255,255,0.13);
+      --track: rgba(255,255,255,0.10); --dot: rgba(255,255,255,0.16);
       --accent: #8FC0AD; --accent-glow: #5A8C7A;
-      --accent-soft: rgba(143,192,173,0.12); --accent-fill: rgba(143,192,173,0.16);
-      --accent-ink: #101014; --sand: #8A7A63; --sc: 0,0,0;
+      --accent-soft: rgba(143,192,173,0.12); --accent-fill: rgba(143,192,173,0.18);
+      --accent-ink: #0E0E12; --sand: #8A7A63; --sc: 0,0,0;
+      --shadow-1: 0 1px 2px rgba(0,0,0,0.4), 0 20px 44px -30px rgba(0,0,0,0.7);
+      --shadow-2: 0 2px 4px rgba(0,0,0,0.4), 0 34px 74px -32px rgba(0,0,0,0.85);
     }
     html[data-theme="sable"] {
-      --canvas: #F7F0E6; --canvas-2: #F0E5D3; --core: #FCF8F1;
-      --glass: rgba(255,255,255,0.45); --glass-2: rgba(255,255,255,0.62);
-      --ink: #2B1E16; --muted: #6E5A4B;
-      --hairline: rgba(43,30,22,0.10); --hairline-strong: rgba(43,30,22,0.17);
-      --hover: rgba(43,30,22,0.06); --raise: rgba(255,255,255,0.92);
-      --track: rgba(43,30,22,0.09); --dot: rgba(43,30,22,0.12);
+      --canvas: #F8F1E7; --canvas-2: #F1E5D2; --core: #FDF9F2;
+      --glass: rgba(255,255,255,0.50); --glass-2: rgba(255,255,255,0.70);
+      --ink: #251913; --muted: #6C594A;
+      --hairline: rgba(37,25,19,0.10); --hairline-strong: rgba(37,25,19,0.18);
+      --innerlight: rgba(255,255,255,0.8);
+      --hover: rgba(37,25,19,0.06); --raise: rgba(255,255,255,0.94);
+      --track: rgba(37,25,19,0.09); --dot: rgba(37,25,19,0.12);
       --accent: #B4552D; --accent-glow: #D08A5F;
-      --accent-soft: rgba(180,85,45,0.10); --accent-fill: rgba(180,85,45,0.14);
-      --accent-ink: #FDFBF7;
+      --accent-soft: rgba(180,85,45,0.10); --accent-fill: rgba(180,85,45,0.16);
+      --accent-ink: #FFF8F1; --sand: #B7A184; --sc: 37,25,19;
     }
+
+    /* ===== TEINTE PAR APPROCHE (spectre) ===== */
+    [data-mode="bigfive"]   { --t: 264; --al: .55; --ac: .155; }
+    [data-mode="hexaco"]    { --t: 232; --al: .55; --ac: .150; }
+    [data-mode="disc"]      { --t: 42;  --al: .60; --ac: .155; }
+    [data-mode="riasec"]    { --t: 198; --al: .55; --ac: .140; }
+    [data-mode="arch"]      { --t: 338; --al: .58; --ac: .170; }
+    [data-mode="attach"]    { --t: 10;  --al: .57; --ac: .170; }
+    [data-mode="schemas"]   { --t: 300; --al: .53; --ac: .160; }
+    [data-mode="esteem"]    { --t: 70;  --al: .63; --ac: .145; }
+    [data-mode="wellbeing"] { --t: 168; --al: .57; --ac: .130; }
+    [data-mode="values"]    { --t: 148; --al: .56; --ac: .140; }
+    [data-mode] {
+      --accent: oklch(var(--al) var(--ac) var(--t));
+      --accent-glow: color-mix(in oklab, var(--accent) 68%, #fff);
+      --accent-soft: color-mix(in oklab, var(--accent) 12%, transparent);
+      --accent-fill: color-mix(in oklab, var(--accent) 17%, transparent);
+      --accent-ink: #FFFFFF;
+    }
+    /* teintes claires : encre sombre pour garder le contraste AA */
+    [data-mode="disc"], [data-mode="esteem"] { --accent-ink: #241700; }
+    [data-mode="wellbeing"], [data-mode="values"] { --accent-ink: #052A1E; }
+    html[data-theme="nuit"] [data-mode] {
+      --accent: oklch(.80 calc(var(--ac) * .78) var(--t));
+      --accent-glow: color-mix(in oklab, var(--accent) 62%, #000);
+      --accent-soft: color-mix(in oklab, var(--accent) 14%, transparent);
+      --accent-fill: color-mix(in oklab, var(--accent) 20%, transparent);
+      --accent-ink: #0E0E12;
+    }
+
     * { box-sizing: border-box; }
     html, body { margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -79,73 +126,78 @@
     }
     html[dir="rtl"] body, html[dir="rtl"] button { font-family: var(--sans-ar); }
     html[dir="rtl"] body { line-height: 1.7; }
-    html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] .q-text,
-    html[dir="rtl"] .mode-card .h3, html[dir="rtl"] .meth-note h3,
+    html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3, html[dir="rtl"] .q-text,
+    html[dir="rtl"] .mode-card .h3, html[dir="rtl"] .fam-head h3, html[dir="rtl"] .meth-note h3,
     html[dir="rtl"] .nav .brand, html[dir="rtl"] .arch-head .who h2,
-    html[dir="rtl"] .profile-dark h2, html[dir="rtl"] .closing h2,
-    html[dir="rtl"] .res-head h1, html[dir="rtl"] .meth-aside h2 { letter-spacing: 0; line-height: 1.22; }
-    html[dir="rtl"] .hero h1 { line-height: 1.2; }
+    html[dir="rtl"] .profile-dark h2, html[dir="rtl"] .closing h2, html[dir="rtl"] .res-head h1,
+    html[dir="rtl"] .meth-aside h2 { letter-spacing: 0; line-height: 1.22; }
+    html[dir="rtl"] .hero h1 { line-height: 1.22; }
     html[dir="rtl"] .eyebrow, html[dir="rtl"] .chip, html[dir="rtl"] .meta,
-    html[dir="rtl"] .mode-card .meta, html[dir="rtl"] .m-spec, html[dir="rtl"] .quiz-mode,
-    html[dir="rtl"] .quiz-count .c, html[dir="rtl"] .scale-cap, html[dir="rtl"] .kbd-hint,
-    html[dir="rtl"] .pv-cell .meta, html[dir="rtl"] .pv-note, html[dir="rtl"] .profile-dark .meta,
-    html[dir="rtl"] .arch-head .who .meta, html[dir="rtl"] .fo-cell .meta, html[dir="rtl"] footer,
-    html[dir="rtl"] .r-lab, html[dir="rtl"] .share-label { font-family: var(--sans-ar); letter-spacing: 0; }
+    html[dir="rtl"] .mode-card .meta, html[dir="rtl"] .fam-head .meta, html[dir="rtl"] .m-spec,
+    html[dir="rtl"] .quiz-mode, html[dir="rtl"] .quiz-count .c, html[dir="rtl"] .scale-cap,
+    html[dir="rtl"] .kbd-hint, html[dir="rtl"] .pv-cell .meta, html[dir="rtl"] .pv-note,
+    html[dir="rtl"] .profile-dark .meta, html[dir="rtl"] .arch-head .who .meta,
+    html[dir="rtl"] .fo-cell .meta, html[dir="rtl"] footer, html[dir="rtl"] .r-lab,
+    html[dir="rtl"] .share-label, html[dir="rtl"] .tl-chip, html[dir="rtl"] .m-count,
+    html[dir="rtl"] .lnk, html[dir="rtl"] .fam-nav { font-family: var(--sans-ar); letter-spacing: 0; }
     button { font: inherit; color: inherit; background: none; border: none; padding: 0; cursor: pointer; }
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    img { max-width: 100%; }
 
-    /* ===== AMBIENT MESH ===== */
+    /* ===== AMBIANCE ===== */
     .mesh { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
-    .mesh::before, .mesh::after {
-      content: ''; position: absolute; border-radius: 50%; filter: blur(90px);
-      opacity: 0.16; will-change: transform;
+    .mesh span {
+      position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.20;
+      will-change: transform;
     }
-    html[data-theme="nuit"] .mesh::before, html[data-theme="nuit"] .mesh::after { opacity: 0.12; }
-    .mesh::before {
-      width: 720px; height: 720px;
-      background: radial-gradient(circle at 30% 30%, var(--accent-glow), transparent 60%);
-      top: -180px; left: -160px;
-      animation: drift1 28s var(--ease) infinite alternate;
+    html[data-theme="nuit"] .mesh span { opacity: 0.16; }
+    .mesh span:nth-child(1) {
+      width: 700px; height: 700px; top: -220px; left: -180px;
+      background: radial-gradient(circle at 40% 40%, var(--accent-glow), transparent 62%);
+      animation: drift1 30s var(--ease) infinite alternate;
     }
-    .mesh::after {
-      width: 560px; height: 560px;
-      background: radial-gradient(circle at 60% 60%, var(--sand), transparent 60%);
-      top: 120px; right: -140px;
-      animation: drift2 36s var(--ease) infinite alternate;
+    .mesh span:nth-child(2) {
+      width: 620px; height: 620px; top: 60px; right: -200px;
+      background: radial-gradient(circle at 55% 50%, var(--sand), transparent 62%);
+      animation: drift2 38s var(--ease) infinite alternate;
     }
-    @keyframes drift1 { from { transform: translate3d(0,0,0); } to { transform: translate3d(80px, 60px, 0); } }
-    @keyframes drift2 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-60px, 40px, 0); } }
-
+    .mesh span:nth-child(3) {
+      width: 640px; height: 640px; bottom: -260px; left: 32%;
+      background: radial-gradient(circle at 50% 50%, var(--accent), transparent 62%);
+      animation: drift1 44s var(--ease) infinite alternate-reverse;
+    }
+    @keyframes drift1 { from { transform: translate3d(0,0,0); } to { transform: translate3d(70px, 60px, 0); } }
+    @keyframes drift2 { from { transform: translate3d(0,0,0); } to { transform: translate3d(-70px, 46px, 0); } }
     main > *, header, footer { position: relative; z-index: 1; }
 
-    /* ===== FLOATING PILL NAV ===== */
+    /* ===== NAVIGATION ===== */
     .nav-shell {
-      position: sticky; top: 24px; z-index: 50;
-      margin: 24px auto 0; padding: 6px;
+      position: sticky; top: 22px; z-index: 50;
+      margin: 22px auto 0; padding: 6px;
       width: max-content; max-width: calc(100% - 40px);
       border-radius: 999px; background: var(--glass);
       backdrop-filter: saturate(160%) blur(22px); -webkit-backdrop-filter: saturate(160%) blur(22px);
-      box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 0 0 1px var(--hairline), 0 12px 36px -18px rgba(var(--sc),0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 0 1px var(--hairline), 0 14px 40px -20px rgba(var(--sc),0.22);
     }
-    html[data-theme="nuit"] .nav-shell { box-shadow: 0 1px 0 rgba(255,255,255,0.06) inset, 0 0 0 1px var(--hairline), 0 12px 36px -18px rgba(var(--sc),0.6); }
+    html[data-theme="nuit"] .nav-shell { box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 0 0 1px var(--hairline), 0 14px 40px -20px rgba(0,0,0,0.7); }
     .nav {
-      display: flex; align-items: center; gap: 16px;
-      padding: 6px 8px 6px 18px; border-radius: 999px; background: var(--glass-2);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+      display: flex; align-items: center; gap: 14px;
+      padding: 6px 8px 6px 16px; border-radius: 999px; background: var(--glass-2);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
     }
     html[data-theme="nuit"] .nav { box-shadow: inset 0 1px 0 rgba(255,255,255,0.05); }
-    .nav .brand { font-weight: 700; font-size: 16px; letter-spacing: -0.02em; display: inline-flex; align-items: center; gap: 8px; }
+    .nav .brand { font-weight: 800; font-size: 16px; letter-spacing: -0.03em; display: inline-flex; align-items: center; gap: 9px; }
     .nav .brand-mark {
-      width: 22px; height: 22px; border-radius: 8px;
+      width: 22px; height: 22px; border-radius: 7px;
       background: linear-gradient(135deg, var(--accent) 0%, var(--accent-glow) 100%);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), 0 1px 2px rgba(var(--sc),0.18);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.32), 0 2px 6px -1px rgba(var(--sc),0.3);
     }
-    .nav ul { list-style: none; display: flex; gap: 6px; margin: 0; padding: 0; }
+    .nav ul { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
     .nav ul a {
       display: inline-block; padding: 9px 14px; border-radius: 999px;
-      color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 500;
-      transition: background 300ms var(--ease);
+      color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 600;
+      transition: background 250ms var(--ease), color 250ms var(--ease);
     }
     .nav ul a:hover { background: var(--hover); }
 
@@ -174,82 +226,113 @@
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35), 0 1px 2px rgba(var(--sc),0.2);
     }
 
+    /* ===== BOUTONS ===== */
     .pill {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 7px 7px 7px 16px; border-radius: 999px;
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 8px 8px 18px; border-radius: 999px;
       background: var(--ink); color: var(--canvas);
-      font: 600 13px/1 var(--sans); text-decoration: none;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
-      transition: transform 300ms var(--ease);
+      font: 700 13.5px/1 var(--sans); text-decoration: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.14);
+      transition: transform 300ms var(--ease), box-shadow 300ms var(--ease);
     }
     html[dir="rtl"] .pill { font-family: var(--sans-ar); }
+    .pill:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,0.14), 0 14px 30px -14px rgba(var(--sc),0.5); }
     .pill .icon-wrap {
       width: 26px; height: 26px; border-radius: 999px;
-      background: rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.16); color: #fff;
       display: inline-flex; align-items: center; justify-content: center;
       transition: transform 360ms var(--ease-spring), background 300ms var(--ease);
     }
-    .pill:hover .icon-wrap { transform: translate(2px, -1px) scale(1.06); background: rgba(255,255,255,0.22); }
+    .pill:hover .icon-wrap { transform: translate(2px, -1px) scale(1.06); background: rgba(255,255,255,0.26); }
     html[dir="rtl"] .pill:hover .icon-wrap { transform: translate(-2px, -1px) scale(1.06); }
     .pill:active { transform: scale(0.98); }
     .pill svg { width: 12px; height: 12px; stroke: currentColor; fill: none; }
     html[dir="rtl"] .pill svg { transform: scaleX(-1); }
-    .pill-light { background: var(--canvas); color: var(--ink); }
-    .pill-light .icon-wrap { background: rgba(var(--sc),0.08); }
-
-    /* ===== HERO ===== */
-    .hero {
-      min-height: 100dvh; padding: 96px 0 110px;
-      display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 48px; align-items: center;
-    }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 12px; border-radius: 999px; background: var(--glass-2);
-      box-shadow: inset 0 0 0 1px var(--hairline);
-      font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--muted);
-    }
-    .eyebrow .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
-    .hero h1 {
-      font-size: clamp(48px, 7vw, 92px); font-weight: 700;
-      line-height: 0.96; letter-spacing: -0.038em;
-      margin: 22px 0 28px; max-width: 14ch;
-    }
-    .hero h1 .soft { color: var(--muted); font-weight: 500; }
-    .hero p.lede { color: var(--muted); font-size: 18px; max-width: 52ch; margin: 0 0 34px; line-height: 1.55; }
-    .hero .actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .pill-light { background: #fff; color: #14141A; }
+    .pill-light .icon-wrap { background: rgba(20,20,26,0.10); color: #14141A; }
     .ghost {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 18px; border-radius: 999px; background: var(--glass-2);
+      padding: 12px 20px; border-radius: 999px; background: var(--glass-2);
       box-shadow: inset 0 0 0 1px var(--hairline-strong);
-      font: 500 13.5px/1 var(--sans); color: var(--ink); text-decoration: none;
+      font: 600 13.5px/1 var(--sans); color: var(--ink); text-decoration: none;
       transition: background 300ms var(--ease), transform 300ms var(--ease);
     }
     html[dir="rtl"] .ghost { font-family: var(--sans-ar); }
     .ghost:hover { background: var(--raise); }
     .ghost:active { transform: scale(0.98); }
+    .lnk {
+      display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
+      font: 700 13px/1 var(--sans); color: var(--accent);
+    }
+    html[dir="rtl"] .lnk { font-family: var(--sans-ar); }
+    .lnk svg { width: 12px; height: 12px; stroke: currentColor; fill: none; transition: transform 300ms var(--ease); }
+    html[dir="rtl"] .lnk svg { transform: scaleX(-1); }
+    .lnk:hover svg { transform: translateX(3px); }
+    html[dir="rtl"] .lnk:hover svg { transform: scaleX(-1) translateX(3px); }
 
-    /* ===== DOUBLE-BEZEL CARDS ===== */
+    /* ===== CARTES À DOUBLE ENVELOPPE ===== */
     .shell {
-      padding: 10px; border-radius: var(--shell-radius); background: var(--glass);
-      box-shadow: inset 0 1px 0 var(--innerlight), 0 0 0 1px var(--hairline), 0 30px 60px -28px rgba(var(--sc),0.20);
-      transition: transform 600ms var(--ease), box-shadow 600ms var(--ease);
+      padding: 9px; border-radius: var(--shell-radius); background: var(--glass);
+      box-shadow: inset 0 1px 0 var(--innerlight), 0 0 0 1px var(--hairline), var(--shadow-1);
+      transition: transform 500ms var(--ease), box-shadow 500ms var(--ease);
     }
     .shell .core {
       border-radius: var(--core-radius); background: var(--core);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), inset 0 0 0 1px var(--hairline);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6), inset 0 0 0 1px var(--hairline);
       padding: 30px; height: 100%; display: flex; flex-direction: column; gap: 0;
     }
     html[data-theme="nuit"] .shell .core { box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), inset 0 0 0 1px var(--hairline); }
-    .shell.dark { background: rgba(var(--sc),0.05); }
+    .shell.dark { background: rgba(var(--sc),0.06); }
     .shell.dark .core {
-      background: linear-gradient(180deg, #1A1A1A 0%, #0F0F0F 100%);
-      color: #F2F2F0; box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
+      background: linear-gradient(180deg, #1B1B22 0%, #101016 100%);
+      color: #F3F3F1; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
     }
 
-    /* hero preview */
-    .preview-bar { display: flex; gap: 6px; margin-bottom: 16px; }
-    .preview-bar span { width: 10px; height: 10px; border-radius: 999px; background: var(--dot); }
+    /* ===== BANDEAU SPECTRE (motif) ===== */
+    .spectrum-bar { height: 3px; border-radius: 999px; background: linear-gradient(90deg, var(--accent) 0%, color-mix(in oklab, var(--accent) 16%, transparent) 100%); }
+    .spectrum-bar.thin { height: 2px; }
+    .closing .spectrum-bar { background: linear-gradient(90deg, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0.04) 100%); }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding: 92px 0 96px;
+      display: grid; grid-template-columns: 1.06fr 0.94fr; gap: 56px; align-items: center;
+      min-height: calc(100dvh - 84px);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 13px; border-radius: 999px; background: var(--glass-2);
+      box-shadow: inset 0 0 0 1px var(--hairline);
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .eyebrow .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+    .hero h1 {
+      font-size: clamp(42px, 6.2vw, 84px); font-weight: 800;
+      line-height: 1.03; letter-spacing: -0.04em; margin: 22px 0 24px; max-width: 15ch;
+    }
+    .hero h1 .soft { display: block; color: var(--accent); }
+    @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+      .hero h1 .soft {
+        background: linear-gradient(102deg, var(--accent) 0%, var(--accent-glow) 100%);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+      }
+    }
+    .hero p.lede { color: var(--muted); font-size: 17.5px; max-width: 54ch; margin: 0 0 30px; line-height: 1.6; }
+    .hero .actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+    .trust-line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 22px; font-size: 12.5px; color: var(--muted); }
+    .trust-line .tl-chip {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 5px 11px; border-radius: 999px; border: 1px solid var(--hairline-strong);
+      color: var(--ink); background: var(--glass-2);
+    }
+    .trust-line .tl-chip.is-free { border-color: var(--accent); color: var(--accent); }
+    .trust-line b { font-family: var(--mono); font-size: 13.5px; font-weight: 700; color: var(--ink); }
+
+    /* aperçu rapport (hero) */
+    .preview-bar { display: flex; gap: 6px; margin-bottom: 16px; align-items: center; }
+    .preview-bar i { width: 10px; height: 10px; border-radius: 999px; background: var(--dot); }
     .pv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     .pv-cell {
       border-radius: 16px; background: var(--glass-2);
@@ -258,84 +341,129 @@
     }
     .pv-cell.span2 { grid-column: span 2; }
     .pv-cell .meta { font-family: var(--mono); font-size: 9.5px; color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
-    .pv-cell .num { font-size: 24px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
-    .pv-cell .num small { font-size: 11.5px; color: var(--muted); margin-left: 5px; font-weight: 500; }
-    html[dir="rtl"] .pv-cell .num small { margin-left: 0; margin-right: 5px; }
+    .pv-cell .num { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+    .pv-cell .num small { font-size: 11.5px; color: var(--muted); margin-inline-start: 5px; font-weight: 600; }
     .pv-note { margin-top: 14px; font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 7px; }
-    .pv-note .pulse { width: 7px; height: 7px; border-radius: 999px; background: var(--accent); box-shadow: 0 0 0 0 var(--accent-soft); animation: pulse 2.4s var(--ease) infinite; }
+    .pv-note .pulse { width: 7px; height: 7px; border-radius: 999px; background: var(--accent); animation: pulse 2.4s var(--ease) infinite; }
     @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(31,77,63,0.35); } 70% { box-shadow: 0 0 0 9px rgba(31,77,63,0); } 100% { box-shadow: 0 0 0 0 rgba(31,77,63,0); } }
+    .pv-legend { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .pv-legend span {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--muted); padding: 4px 8px; border-radius: 999px;
+      background: var(--glass-2);
+      box-shadow: inset 0 0 0 1px var(--hairline);
+    }
 
     /* ===== SECTIONS ===== */
-    section.block { padding: 104px 0; position: relative; }
-    .section-head { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; margin-bottom: 52px; }
+    section.block { padding: 92px 0; position: relative; }
+    .section-head { margin-bottom: 44px; max-width: 62ch; }
     .section-head h2 {
-      font-size: clamp(36px, 5vw, 60px); font-weight: 700;
-      letter-spacing: -0.035em; line-height: 1; margin: 16px 0 0; max-width: 15ch;
+      font-size: clamp(34px, 4.6vw, 56px); font-weight: 800;
+      letter-spacing: -0.038em; line-height: 1.02; margin: 16px 0 14px; max-width: 18ch;
     }
-    .section-head p { color: var(--muted); font-size: 16.5px; max-width: 46ch; margin: 0; line-height: 1.55; }
+    .section-head p { color: var(--muted); font-size: 16.5px; max-width: 58ch; margin: 0; line-height: 1.6; }
 
-    /* modes bento */
-    .modes { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
-    .mode-card { text-align: start; display: block; }
-    .mode-card:hover { transform: translateY(-3px); box-shadow: inset 0 1px 0 var(--innerlight), 0 0 0 1px var(--hairline), 0 30px 70px -22px rgba(var(--sc),0.22); }
+    /* ===== FAMILLES D'APPROCHES ===== */
+    .fam-nav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 46px; }
+    .fam-nav a {
+      display: inline-flex; align-items: center; gap: 8px; padding: 9px 15px 9px 12px;
+      border-radius: 999px; background: var(--glass-2); box-shadow: inset 0 0 0 1px var(--hairline);
+      text-decoration: none; color: var(--ink); font: 600 12.5px/1 var(--sans);
+      transition: transform 250ms var(--ease), box-shadow 250ms var(--ease), background 250ms var(--ease);
+    }
+    .fam-nav a:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 1px var(--hairline-strong), 0 12px 24px -16px rgba(var(--sc),0.5); background: var(--raise); }
+    .fam-nav a i { width: 10px; height: 10px; border-radius: 999px; background: var(--tc); flex: none; }
+    .fam-nav a small { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+
+    .fam { padding-top: 40px; }
+    .fam + .fam { margin-top: 46px; border-top: 1px solid var(--hairline); }
+    .fam-head { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 24px; }
+    .fam-head .mark {
+      width: 40px; height: 40px; border-radius: 13px; flex: none; margin-top: 2px;
+      background: color-mix(in oklab, var(--tc) 16%, transparent); color: var(--tc);
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--tc) 34%, transparent);
+    }
+    .fam-head .mark svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+    .fam-head h3 { font-size: clamp(21px, 2.3vw, 27px); font-weight: 800; letter-spacing: -0.03em; margin: 4px 0 5px; }
+    .fam-head p { margin: 0; color: var(--muted); font-size: 14.5px; line-height: 1.5; max-width: 62ch; }
+    .fam-head .meta { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tc); }
+
+    .modes { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+    .modes.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .mode-card { text-align: start; display: block; position: relative; overflow: hidden; }
+    .mode-card::after {
+      content: ''; position: absolute; inset: -28% -4% auto auto; width: 200px; height: 200px;
+      border-radius: 50%; pointer-events: none; opacity: 0; transition: opacity 500ms var(--ease);
+      background: radial-gradient(circle, color-mix(in oklab, var(--accent) 30%, transparent), transparent 65%);
+    }
+    .mode-card:hover { transform: translateY(-4px); box-shadow: inset 0 1px 0 var(--innerlight), 0 0 0 1px color-mix(in oklab, var(--accent) 34%, var(--hairline)), var(--shadow-2); }
+    .mode-card:hover::after { opacity: 1; }
     .mode-card:active { transform: translateY(-1px) scale(0.995); }
+    .mode-card .core { position: relative; z-index: 1; }
+    .m-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
     .m-ico {
-      width: 44px; height: 44px; border-radius: 14px;
-      background: var(--accent-soft); color: var(--accent);
-      display: inline-flex; align-items: center; justify-content: center; margin-bottom: 18px;
+      width: 46px; height: 46px; border-radius: 15px;
+      background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--accent);
+      display: inline-flex; align-items: center; justify-content: center;
+      box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 26%, transparent);
+      transition: transform 420ms var(--ease-spring), background 400ms var(--ease);
     }
-    .m-ico svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-    .mode-card .meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
-    .mode-card .h3 { display: block; font-size: 24px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.1; margin: 0 0 10px; }
-    .mode-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.55; max-width: 38ch; }
-    .m-foot { margin-top: auto; padding-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .m-spec { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
-    .m-go { display: inline-flex; align-items: center; gap: 7px; font: 600 13px/1 var(--sans); color: var(--accent); }
-    html[dir="rtl"] .m-go { font-family: var(--sans-ar); }
-    .m-go svg { width: 12px; height: 12px; stroke: currentColor; fill: none; }
-    html[dir="rtl"] .m-go svg { transform: scaleX(-1); }
-    .span-2 { grid-column: span 2; } .span-3 { grid-column: span 3; } .span-6 { grid-column: span 6; } .row-2 { grid-row: span 2; }
-    .mode-card.span-6 p { max-width: 62ch; }
+    .mode-card:hover .m-ico { transform: translateY(-2px) rotate(-3deg); background: var(--accent); color: var(--accent-ink); }
+    .m-ico svg { width: 23px; height: 23px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
     .chip {
-      display: inline-flex; padding: 4px 10px; border-radius: 999px;
+      display: inline-flex; padding: 5px 11px; border-radius: 999px;
       background: var(--accent); color: var(--accent-ink);
-      font: 600 10px/1.4 var(--mono); letter-spacing: 0.14em; text-transform: uppercase;
+      font: 700 9.5px/1.4 var(--mono); letter-spacing: 0.14em; text-transform: uppercase;
     }
+    .mode-card .meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .mode-card .h3 { display: block; font-size: 23px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.12; margin: 0 0 10px; }
+    .mode-card p { font-size: 13.5px; color: var(--muted); margin: 0; line-height: 1.58; max-width: 46ch; }
+    .m-foot { margin-top: auto; padding-top: 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .m-spec { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .m-go { display: inline-flex; align-items: center; gap: 7px; font: 700 13px/1 var(--sans); color: var(--accent); }
+    html[dir="rtl"] .m-go { font-family: var(--sans-ar); }
+    .m-go svg { width: 12px; height: 12px; stroke: currentColor; fill: none; transition: transform 300ms var(--ease); }
+    .mode-card:hover .m-go svg { transform: translateX(3px); }
+    html[dir="rtl"] .m-go svg { transform: scaleX(-1); }
+    html[dir="rtl"] .mode-card:hover .m-go svg { transform: scaleX(-1) translateX(3px); }
+    .m-count { display: flex; align-items: center; gap: 6px; font-size: 10.5px; letter-spacing: 0.05em; color: var(--muted); margin-top: 12px; }
+    .m-count b { font-family: var(--mono); font-weight: 700; color: var(--accent); font-size: 11.5px; }
+    html[dir="rtl"] .trust-line, html[dir="rtl"] .trust-line span, html[dir="rtl"] .m-count, html[dir="rtl"] .m-count span { font-family: var(--sans-ar); letter-spacing: 0; }
 
     /* ===== MÉTHODE ===== */
-    .meth-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; }
-    .meth-note { display: grid; grid-template-columns: 64px 1fr; gap: 18px; padding: 26px 0; border-top: 1px solid var(--hairline); }
+    .meth-grid { display: grid; grid-template-columns: 0.86fr 1.14fr; gap: 56px; }
+    .meth-aside { position: sticky; top: 118px; align-self: start; }
+    .meth-aside h2 { font-size: clamp(30px, 3.6vw, 46px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; margin: 16px 0 18px; }
+    .meth-aside p { color: var(--muted); font-size: 15.5px; line-height: 1.62; max-width: 44ch; margin: 0 0 24px; }
+    .meth-note { display: grid; grid-template-columns: 54px 1fr; gap: 18px; padding: 26px 0; border-top: 1px solid var(--hairline); }
     .meth-note:last-child { border-bottom: 1px solid var(--hairline); }
-    .meth-note .idx { font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; color: var(--muted); padding-top: 4px; }
-    .meth-note h3 { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; }
-    .meth-note p { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.6; max-width: 52ch; }
-    .meth-aside { position: sticky; top: 120px; align-self: start; }
-    .meth-aside h2 { font-size: clamp(30px, 3.6vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; margin: 16px 0 18px; }
-    .meth-aside p { color: var(--muted); font-size: 15.5px; line-height: 1.6; max-width: 42ch; margin: 0 0 22px; }
+    .meth-note .idx {
+      width: 34px; height: 34px; border-radius: 11px; font-family: var(--mono); font-size: 12px;
+      display: inline-flex; align-items: center; justify-content: center; font-weight: 700;
+      background: color-mix(in oklab, var(--tc, var(--accent)) 15%, transparent); color: var(--tc, var(--accent));
+      box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--tc, var(--accent)) 30%, transparent);
+    }
+    .meth-note h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .meth-note p { margin: 0; font-size: 14.5px; color: var(--muted); line-height: 1.6; max-width: 56ch; }
 
     /* ===== COUCHE ISOLÉE ===== */
-    #app-layer {
-      position: fixed; inset: 0; z-index: 100;
-      background: var(--canvas); overflow-y: auto; display: none;
-    }
+    #app-layer { position: fixed; inset: 0; z-index: 100; background: var(--canvas); overflow-y: auto; display: none; }
     #app-layer.is-open { display: block; animation: layerIn 420ms var(--ease); }
     @keyframes layerIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
     .layer-head {
       position: sticky; top: 0; z-index: 10;
       display: flex; align-items: center; justify-content: space-between; gap: 14px;
-      padding: 16px 28px; background: var(--canvas);
-      background: color-mix(in srgb, var(--canvas) 82%, transparent);
+      padding: 16px 28px; background: color-mix(in srgb, var(--canvas) 82%, transparent);
       backdrop-filter: saturate(160%) blur(20px); -webkit-backdrop-filter: saturate(160%) blur(20px);
       box-shadow: 0 1px 0 var(--hairline);
     }
-    .layer-head .quiz-mode { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .layer-head .quiz-mode { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
     .layer-head .head-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .close-btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 8px 14px; border-radius: 999px;
-      background: var(--ink); color: var(--canvas);
-      font: 600 12.5px/1 var(--sans);
-      transition: transform 300ms var(--ease);
+      padding: 8px 14px; border-radius: 999px; background: var(--ink); color: var(--canvas);
+      font: 700 12.5px/1 var(--sans); transition: transform 300ms var(--ease);
     }
     html[dir="rtl"] .close-btn { font-family: var(--sans-ar); }
     .close-btn:hover { transform: scale(1.03); }
@@ -346,9 +474,9 @@
     .view { display: none; }
     .view.is-active { display: block; animation: viewIn 480ms var(--ease); }
     @keyframes viewIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-    .quiz-wrap { max-width: 780px; margin: 0 auto; padding: 40px 28px 96px; min-height: calc(100dvh - 140px); }
-    .progress { height: 6px; border-radius: 999px; background: var(--track); overflow: hidden; }
-    .progress .bar { display: block; height: 100%; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); transition: transform 500ms var(--ease); }
+    .quiz-wrap { max-width: 800px; margin: 0 auto; padding: 40px 28px 96px; min-height: calc(100dvh - 140px); }
+    .progress { height: 7px; border-radius: 999px; background: var(--track); overflow: hidden; }
+    .progress .bar { display: block; height: 100%; border-radius: inherit; background: var(--accent); transform-origin: 0 50%; transform: scaleX(0); transition: transform 500ms var(--ease); }
     html[dir="rtl"] .progress .bar { transform-origin: 100% 50%; }
     .quiz-count { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin: 14px 0 26px; }
     .quiz-count .c { font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -359,25 +487,24 @@
       background: var(--glass-2); box-shadow: inset 0 0 0 1px var(--hairline-strong);
     }
     .q-card .core { padding: clamp(24px, 4vw, 44px); min-height: 380px; }
-    .q-text { font-size: clamp(22px, 3.2vw, 30px); font-weight: 700; letter-spacing: -0.022em; line-height: 1.22; margin: 0 0 30px; max-width: 32ch; }
+    .q-text { font-size: clamp(22px, 3.2vw, 30px); font-weight: 800; letter-spacing: -0.025em; line-height: 1.24; margin: 0 0 30px; max-width: 32ch; }
     .q-enter { animation: qIn 420ms var(--ease); }
     @keyframes qIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
     .scale-cap { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
 
     .likert { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
     .lik {
-      min-height: 72px; border-radius: 18px;
-      background: var(--glass-2);
+      min-height: 76px; border-radius: 18px; background: var(--glass-2);
       box-shadow: inset 0 0 0 1px var(--hairline), inset 0 1px 0 rgba(255,255,255,0.4);
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
       padding: 10px 6px;
-      transition: background 250ms var(--ease), box-shadow 250ms var(--ease), transform 250ms var(--ease);
+      transition: background 220ms var(--ease), box-shadow 220ms var(--ease), transform 220ms var(--ease);
     }
     .lik .n { font-family: var(--mono); font-size: 16px; font-weight: 500; font-variant-numeric: tabular-nums; }
     .lik .w { font-size: 10.5px; color: var(--muted); text-align: center; line-height: 1.3; }
-    .lik:hover { background: var(--raise); transform: translateY(-2px); }
-    .lik.picked { background: var(--accent); color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent), 0 10px 24px -12px rgba(var(--sc),0.5); }
-    .lik.picked .w { color: var(--accent-ink); opacity: 0.78; }
+    .lik:hover { background: var(--raise); transform: translateY(-2px); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 40%, var(--hairline)); }
+    .lik.picked { background: var(--accent); color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent), 0 12px 26px -12px color-mix(in oklab, var(--accent) 60%, transparent); }
+    .lik.picked .w { color: var(--accent-ink); opacity: 0.8; }
 
     .opts { display: grid; gap: 10px; }
     .opt {
@@ -385,26 +512,26 @@
       padding: 15px 18px; border-radius: 18px; background: var(--glass-2);
       box-shadow: inset 0 0 0 1px var(--hairline), inset 0 1px 0 rgba(255,255,255,0.4);
       font-size: 15.5px; font-weight: 500; line-height: 1.4;
-      transition: background 250ms var(--ease), box-shadow 250ms var(--ease), transform 250ms var(--ease);
+      transition: background 220ms var(--ease), box-shadow 220ms var(--ease), transform 220ms var(--ease);
     }
     .opt .k {
       flex: none; width: 26px; height: 26px; border-radius: 999px;
       display: inline-flex; align-items: center; justify-content: center;
       font-family: var(--mono); font-size: 11px;
       box-shadow: inset 0 0 0 1px var(--hairline-strong); color: var(--muted);
-      transition: all 250ms var(--ease);
+      transition: all 220ms var(--ease);
     }
-    .opt:hover { background: var(--raise); transform: translateY(-1px); }
-    .opt.picked { background: var(--accent); color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent), 0 10px 24px -12px rgba(var(--sc),0.5); }
+    .opt:hover { background: var(--raise); transform: translateY(-1px); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 40%, var(--hairline)); }
+    .opt.picked { background: var(--accent); color: var(--accent-ink); box-shadow: inset 0 0 0 1px var(--accent), 0 12px 26px -12px color-mix(in oklab, var(--accent) 60%, transparent); }
     .opt.picked .k { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent-ink) 40%, transparent); color: var(--accent-ink); opacity: 0.85; }
 
     .quiz-nav { display: flex; justify-content: flex-start; align-items: center; margin-top: 26px; }
     .quiz-nav .ghost[hidden] { display: none; }
 
     /* ===== RÉSULTATS ===== */
-    .res-wrap { max-width: 980px; margin: 0 auto; padding: 28px 28px 60px; }
+    .res-wrap { max-width: 1000px; margin: 0 auto; padding: 28px 28px 60px; }
     .res-head { margin-bottom: 30px; }
-    .res-head h1 { font-size: clamp(34px, 4.6vw, 58px); font-weight: 700; letter-spacing: -0.035em; line-height: 1; margin: 18px 0 0; }
+    .res-head h1 { font-size: clamp(34px, 4.6vw, 58px); font-weight: 800; letter-spacing: -0.038em; line-height: 1.02; margin: 18px 0 0; }
     .res-card .core { padding: clamp(26px, 4vw, 44px); }
     .res-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 40px; align-items: center; }
 
@@ -412,7 +539,7 @@
     .radar-grid polygon, .radar-grid line { fill: none; stroke: var(--hairline-strong); stroke-width: 1; }
     .r-lab { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; fill: var(--muted); }
     .radar-poly {
-      fill: var(--accent-fill); stroke: var(--accent); stroke-width: 1.8; stroke-linejoin: round;
+      fill: var(--accent-fill); stroke: var(--accent); stroke-width: 2; stroke-linejoin: round;
       transform-box: fill-box; transform-origin: center;
       transform: scale(0.55); opacity: 0;
       transition: transform 900ms var(--ease-spring), opacity 500ms var(--ease);
@@ -424,57 +551,71 @@
 
     .r-rows { display: grid; gap: 16px; }
     .r-row .t { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 7px; }
-    .r-row .t .l { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+    .r-row .t .l { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
     .r-row .t .l em { font-style: normal; font-family: var(--mono); font-size: 10.5px; color: var(--muted); margin-inline-start: 8px; letter-spacing: 0.1em; }
     html[dir="rtl"] .r-row .t .l em { font-family: var(--sans-ar); letter-spacing: 0; }
     .r-row .t .pct { font-family: var(--mono); font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
-    .meter { height: 8px; border-radius: 999px; background: var(--track); overflow: hidden; }
+    .meter { height: 9px; border-radius: 999px; background: var(--track); overflow: hidden; }
     .meter i { display: block; height: 100%; border-radius: inherit; background: var(--accent-glow); transform-origin: 0 50%; transform: scaleX(0); transition: transform 900ms var(--ease); }
     html[dir="rtl"] .meter i { transform-origin: 100% 50%; }
     .meter i.top { background: var(--accent); }
-    .meter i.lvl-ok { background: #4E9B6F; }
-    .meter i.lvl-mid { background: var(--sand); }
-    .meter i.lvl-high { background: #B4552D; }
+    .meter i.lvl-ok { background: #3F9366; }
+    .meter i.lvl-mid { background: #C99A3F; }
+    .meter i.lvl-high { background: #C9562D; }
     .sc-legend { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 22px; padding: 13px 16px; border-radius: 14px; background: var(--glass); box-shadow: inset 0 0 0 1px var(--hairline); }
     .sc-legend .lg { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
     .sc-legend .lg i { width: 10px; height: 10px; border-radius: 999px; display: inline-block; flex: none; }
     html[dir="rtl"] .sc-legend .lg { font-family: var(--sans-ar); letter-spacing: 0; }
     .r-row .d { font-size: 12.5px; color: var(--muted); margin-top: 7px; line-height: 1.5; }
-    .r-quick { margin-top: 26px; padding: 16px 18px; border-radius: 16px; background: var(--accent-soft); font-size: 14px; line-height: 1.55; color: var(--ink); }
+    .r-quick { margin-top: 26px; padding: 17px 19px; border-radius: 16px; background: var(--accent-soft); font-size: 14px; line-height: 1.58; color: var(--ink); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 22%, transparent); }
     .r-quick b { color: var(--accent); }
 
     .profile-dark .core { gap: 0; }
-    .profile-dark .meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(242,242,240,0.55); margin-bottom: 16px; }
-    .profile-dark h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin: 0 0 14px; color: #fff; }
-    .profile-dark p { color: rgba(242,242,240,0.68); font-size: 15.5px; line-height: 1.6; max-width: 48ch; margin: 0 0 16px; }
-    .profile-dark .sec { font-size: 13.5px; color: rgba(242,242,240,0.55); border-top: 1px solid rgba(255,255,255,0.1); padding-top: 14px; }
-    .profile-dark .sec b { color: #fff; font-weight: 600; }
+    .profile-dark .meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(243,243,241,0.6); margin-bottom: 16px; }
+    .profile-dark h2 { font-size: clamp(30px, 4vw, 46px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; margin: 0 0 14px; color: #fff; }
+    .profile-dark p { color: rgba(243,243,241,0.72); font-size: 15.5px; line-height: 1.62; max-width: 50ch; margin: 0 0 16px; }
+    .profile-dark .sec { font-size: 13.5px; color: rgba(243,243,241,0.6); border-top: 1px solid rgba(255,255,255,0.12); padding-top: 14px; }
+    .profile-dark .sec b { color: #fff; font-weight: 700; }
 
     .arch-head { display: flex; align-items: center; gap: 20px; margin-bottom: 20px; }
-    .arch-head .m-ico { width: 58px; height: 58px; border-radius: 18px; margin: 0; }
-    .arch-head .m-ico svg { width: 28px; height: 28px; }
-    .arch-head .who .meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-    .arch-head .who h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 700; letter-spacing: -0.03em; line-height: 1; margin: 0; }
-    .arch-desc { font-size: 15.5px; color: var(--muted); line-height: 1.6; max-width: 56ch; margin: 0 0 22px; }
+    .arch-head .m-ico { width: 60px; height: 60px; border-radius: 18px; margin: 0; }
+    .arch-head .m-ico svg { width: 29px; height: 29px; }
+    .arch-head .who .meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+    .arch-head .who h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.02; margin: 0; }
+    .arch-desc { font-size: 15.5px; color: var(--muted); line-height: 1.62; max-width: 58ch; margin: 0 0 22px; }
     .fo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 26px; }
     .fo-cell { border-radius: 16px; background: var(--glass); box-shadow: inset 0 0 0 1px var(--hairline); padding: 16px; }
-    .fo-cell .meta { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+    .fo-cell .meta { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
     .fo-cell p { margin: 0; font-size: 14px; font-weight: 500; line-height: 1.45; }
     .res-second { margin-top: 22px; font-size: 13.5px; color: var(--muted); }
-    .res-second b { color: var(--ink); font-weight: 600; }
+    .res-second b { color: var(--ink); font-weight: 700; }
+
+    /* ===== SUGGESTIONS (plus de tests) ===== */
+    .res-more { margin-top: 34px; }
+    .res-more .rm-head { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+    .rm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .rm-card {
+      text-align: start; display: flex; align-items: center; gap: 13px;
+      padding: 14px; border-radius: 17px; background: var(--glass-2);
+      box-shadow: inset 0 0 0 1px var(--hairline);
+      transition: transform 250ms var(--ease), box-shadow 250ms var(--ease), background 250ms var(--ease);
+    }
+    .rm-card:hover { transform: translateY(-3px); background: var(--raise); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 36%, var(--hairline)), 0 18px 34px -22px rgba(var(--sc),0.6); }
+    .rm-card .m-ico { width: 38px; height: 38px; border-radius: 12px; margin: 0; }
+    .rm-card .m-ico svg { width: 19px; height: 19px; }
+    .rm-card .rm-t { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .rm-card .rm-t b { font-size: 14.5px; font-weight: 700; letter-spacing: -0.02em; }
+    .rm-card .rm-t small { font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 
     /* ===== PARTAGE ===== */
-    .share-block {
-      margin-top: 26px; padding: 20px; border-radius: 18px;
-      background: var(--glass); box-shadow: inset 0 0 0 1px var(--hairline);
-    }
+    .share-block { margin-top: 26px; padding: 20px; border-radius: 18px; background: var(--glass); box-shadow: inset 0 0 0 1px var(--hairline); }
     .share-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
     .share-row { display: flex; flex-wrap: wrap; gap: 8px; }
     .share-btn {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 10px 14px; border-radius: 999px; background: var(--glass-2);
       box-shadow: inset 0 0 0 1px var(--hairline-strong);
-      font: 600 13px/1 var(--sans);
+      font: 700 13px/1 var(--sans);
       transition: background 250ms var(--ease), transform 250ms var(--ease);
     }
     html[dir="rtl"] .share-btn { font-family: var(--sans-ar); }
@@ -485,9 +626,9 @@
       position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
       transform: translateX(-50%) translateY(20px); opacity: 0; pointer-events: none;
       background: var(--ink); color: var(--canvas);
-      font: 600 13px/1.35 var(--sans); padding: 12px 18px; border-radius: 999px; z-index: 300;
+      font: 700 13px/1.35 var(--sans); padding: 12px 18px; border-radius: 999px; z-index: 300;
       transition: opacity 300ms var(--ease), transform 300ms var(--ease);
-      box-shadow: 0 12px 32px -12px rgba(var(--sc),0.4); max-width: calc(100vw - 48px); text-align: center;
+      box-shadow: 0 14px 34px -12px rgba(var(--sc),0.5); max-width: calc(100vw - 48px); text-align: center;
     }
     html[dir="rtl"] #toast { font-family: var(--sans-ar); }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -498,72 +639,72 @@
     .qbox .mid { stroke: var(--hairline-strong); stroke-dasharray: 3 4; }
     .qbox .quad-hl { fill: var(--accent-soft); }
     .qbox .axis { font: 500 9px var(--mono); letter-spacing: 0.1em; text-transform: uppercase; fill: var(--muted); }
-    .qbox .corner { font: 600 9px var(--mono); letter-spacing: 0.12em; fill: var(--muted); opacity: 0.85; }
+    .qbox .corner { font: 700 9px var(--mono); letter-spacing: 0.12em; fill: var(--muted); opacity: 0.9; }
     html[dir="rtl"] .qbox .axis, html[dir="rtl"] .qbox .corner { font-family: var(--sans-ar); letter-spacing: 0; }
     .qbox .q-dot { transition: transform 900ms var(--ease); }
 
     .res-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 34px 0 10px; }
-    .res-note { font-size: 12.5px; color: var(--muted); max-width: 62ch; line-height: 1.55; margin: 8px 0 0; }
+    .res-note { font-size: 12.5px; color: var(--muted); max-width: 64ch; line-height: 1.55; margin: 8px 0 0; }
 
     /* ===== CLOSING ===== */
     .closing {
-      padding: 100px 0; margin: 48px 28px 28px; border-radius: 40px;
-      background: linear-gradient(180deg, #131313 0%, #050505 100%);
-      color: #F2F2F0; position: relative; overflow: hidden;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 80px -40px rgba(16,16,18,0.6);
+      padding: 96px 0; margin: 44px 28px 28px; border-radius: 40px;
+      background: linear-gradient(180deg, #16161C 0%, #0B0B0F 100%);
+      color: #F3F3F1; position: relative; overflow: hidden;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.09), 0 34px 90px -44px rgba(16,16,22,0.7);
     }
-    html[data-theme="nuit"] .closing { box-shadow: inset 0 0 0 1px var(--hairline), 0 30px 80px -40px rgba(0,0,0,0.8); }
     .closing::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(700px 360px at 30% 0%, rgba(90,140,122,0.32), transparent 70%);
-      pointer-events: none;
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(620px 320px at 18% 10%, color-mix(in oklab, var(--accent-glow) 58%, transparent), transparent 68%),
+        radial-gradient(560px 300px at 84% 24%, color-mix(in oklab, var(--accent) 48%, transparent), transparent 68%),
+        radial-gradient(620px 340px at 52% 108%, color-mix(in oklab, var(--sand) 42%, transparent), transparent 70%);
     }
     .closing-inner { position: relative; max-width: 1040px; padding: 0 32px; margin: 0 auto; text-align: center; }
-    .closing h2 { font-size: clamp(36px, 5vw, 68px); font-weight: 700; letter-spacing: -0.035em; line-height: 1; margin: 0 0 18px; max-width: 18ch; margin-inline: auto; }
-    .closing p { color: rgba(242,242,240,0.65); font-size: 16.5px; margin: 0 auto 32px; max-width: 48ch; line-height: 1.55; }
+    .closing .spectrum-bar { max-width: 260px; margin: 0 auto 26px; }
+    .closing h2 { font-size: clamp(36px, 5.2vw, 70px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; margin: 0 0 18px; max-width: 18ch; margin-inline: auto; }
+    .closing p { color: rgba(243,243,241,0.68); font-size: 16.5px; margin: 0 auto 30px; max-width: 52ch; line-height: 1.6; }
+    .closing .close-nudge { margin: 22px auto 0; max-width: 60ch; font-size: 13px; color: rgba(243,243,241,0.6); }
+    .closing .close-nudge b { color: #fff; font-weight: 700; }
 
     /* ===== FOOTER ===== */
-    footer { padding: 30px 28px 30px; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
-    footer .row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; max-width: 1240px; margin: 0 auto; align-items: center; }
-    footer .powered { display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px; border-radius: 10px; background: var(--glass-2); border: 1px solid var(--hairline); text-decoration: none; color: inherit; opacity: 0.75; transition: opacity 300ms var(--ease); }
-    footer .powered:hover, footer .powered:focus-visible { opacity: 0.95; }
+    footer { padding: 30px 28px 34px; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+    footer .spectrum-bar { margin-bottom: 24px; opacity: 0.85; }
+    footer .row { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; max-width: 1280px; margin: 0 auto; align-items: center; }
+    footer .powered { display: inline-flex; align-items: center; gap: 8px; padding: 5px 10px; border-radius: 10px; background: var(--glass-2); border: 1px solid var(--hairline); text-decoration: none; color: inherit; opacity: 0.8; transition: opacity 300ms var(--ease); }
+    footer .powered:hover, footer .powered:focus-visible { opacity: 1; }
     footer .powered img { height: 26px; width: auto; object-fit: contain; }
     footer .powered .pb-text { display: flex; flex-direction: column; line-height: 1.25; text-align: start; letter-spacing: 0.06em; }
     footer .powered .pb-by { font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
-    footer .powered .pb-brand { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink); }
-
-    /* ===== TRUST LINE · COMPTEURS ===== */
-    .trust-line { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 20px; font-size: 12.5px; color: var(--muted); }
-    .trust-line .tl-chip { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; border: 1px solid var(--hairline-strong); color: var(--ink); background: var(--glass-2); }
-    .trust-line .tl-chip.is-free { border-color: var(--accent); color: var(--accent); }
-    .trust-line b { font-family: var(--mono); font-size: 13.5px; font-weight: 600; color: var(--ink); }
-    .m-count { display: flex; align-items: center; gap: 6px; font-size: 10.5px; letter-spacing: 0.05em; color: var(--muted); margin-top: 12px; }
-    .m-count b { font-family: var(--mono); font-weight: 600; color: var(--accent); font-size: 11.5px; }
-    html[dir="rtl"] .trust-line, html[dir="rtl"] .trust-line span, html[dir="rtl"] .m-count, html[dir="rtl"] .m-count span { font-family: var(--sans-ar); letter-spacing: 0; }
+    footer .powered .pb-brand { font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: 0.02em; color: var(--ink); }
 
     /* ===== REVEAL ===== */
-    .reveal { opacity: 0; transform: translateY(18px); filter: blur(6px); transition: opacity 800ms var(--ease), transform 800ms var(--ease), filter 800ms var(--ease); }
+    .reveal { opacity: 0; transform: translateY(20px); filter: blur(6px); transition: opacity 800ms var(--ease), transform 800ms var(--ease), filter 800ms var(--ease); }
     .reveal.is-in { opacity: 1; transform: none; filter: none; }
 
     /* ===== RESPONSIVE ===== */
+    @media (max-width: 1060px) {
+      .modes, .modes.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    }
     @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; padding-top: 64px; padding-bottom: 72px; min-height: 0; }
+      .hero { grid-template-columns: 1fr; padding-top: 60px; padding-bottom: 64px; min-height: 0; gap: 40px; }
       .nav ul { display: none; }
-      .section-head { grid-template-columns: 1fr; gap: 18px; }
-      .modes { grid-template-columns: 1fr; }
-      .span-2, .span-3, .span-6 { grid-column: span 1; }
-      .row-2 { grid-row: auto; }
       .meth-grid { grid-template-columns: 1fr; gap: 24px; }
       .meth-aside { position: static; }
       .res-grid { grid-template-columns: 1fr; gap: 28px; }
+      .rm-grid { grid-template-columns: 1fr 1fr; }
       .closing { margin: 28px 16px; padding: 72px 0; }
       .layer-head { padding: 14px 20px; }
+    }
+    @media (max-width: 700px) {
+      .modes, .modes.cols-2 { grid-template-columns: 1fr; }
+      .rm-grid { grid-template-columns: 1fr; }
+      .fam-head { gap: 12px; }
     }
     @media (max-width: 640px) {
       .wrap { padding: 0 20px; }
       .nav { gap: 8px; padding: 5px 6px 5px 12px; }
-      .pill { padding: 7px 7px 7px 12px; }
-      /* réponses empilées pleine largeur, libellés visibles */
+      .pill { padding: 7px 7px 7px 13px; }
       .likert { grid-template-columns: 1fr; gap: 8px; }
       .lik { flex-direction: row; justify-content: flex-start; gap: 14px; min-height: 54px; padding: 12px 16px; }
       .lik .n { font-size: 15px; min-width: 18px; text-align: center; }
@@ -581,7 +722,8 @@
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .mesh::before, .mesh::after { animation: none; }
+      .mesh span { animation: none; }
+      .hero h1 .soft { animation: none; }
       .reveal { opacity: 1; transform: none; filter: none; transition: none; }
       .view.is-active, .q-enter, #app-layer.is-open { animation: none; }
       .radar-poly, .radar-dot, .meter i, .progress .bar, .qbox .q-dot { transition: none; }
@@ -590,7 +732,7 @@
   </style>
 </head>
 <body>
-  <div class="mesh" aria-hidden="true"></div>
+  <div class="mesh" aria-hidden="true"><span></span><span></span><span></span></div>
 
   <div class="nav-shell">
     <header class="nav">
@@ -630,7 +772,7 @@
         </div>
         <aside class="shell" data-od-id="hero-preview" data-i18n-aria="pv_aria" aria-label="Aperçu d'un rapport de résultats">
           <div class="core">
-            <div class="preview-bar" aria-hidden="true"><span></span><span></span><span></span></div>
+            <div class="preview-bar" aria-hidden="true"><i></i><i></i><i></i></div>
             <div class="pv-grid">
               <div class="pv-cell span2">
                 <div class="meta" data-i18n="pv_report">aperçu · rapport</div>
@@ -645,6 +787,19 @@
                 <div class="num">2–6<small data-i18n="pv_time_v">min</small></div>
               </div>
             </div>
+            <div class="spectrum-bar" style="margin-top:16px;"></div>
+            <div class="pv-legend" aria-hidden="true">
+              <span>Big Five</span>
+              <span>HEXACO</span>
+              <span>DISC</span>
+              <span>Attachement</span>
+              <span>Schémas</span>
+              <span>Estime</span>
+              <span>Bien-être</span>
+              <span>RIASEC</span>
+              <span>Archétypes</span>
+              <span>Valeurs</span>
+            </div>
             <div class="pv-note"><span class="pulse"></span><span data-i18n="pv_note">100 % local · tes réponses ne quittent jamais ton appareil</span></div>
           </div>
         </aside>
@@ -653,145 +808,220 @@
       <section class="block reveal" id="approches" data-od-id="approches">
         <div class="wrap">
           <div class="section-head">
-            <div>
-              <span class="eyebrow"><span class="dot"></span><span data-i18n="ap_eyebrow">01 · les approches</span></span>
-              <h2 data-i18n="ap_h2">Choisis ta lecture de toi.</h2>
-            </div>
+            <span class="eyebrow"><span class="dot"></span><span data-i18n="ap_eyebrow">01 · les approches</span></span>
+            <h2 data-i18n="ap_h2">Choisis ta lecture de toi.</h2>
             <p data-i18n="ap_p">Dix façons complémentaires d'explorer ta personnalité. Les plus sérieuses, la plus professionnelle, la plus introspective — à toi de voir par où commencer.</p>
           </div>
-          <div class="modes">
-            <button class="shell mode-card span-3 row-2" data-mode="bigfive" data-od-id="mode-bigfive">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V13M9 20V5M14 20v-9M19 20V8"/></svg></span>
-                <span class="chip" data-i18n="chip_full">Le plus complet</span>
-                <span class="meta" style="margin-top:14px;" data-i18n="m_meta1">01 · scientifique</span>
-                <span class="h3" data-i18n="m_title1">Big Five</span>
-                <p data-i18n="m_p1">Le modèle le plus validé par la recherche en psychologie. Un profil en cinq dimensions — ouverture, conscience, énergie sociale, empathie, sérénité — sans cases ni étiquettes arbitraires.</p>
-                <span class="m-count"><b data-cc="bigfive"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec1">25 questions · ≈ 4 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+
+          <nav class="fam-nav" data-i18n-aria="fam_nav" aria-label="Familles d'approches">
+            <a href="#fam-a"><i style="--tc:oklch(.63 .15 168)"></i><span data-i18n="fam_a_n">Les fondations</span><small>02</small></a>
+            <a href="#fam-b"><i style="--tc:oklch(.60 .17 8)"></i><span data-i18n="fam_b_n">Comportement &amp; relations</span><small>03</small></a>
+            <a href="#fam-c"><i style="--tc:oklch(.68 .15 70)"></i><span data-i18n="fam_c_n">Regard &amp; équilibre</span><small>02</small></a>
+            <a href="#fam-d"><i style="--tc:oklch(.60 .18 338)"></i><span data-i18n="fam_d_n">Direction &amp; identité</span><small>03</small></a>
+          </nav>
+
+          <div class="fam" id="fam-a" style="--tc:oklch(.63 .15 168)">
+            <div class="fam-head">
+              <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.5l7 4v9l-7 4-7-4v-9z"/><path d="M5 7.5l7 4 7-4M12 11.5v9"/></svg></span>
+              <div>
+                <div class="meta"><span>02</span> <span data-i18n="fam_unit">approches</span></div>
+                <h3 data-i18n="fam_a_n">Les fondations</h3>
+                <p data-i18n="fam_a_d">Les modèles les plus étudiés en psychologie. Le socle solide.</p>
+              </div>
+            </div>
+            <div class="modes cols-2">
+              <button class="shell mode-card" data-mode="bigfive" data-od-id="mode-bigfive">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20V13M9 20V5M14 20v-9M19 20V8"/></svg></span>
+                    <span class="chip" data-i18n="chip_full">Le plus complet</span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta1">01 · scientifique</span>
+                  <span class="h3" data-i18n="m_title1">Big Five</span>
+                  <p data-i18n="m_p1">Le modèle le plus validé par la recherche en psychologie. Un profil en cinq dimensions — ouverture, conscience, énergie sociale, empathie, sérénité — sans cases ni étiquettes arbitraires.</p>
+                  <span class="m-count"><b data-cc="bigfive"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec1">25 questions · ≈ 4 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button class="shell mode-card span-3" data-mode="disc" data-od-id="mode-disc">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></span>
-                <span class="meta" data-i18n="m_meta2">02 · professionnel</span>
-                <span class="h3" data-i18n="m_title2">DISC</span>
-                <p data-i18n="m_p2">Comment tu agis face aux autres, aux défis et aux règles. Le langage des équipes et du travail.</p>
-                <span class="m-count"><b data-cc="disc"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec2">20 questions · ≈ 3 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+              </button>
+              <button class="shell mode-card" data-mode="hexaco" data-od-id="mode-hexaco">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.5l8.2 4.75v9.5L12 21.5l-8.2-4.75v-9.5z"/></svg></span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta4">02 · recherche approfondie</span>
+                  <span class="h3" data-i18n="m_title4">HEXACO</span>
+                  <p data-i18n="m_p4">L'évolution scientifique du Big Five : six dimensions, dont l'Honnêteté-Humilité, validées par des décennies de recherche interculturelle.</p>
+                  <span class="m-count"><b data-cc="hexaco"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec4">24 questions · ≈ 5 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button class="shell mode-card span-3" data-mode="arch" data-od-id="mode-arch">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5C7 5.5 9.5 5 12 5s5 .5 8 2.5V13c0 4.5-3.4 7.5-8 7.5S4 17.5 4 13V7.5z"/><ellipse cx="9" cy="11.5" rx="1.7" ry="2.4"/><ellipse cx="15" cy="11.5" rx="1.7" ry="2.4"/></svg></span>
-                <span class="meta" data-i18n="m_meta3">03 · ludique</span>
-                <span class="h3" data-i18n="m_title3">Archétypes</span>
-                <p data-i18n="m_p3">Des situations concrètes, des choix spontanés — et un portrait qui te ressemble.</p>
-                <span class="m-count"><b data-cc="arch"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec3">12 questions · ≈ 2 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="fam" id="fam-b" style="--tc:oklch(.60 .17 8)">
+            <div class="fam-head">
+              <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="16.5" cy="10" r="2.6"/><path d="M3.4 19c0-3 2.1-5.2 4.6-5.2s4.6 2.2 4.6 5.2"/><path d="M14 18.6c.2-2.6 1.7-4.5 3.5-4.5 1.6 0 3 1.4 3.1 3.5"/></svg></span>
+              <div>
+                <div class="meta"><span>03</span> <span data-i18n="fam_unit">approches</span></div>
+                <h3 data-i18n="fam_b_n">Comportement &amp; relations</h3>
+                <p data-i18n="fam_b_d">Comment tu agis avec les autres, et ce qui se joue dans tes liens.</p>
+              </div>
+            </div>
+            <div class="modes">
+              <button class="shell mode-card" data-mode="disc" data-od-id="mode-disc">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg></span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta2">03 · professionnel</span>
+                  <span class="h3" data-i18n="m_title2">DISC</span>
+                  <p data-i18n="m_p2">Comment tu agis face aux autres, aux défis et aux règles. Le langage des équipes et du travail.</p>
+                  <span class="m-count"><b data-cc="disc"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec2">20 questions · ≈ 3 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button class="shell mode-card span-2" data-mode="hexaco" data-od-id="mode-hexaco">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.5l8.2 4.75v9.5L12 21.5l-8.2-4.75v-9.5z"/></svg></span>
-                <span class="meta" data-i18n="m_meta4">04 · recherche approfondie</span>
-                <span class="h3" data-i18n="m_title4">HEXACO</span>
-                <p data-i18n="m_p4">L'évolution scientifique du Big Five : six dimensions, dont l'Honnêteté-Humilité, validées par des décennies de recherche interculturelle.</p>
-                <span class="m-count"><b data-cc="hexaco"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec4">24 questions · ≈ 5 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+              </button>
+              <button class="shell mode-card" data-mode="attach" data-od-id="mode-attach">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.5A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 7 3.5C19 15.5 12 20 12 20z"/></svg></span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta6">04 · relations</span>
+                  <span class="h3" data-i18n="m_title6">Attachement</span>
+                  <p data-i18n="m_p6">La théorie de l'attachement : comment tu construis la proximité — confiance, inquiétude, distance.</p>
+                  <span class="m-count"><b data-cc="attach"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec6">16 questions · ≈ 4 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button class="shell mode-card span-2" data-mode="riasec" data-od-id="mode-riasec">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="12" rx="2"/><path d="M9 8V6.5A2 2 0 0 1 11 4.5h2a2 2 0 0 1 2 2V8"/></svg></span>
-                <span class="meta" data-i18n="m_meta5">05 · orientation</span>
-                <span class="h3" data-i18n="m_title5">RIASEC</span>
-                <p data-i18n="m_p5">Le modèle de John Holland pour décoder tes intérêts professionnels : six familles, un code en trois lettres.</p>
-                <span class="m-count"><b data-cc="riasec"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec5">18 questions · ≈ 3 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+              </button>
+              <button class="shell mode-card" data-mode="schemas" data-od-id="mode-schemas">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.5l8.2 4.6-8.2 4.6-8.2-4.6z"/><path d="M3.8 12.6l8.2 4.6 8.2-4.6"/><path d="M3.8 16.9l8.2 4.6 8.2-4.6"/></svg></span>
+                    <span class="chip" data-i18n="chip_new">Nouveau</span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta7">05 · thérapie des schémas</span>
+                  <span class="h3" data-i18n="m_title7">Schémas de pensée</span>
+                  <p data-i18n="m_p7">Inspiré de la thérapie des schémas de Jeffrey Young : six schémas précoces — imperfection, méfiance, inhibition, exigences, abnégation, dépendance — mesurés avec un barème clinique, sans pièges ni artifices.</p>
+                  <span class="m-count"><b data-cc="schemas"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec7">30 questions · ≈ 6 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button class="shell mode-card span-2" data-mode="attach" data-od-id="mode-attach">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.5A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 7 3.5C19 15.5 12 20 12 20z"/></svg></span>
-                <span class="meta" data-i18n="m_meta6">06 · relations</span>
-                <span class="h3" data-i18n="m_title6">Attachement</span>
-                <p data-i18n="m_p6">La théorie de l'attachement : comment tu construis la proximité — confiance, inquiétude, distance.</p>
-                <span class="m-count"><b data-cc="attach"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec6">16 questions · ≈ 4 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="fam" id="fam-c" style="--tc:oklch(.68 .15 70)">
+            <div class="fam-head">
+              <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-6.6-4.2-6.6-9.2A3.7 3.7 0 0 1 12 8.2a3.7 3.7 0 0 1 6.6 2.6C18.6 15.8 12 20 12 20z"/></svg></span>
+              <div>
+                <div class="meta"><span>02</span> <span data-i18n="fam_unit">approches</span></div>
+                <h3 data-i18n="fam_c_n">Regard &amp; équilibre</h3>
+                <p data-i18n="fam_c_d">Ce que tu penses de toi, et ton niveau d'énergie et de sérénité.</p>
+              </div>
+            </div>
+            <div class="modes cols-2">
+              <button class="shell mode-card" data-mode="esteem" data-od-id="mode-esteem">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M8.5 14.2c.7 1.3 2 2.1 3.5 2.1s2.8-.8 3.5-2.1"/><circle cx="9.3" cy="10.3" r=".9" fill="currentColor" stroke="none"/><circle cx="14.7" cy="10.3" r=".9" fill="currentColor" stroke="none"/></svg></span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta8">06 · bien-être</span>
+                  <span class="h3" data-i18n="m_title8">Estime de soi</span>
+                  <p data-i18n="m_p8">L'échelle de référence mondiale (Rosenberg, 1965) : 10 affirmations pour mesurer le regard que tu poses sur toi — ni plus, ni moins.</p>
+                  <span class="m-count"><b data-cc="esteem"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec8">10 questions · ≈ 2 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button class="shell mode-card span-6" data-mode="schemas" data-od-id="mode-schemas">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3.5l8.2 4.6-8.2 4.6-8.2-4.6z"/><path d="M3.8 12.6l8.2 4.6 8.2-4.6"/><path d="M3.8 16.9l8.2 4.6 8.2-4.6"/></svg></span>
-                <span class="chip" data-i18n="chip_new">Nouveau</span>
-                <span class="meta" style="margin-top:14px;" data-i18n="m_meta7">07 · thérapie des schémas</span>
-                <span class="h3" data-i18n="m_title7">Schémas de pensée</span>
-                <p data-i18n="m_p7">Inspiré de la thérapie des schémas de Jeffrey Young : six schémas précoces — imperfection, méfiance, inhibition, exigences, abnégation, dépendance — mesurés avec un barème clinique, sans pièges ni artifices.</p>
-                <span class="m-count"><b data-cc="schemas"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec7">30 questions · ≈ 6 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+              </button>
+              <button class="shell mode-card" data-mode="wellbeing" data-od-id="mode-wellbeing">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 3.4v2.3M12 18.3v2.3M3.4 12h2.3M18.3 12h2.3M6 6l1.6 1.6M16.4 16.4L18 18M18 6l-1.6 1.6M7.6 16.4L6 18"/></svg></span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta9">07 · dépistage</span>
+                  <span class="h3" data-i18n="m_title9">Bien-être</span>
+                  <p data-i18n="m_p9">Deux instruments de dépistage validés par l'OMS et la clinique (WHO-5 et GAD-7) : ton niveau de sérénité et de tension sur les deux dernières semaines.</p>
+                  <span class="m-count"><b data-cc="wellbeing"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec9">12 questions · ≈ 3 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button class="shell mode-card span-3" data-mode="esteem" data-od-id="mode-esteem">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M8.5 14.2c.7 1.3 2 2.1 3.5 2.1s2.8-.8 3.5-2.1"/><circle cx="9.3" cy="10.3" r=".9" fill="currentColor" stroke="none"/><circle cx="14.7" cy="10.3" r=".9" fill="currentColor" stroke="none"/></svg></span>
-                <span class="meta" data-i18n="m_meta8">08 · bien-être</span>
-                <span class="h3" data-i18n="m_title8">Estime de soi</span>
-                <p data-i18n="m_p8">L'échelle de référence mondiale (Rosenberg, 1965) : 10 affirmations pour mesurer le regard que tu poses sur toi — ni plus, ni moins.</p>
-                <span class="m-count"><b data-cc="esteem"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec8">10 questions · ≈ 2 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="fam" id="fam-d" style="--tc:oklch(.60 .18 338)">
+            <div class="fam-head">
+              <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.2 5.2-5.2 2.2 2.2-5.2z"/></svg></span>
+              <div>
+                <div class="meta"><span>03</span> <span data-i18n="fam_unit">approches</span></div>
+                <h3 data-i18n="fam_d_n">Direction &amp; identité</h3>
+                <p data-i18n="fam_d_d">Tes intérêts, ton imaginaire, tes moteurs profonds.</p>
+              </div>
+            </div>
+            <div class="modes">
+              <button class="shell mode-card" data-mode="riasec" data-od-id="mode-riasec">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="12" rx="2"/><path d="M9 8V6.5A2 2 0 0 1 11 4.5h2a2 2 0 0 1 2 2V8"/></svg></span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta5">08 · orientation</span>
+                  <span class="h3" data-i18n="m_title5">RIASEC</span>
+                  <p data-i18n="m_p5">Le modèle de John Holland pour décoder tes intérêts professionnels : six familles, un code en trois lettres.</p>
+                  <span class="m-count"><b data-cc="riasec"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec5">18 questions · ≈ 3 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button class="shell mode-card span-3" data-mode="wellbeing" data-od-id="mode-wellbeing">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-6.5-4.2-6.5-9A3.6 3.6 0 0 1 12 8.4 3.6 3.6 0 0 1 18.5 11c0 4.8-6.5 9-6.5 9z"/></svg></span>
-                <span class="meta" data-i18n="m_meta9">09 · dépistage</span>
-                <span class="h3" data-i18n="m_title9">Bien-être</span>
-                <p data-i18n="m_p9">Deux instruments de dépistage validés par l'OMS et la clinique (WHO-5 et GAD-7) : ton niveau de sérénité et de tension sur les deux dernières semaines.</p>
-                <span class="m-count"><b data-cc="wellbeing"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec9">12 questions · ≈ 3 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+              </button>
+              <button class="shell mode-card" data-mode="arch" data-od-id="mode-arch">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7.5C7 5.5 9.5 5 12 5s5 .5 8 2.5V13c0 4.5-3.4 7.5-8 7.5S4 17.5 4 13V7.5z"/><ellipse cx="9" cy="11.5" rx="1.7" ry="2.4"/><ellipse cx="15" cy="11.5" rx="1.7" ry="2.4"/></svg></span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta3">09 · ludique</span>
+                  <span class="h3" data-i18n="m_title3">Archétypes</span>
+                  <p data-i18n="m_p3">Des situations concrètes, des choix spontanés — et un portrait qui te ressemble.</p>
+                  <span class="m-count"><b data-cc="arch"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec3">12 questions · ≈ 2 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
-            <button class="shell mode-card span-3" data-mode="values" data-od-id="mode-values">
-              <span class="core">
-                <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.4 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.3l6-.9z"/></svg></span>
-                <span class="meta" data-i18n="m_meta10">10 · psychologie des valeurs</span>
-                <span class="h3" data-i18n="m_title10">Valeurs</span>
-                <p data-i18n="m_p10">Le modèle de Schwartz, la référence mondiale en psychologie des valeurs : 21 portraits pour révéler les deux moteurs qui guident tes décisions.</p>
-                <span class="m-count"><b data-cc="values"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
-                <span class="m-foot">
-                  <span class="m-spec" data-i18n="m_spec10">21 questions · ≈ 4 min</span>
-                  <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+              </button>
+              <button class="shell mode-card" data-mode="values" data-od-id="mode-values">
+                <span class="core">
+                  <span class="m-top">
+                    <span class="m-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.4 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.3l6-.9z"/></svg></span>
+                  </span>
+                  <span class="meta" data-i18n="m_meta10">10 · psychologie des valeurs</span>
+                  <span class="h3" data-i18n="m_title10">Valeurs</span>
+                  <p data-i18n="m_p10">Le modèle de Schwartz, la référence mondiale en psychologie des valeurs : 21 portraits pour révéler les deux moteurs qui guident tes décisions.</p>
+                  <span class="m-count"><b data-cc="values"></b> <span data-i18n="done_tail">ont passé ce test</span></span>
+                  <span class="m-foot">
+                    <span class="m-spec" data-i18n="m_spec10">21 questions · ≈ 4 min</span>
+                    <span class="m-go"><span data-i18n="m_go">Lancer</span> <svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
+                  </span>
                 </span>
-              </span>
-            </button>
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -808,42 +1038,42 @@
             </a>
           </div>
           <div>
-            <div class="meth-note">
+            <div class="meth-note" style="--tc:oklch(.60 .16 264)">
               <span class="idx">01</span>
               <div>
                 <h3 data-i18n="mn1t">Big Five — cinq dimensions, pas des cases</h3>
                 <p data-i18n="mn1p">Chaque dimension est un continuum : tout le monde se situe quelque part entre les deux pôles. Ton résultat est un profil, pas un type — c'est ce qui le rend nuancé et fiable.</p>
               </div>
             </div>
-            <div class="meth-note">
+            <div class="meth-note" style="--tc:oklch(.63 .16 42)">
               <span class="idx">02</span>
               <div>
                 <h3 data-i18n="mn2t">DISC — ton style face aux autres</h3>
                 <p data-i18n="mn2p">Le DISC décortique ton comportement observable : comment tu décides (D), tu convaincs (I), tu coopères (S) et tu structures (C). Un style dominant, jamais une limite.</p>
               </div>
             </div>
-            <div class="meth-note">
+            <div class="meth-note" style="--tc:oklch(.60 .18 338)">
               <span class="idx">03</span>
               <div>
                 <h3 data-i18n="mn3t">Archétypes — un portrait spontané</h3>
                 <p data-i18n="mn3p">Des choix concrets plutôt que des jugements sur soi-même. Le résultat révèle tes inclinaisons naturelles : une boussole pour la réflexion, pas une vérité absolue.</p>
               </div>
             </div>
-            <div class="meth-note">
+            <div class="meth-note" style="--tc:oklch(.57 .17 300)">
               <span class="idx">04</span>
-              <div>
-                <h3 data-i18n="mn4t">Des modèles de spécialistes</h3>
-                <p data-i18n="mn4p">Chaque questionnaire s'appuie sur un cadre établi : Costa &amp; McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton &amp; Lee (HEXACO), Bowlby puis Bartholomew &amp; Horowitz (attachement), Jeffrey Young (schémas de pensée), Rosenberg (estime de soi), OMS (WHO-5) et Spitzer (GAD-7), Schwartz. Les items sont des formulations originales inspirées de ces cadres.</p>
-              </div>
-            </div>
-            <div class="meth-note">
-              <span class="idx">05</span>
               <div>
                 <h3 data-i18n="mn6t">Schémas de pensée — des lentilles apprises tôt</h3>
                 <p data-i18n="mn6p">Inspiré du Young Schema Questionnaire de Jeffrey Young : un schéma est une croyance formée tôt, réactivée sous stress. Chaque schéma reçoit une moyenne de 1 à 5, lue par seuils cliniques — sain, modéré, significatif.</p>
               </div>
             </div>
-            <div class="meth-note">
+            <div class="meth-note" style="--tc:oklch(.62 .15 232)">
+              <span class="idx">05</span>
+              <div>
+                <h3 data-i18n="mn4t">Des modèles de spécialistes</h3>
+                <p data-i18n="mn4p">Chaque questionnaire s'appuie sur un cadre établi : Costa &amp; McCrae (Big Five), Marston (DISC), Holland (RIASEC), Ashton &amp; Lee (HEXACO), Bowlby puis Bartholomew &amp; Horowitz (attachement), Jeffrey Young (schémas de pensée), Rosenberg (estime de soi), OMS (WHO-5) et Spitzer (GAD-7), Schwartz. Les items sont des formulations originales inspirées de ces cadres.</p>
+              </div>
+            </div>
+            <div class="meth-note" style="--tc:oklch(.63 .15 168)">
               <span class="idx">06</span>
               <div>
                 <h3 data-i18n="mn5t">Un outil d'introspection</h3>
@@ -856,18 +1086,21 @@
 
       <section class="closing reveal" data-od-id="closing">
         <div class="closing-inner">
+          <div class="spectrum-bar" aria-hidden="true"></div>
           <h2 data-i18n="close_h2">Prêt·e à te rencontrer ?</h2>
           <p data-i18n="close_p">Dix minutes maximum, dix approches au choix, un résultat illustré et partageable. Ta première intuition est presque toujours la bonne.</p>
           <a class="pill pill-light" href="#approches">
             <span data-i18n="close_cta">Commencer maintenant</span>
             <span class="icon-wrap"><svg viewBox="0 0 12 12" stroke-width="1.6"><path d="M2.5 6h7M6 2.5L9.5 6 6 9.5"/></svg></span>
           </a>
+          <p class="close-nudge" data-i18n="nudge_p">Pas sûr·e par où commencer ? Commence par les Archétypes (2 min) : un premier aperçu immédiat, puis creuse avec le Big Five.</p>
         </div>
       </section>
     </div>
   </main>
 
   <footer>
+    <div class="spectrum-bar" aria-hidden="true"></div>
     <div class="row">
       <span data-i18n="foot_l">Introspec · test de personnalité · les réponses restent sur ton appareil</span>
       <a class="powered" href="https://araignee-systems.com/" target="_blank" rel="noopener noreferrer" title="Araignée Systems">
@@ -964,6 +1197,13 @@
     /* ============ UI TRILINGUE ============ */
     const UI = {
       fr: {
+        fam_nav: "Familles d’approches", fam_unit: "approches",
+        fam_a_n: "Les fondations", fam_a_d: "Les modèles les plus étudiés en psychologie. Le socle solide.",
+        fam_b_n: "Comportement & relations", fam_b_d: "Comment tu agis avec les autres, et ce qui se joue dans tes liens.",
+        fam_c_n: "Regard & équilibre", fam_c_d: "Ce que tu penses de toi, et ton niveau d’énergie et de sérénité.",
+        fam_d_n: "Direction & identité", fam_d_d: "Tes intérêts, ton imaginaire, tes moteurs profonds.",
+        nudge_p: "Pas sûr·e par où commencer ? Commence par les Archétypes (2 min) : un premier aperçu immédiat, puis creuse avec le Big Five.",
+        res_more: "Envie d’aller plus loin ?",
         nav_1: "Les 10 approches", nav_2: "Méthode", nav_cta: "Commencer",
         hero_eyebrow: "Test de personnalité · 10 approches",
         hero_h1: 'Dix regards sur <span class="soft">qui tu es vraiment.</span>',
@@ -978,22 +1218,22 @@
         m_meta1: "01 · scientifique", m_title1: "Big Five",
         m_p1: "Le modèle le plus validé par la recherche en psychologie. Un profil en cinq dimensions — ouverture, conscience, énergie sociale, empathie, sérénité — sans cases ni étiquettes arbitraires.",
         m_spec1: "25 questions · ≈ 4 min",
-        m_meta2: "02 · professionnel", m_title2: "DISC",
+        m_meta2: "03 · professionnel", m_title2: "DISC",
         m_p2: "Comment tu agis face aux autres, aux défis et aux règles. Le langage des équipes et du travail.",
         m_spec2: "20 questions · ≈ 3 min",
-        m_meta3: "03 · ludique", m_title3: "Archétypes",
+        m_meta3: "09 · ludique", m_title3: "Archétypes",
         m_p3: "Des situations concrètes, des choix spontanés — et un portrait qui te ressemble.",
         m_spec3: "12 questions · ≈ 2 min",
-        m_meta4: "04 · recherche approfondie", m_title4: "HEXACO",
+        m_meta4: "02 · recherche approfondie", m_title4: "HEXACO",
         m_p4: "L'évolution scientifique du Big Five : six dimensions, dont l'Honnêteté-Humilité, validées par des décennies de recherche interculturelle.",
         m_spec4: "24 questions · ≈ 5 min",
-        m_meta5: "05 · orientation", m_title5: "RIASEC",
+        m_meta5: "08 · orientation", m_title5: "RIASEC",
         m_p5: "Le modèle de John Holland pour décoder tes intérêts professionnels : six familles, un code en trois lettres qui guide vers des environnements qui te conviennent.",
         m_spec5: "18 questions · ≈ 3 min",
-        m_meta6: "06 · relations", m_title6: "Attachement",
+        m_meta6: "04 · relations", m_title6: "Attachement",
         m_p6: "La théorie de l'attachement (Bowlby, puis Bartholomew & Horowitz) : comment tu construis la proximité — confiance, inquiétude, distance.",
         m_spec6: "16 questions · ≈ 4 min", m_go: "Lancer",
-        m_meta7: "07 · thérapie des schémas", m_title7: "Schémas de pensée",
+        m_meta7: "05 · thérapie des schémas", m_title7: "Schémas de pensée",
         m_p7: "Inspiré de la thérapie des schémas de Jeffrey Young : six schémas précoces — imperfection, méfiance, inhibition, exigences, abnégation, dépendance — mesurés avec un barème clinique, sans pièges ni artifices.",
         m_spec7: "30 questions · ≈ 6 min",
         meth_eyebrow: "02 · méthode", meth_h2: "Ce que ces tests mesurent — et ne mesurent pas.",
@@ -1091,10 +1331,10 @@
         wb_quick: "Sérénité {a}/5 · tension {b}/5 : plus l'écart est grand en faveur de la sérénité, mieux tu tires. Les deux scores se lisent sur les deux dernières semaines.",
         wb_warn: "⚖️ Dépistage, pas diagnostic : ces instruments ne remplacent ni un médecin, ni un psychologue. Si la tension reste élevée ou le moral bas plus de deux semaines, parles-en à un professionnel — demander est un signe de lucidité, pas de faiblesse.",
         share_wb: "Mon bilan bien-être (Introspec) : sérénité {a}/5 · tension {b}/5. Deux minutes pour le tien ?",
-        m_meta8: "08 · bien-être", m_title8: "Estime de soi",
+        m_meta8: "06 · bien-être", m_title8: "Estime de soi",
         m_p8: "L'échelle de référence mondiale (Rosenberg, 1965) : 10 affirmations pour mesurer le regard que tu poses sur toi — ni plus, ni moins.",
         m_spec8: "10 questions · ≈ 2 min",
-        m_meta9: "09 · dépistage", m_title9: "Bien-être",
+        m_meta9: "07 · dépistage", m_title9: "Bien-être",
         m_p9: "Deux instruments de dépistage validés par l'OMS et la clinique (WHO-5 et GAD-7) : ton niveau de sérénité et de tension sur les deux dernières semaines.",
         m_spec9: "12 questions · ≈ 3 min",
         res_va: "Tes valeurs cardinales : {a} · {b}",
@@ -1110,6 +1350,13 @@
         eq: "Un équilibre entre les deux pôles de cette dimension."
       },
       ar: {
+        fam_nav: "عائلات المقاربات", fam_unit: "مقاربات",
+        fam_a_n: "الأسس", fam_a_d: "أكثر النماذج دراسةً في علم النفس. قاعدة صلبة.",
+        fam_b_n: "السلوك والعلاقات", fam_b_d: "كيف تتصرّف مع الآخرين، وما يجري في علاقاتك.",
+        fam_c_n: "النظرة والتوازن", fam_c_d: "كيف ترى نفسك، ومستوى طاقتك وصفائك.",
+        fam_d_n: "الاتجاه والهوية", fam_d_d: "اهتماماتك، ومخيّلتك، ودوافعك العميقة.",
+        nudge_p: "لست متأكدًا من أين تبدأ؟ ابدأ بالأنماط (دقيقتان): لمحة أولى فورية، ثم تعمّق مع الخمسة الكبار.",
+        res_more: "هل ترغب في المزيد؟",
         nav_1: "المناهج العشرة", nav_2: "المنهجية", nav_cta: "ابدأ",
         hero_eyebrow: "اختبار الشخصية · 10 مناهج",
         hero_h1: 'عشر نظرات نحو <span class="soft">من أنت حقًا.</span>',
@@ -1124,22 +1371,22 @@
         m_meta1: "01 · علمي", m_title1: "السمات الخمس",
         m_p1: "النموذج الأكثر تحققًا في أبحاث علم النفس. ملف في خمس أبعاد — الانفتاح، الانضباط، الانبساطية، الودّ، الهدوء — بلا صناديق أو تصنيفات اعتباطية.",
         m_spec1: "25 سؤالًا · ≈ 4 دقائق",
-        m_meta2: "02 · مهني", m_title2: "ديسك",
+        m_meta2: "03 · مهني", m_title2: "ديسك",
         m_p2: "كيف تتصرف مع الآخرين، أمام التحديات والقواعد. لغة الفرق وعالم العمل.",
         m_spec2: "20 سؤالًا · ≈ 3 دقائق",
-        m_meta3: "03 · ترفيهي", m_title3: "الأنماط",
+        m_meta3: "09 · ترفيهي", m_title3: "الأنماط",
         m_p3: "مواقف ملموسة واختيارات عفوية — وملف شخصي يشبهك.",
         m_spec3: "12 سؤالًا · ≈ 2 دقيقة",
-        m_meta4: "04 · بحث معمّق", m_title4: "هيكساكو",
+        m_meta4: "02 · بحث معمّق", m_title4: "هيكساكو",
         m_p4: "التطور العلمي للسمات الخمس: ستة أبعاد بينها «الصدق والتواضع»، تحققها عقود من البحث الثقافي المقارن.",
         m_spec4: "24 سؤالًا · ≈ 5 دقائق",
-        m_meta5: "05 · توجيه", m_title5: "رياسيك",
+        m_meta5: "08 · توجيه", m_title5: "رياسيك",
         m_p5: "نموذج جون هولندا لفك شفرة اهتماماتك المهنية: ست عائلات، ورمز من ثلاثة أحرف يقودك إلى البيئات التي تناسبك.",
         m_spec5: "18 سؤالًا · ≈ 3 دقائق",
-        m_meta6: "06 · العلاقات", m_title6: "الارتباط",
+        m_meta6: "04 · العلاقات", m_title6: "الارتباط",
         m_p6: "نظرية الارتباط (بولبي، ثم بارتولومو وهوروويتز): كيف تبني القرب — ثقة وقلق ومسافة.",
         m_spec6: "16 سؤالًا · ≈ 4 دقائق", m_go: "ابدأ",
-        m_meta7: "07 · علاج المخططات", m_title7: "المخططات الذهنية",
+        m_meta7: "05 · علاج المخططات", m_title7: "المخططات الذهنية",
         m_p7: "مستوحى من علاج المخططات لجيفري يونغ: ستة مخططات مبكرة — النقص، انعدام الثقة، الكبت، المتطلبات العالية، الإيثار المفرط، الاعتمادية — تُقاس بمعادلة إكلينيكية، بلا حيل ولا استعراض.",
         m_spec7: "30 سؤالًا · ≈ 6 دقائق",
         meth_eyebrow: "02 · المنهجية", meth_h2: "ما تقيسه هذه الاختبارات — وما لا تقيسه.",
@@ -1237,10 +1484,10 @@
         wb_quick: "صفاء {a}/5 · توتر {b}/5: كلما كبر الفارق لصالح الصفاء كان أفضل. تُقرأ النتيجتان على الأسبوعين الأخيرين.",
         wb_warn: "⚖️ فرز لا تشخيص: هاتان الأداتان لا تغنيان عن طبيب ولا عن طبيب نفسي. إن بقي التوتر مرتفعًا أو المزاج منخفضًا أكثر من أسبوعين، فتحدث إلى مختص — أن تطلب المساعدة وعي لا ضعف.",
         share_wb: "خلاصة رفاهي النفسي (إنتروسبك): صفاء {a}/5 · توتر {b}/5. دقيقتان لتجرب أنت أيضًا؟",
-        m_meta8: "08 · رفاه", m_title8: "تقدير الذات",
+        m_meta8: "06 · رفاه", m_title8: "تقدير الذات",
         m_p8: "المقياس المرجعي عالميًا (روزنبرغ، 1965): 10 عبارات لقياس النظرة التي تلقيها على نفسك — لا أكثر ولا أقل.",
         m_spec8: "10 أسئلة · ≈ دقيقتان",
-        m_meta9: "09 · فرز", m_title9: "الرفاه النفسي",
+        m_meta9: "07 · فرز", m_title9: "الرفاه النفسي",
         m_p9: "أداتا فرز تحققت منهما منظمة الصحة العالمية والإكلينيك (WHO-5 وGAD-7): مستوى صفائك وتوترك خلال الأسبوعين الأخيرين.",
         m_spec9: "12 سؤالًا · ≈ 3 دقائق",
         res_va: "قيمك المحورية: {a} · {b}",
@@ -1256,6 +1503,13 @@
         eq: "توازن بين قطبي هذا البُعد."
       },
       en: {
+        fam_nav: "Approach families", fam_unit: "approaches",
+        fam_a_n: "The foundations", fam_a_d: "Psychology’s most studied models. The solid base.",
+        fam_b_n: "Behaviour & relationships", fam_b_d: "How you act with others, and what plays out in your bonds.",
+        fam_c_n: "Self-view & balance", fam_c_d: "How you see yourself, and your level of energy and calm.",
+        fam_d_n: "Direction & identity", fam_d_d: "Your interests, your imagination, your deeper drivers.",
+        nudge_p: "Not sure where to start? Begin with Archetypes (2 min): an instant first glimpse, then go deeper with Big Five.",
+        res_more: "Want to go further?",
         nav_1: "The 10 approaches", nav_2: "Method", nav_cta: "Start",
         hero_eyebrow: "Personality test · 10 approaches",
         hero_h1: 'Ten lenses on <span class="soft">who you really are.</span>',
@@ -1270,22 +1524,22 @@
         m_meta1: "01 · scientific", m_title1: "Big Five",
         m_p1: "The model most validated by psychology research. A five-dimension profile — openness, conscientiousness, social energy, agreeableness, serenity — with no arbitrary boxes or labels.",
         m_spec1: "25 questions · ≈ 4 min",
-        m_meta2: "02 · professional", m_title2: "DISC",
+        m_meta2: "03 · professional", m_title2: "DISC",
         m_p2: "How you act with others, under challenges and rules. The language of teams and work.",
         m_spec2: "20 questions · ≈ 3 min",
-        m_meta3: "03 · playful", m_title3: "Archetypes",
+        m_meta3: "09 · playful", m_title3: "Archetypes",
         m_p3: "Concrete situations, spontaneous choices — and a portrait that sounds like you.",
         m_spec3: "12 questions · ≈ 2 min",
-        m_meta4: "04 · deep research", m_title4: "HEXACO",
+        m_meta4: "02 · deep research", m_title4: "HEXACO",
         m_p4: "The scientific evolution of the Big Five: six dimensions, including Honesty-Humility, validated by decades of cross-cultural research.",
         m_spec4: "24 questions · ≈ 5 min",
-        m_meta5: "05 · career", m_title5: "RIASEC",
+        m_meta5: "08 · career", m_title5: "RIASEC",
         m_p5: "John Holland's model to decode your career interests: six families and a three-letter code pointing to environments where you thrive.",
         m_spec5: "18 questions · ≈ 3 min",
-        m_meta6: "06 · relationships", m_title6: "Attachment",
+        m_meta6: "04 · relationships", m_title6: "Attachment",
         m_p6: "Attachment theory (Bowlby, then Bartholomew & Horowitz): how you build closeness — trust, worry, distance.",
         m_spec6: "16 questions · ≈ 4 min", m_go: "Start",
-        m_meta7: "07 · schema therapy", m_title7: "Thinking schemas",
+        m_meta7: "05 · schema therapy", m_title7: "Thinking schemas",
         m_p7: "Inspired by Jeffrey Young's schema therapy: six early schemas — defectiveness, mistrust, inhibition, unrelenting standards, self-sacrifice, dependence — measured with a clinical scoring scale, no tricks, no pseudo-science.",
         m_spec7: "30 questions · ≈ 6 min",
         meth_eyebrow: "02 · method", meth_h2: "What these tests measure — and what they don't.",
@@ -1383,10 +1637,10 @@
         wb_quick: "Serenity {a}/5 · tension {b}/5: the wider the gap in favour of serenity, the better you're doing. Both scores read on the last two weeks.",
         wb_warn: "⚖️ Screening, not diagnosis: these instruments replace neither a doctor nor a psychologist. If tension stays high or mood stays low beyond two weeks, talk to a professional — asking is lucidity, not weakness.",
         share_wb: "My well-being read-out (Introspec): serenity {a}/5 · tension {b}/5. Two minutes for yours?",
-        m_meta8: "08 · well-being", m_title8: "Self-esteem",
+        m_meta8: "06 · well-being", m_title8: "Self-esteem",
         m_p8: "The world's reference scale (Rosenberg, 1965): 10 statements to measure the way you look at yourself — nothing more, nothing less.",
         m_spec8: "10 questions · ≈ 2 min",
-        m_meta9: "09 · screening", m_title9: "Well-being",
+        m_meta9: "07 · screening", m_title9: "Well-being",
         m_p9: "Two screening instruments validated by the WHO and clinical practice (WHO-5 and GAD-7): your serenity and tension levels over the last two weeks.",
         m_spec9: "12 questions · ≈ 3 min",
         res_va: "Your core values: {a} · {b}",
@@ -2042,6 +2296,7 @@ values: {
       $("#close-layer-btn").focus();
     }
     function closeLayer() {
+      document.getElementById("app-layer").removeAttribute("data-mode");
       $("#app-layer").classList.remove("is-open");
       document.body.style.overflow = "";
       showScreen("home");
@@ -2063,6 +2318,7 @@ values: {
 
     /* ============ QUIZ ============ */
     function startMode(k) {
+      document.getElementById("app-layer").dataset.mode = k;
       mode = k; idx = 0; answers = new Array(DATA[k].qs.length).fill(null);
       $("#quiz-mode").textContent = tx(DATA[k].name);
       showScreen("quiz");
@@ -2321,6 +2577,38 @@ function resultsValues() {
       $("#res-body").innerHTML = `<div class="shell dark profile-dark" style="margin-bottom:14px;"><div class="core" style="padding:32px;"><div class="meta">${fill(dict.va_meta, { d: domTop })}</div><h2>${tx(pd.l)} · ${tx(sd.l)}</h2><p>${fill(dict.va_intro, { a: tx(pd.desc), b: tx(sd.desc) })}</p><div class="sec"><b>${dict.va_tip} :</b> ${fill(dict.va_tip_txt, { a: tx(pd.l), b: tx(sd.l), c: tx(bd.l) })}</div></div></div><div class="r-rows">${rows}</div><div class="r-quick">${fill(dict.va_quick, { a: fmtM(means[top2[0]]), b: fmtM(means[top2[1]]), c: tx(bd.l) })}</div>`;
       lastShare = { text: fill(dict.share_va, { a: tx(pd.l), b: tx(sd.l) }) + dict.share_note, title: fill(dict.res_va, { a: tx(pd.l), b: tx(sd.l) }), tag: tx(D.tag), bars: D.dims.map((dim, i) => ({ label: tx(dim.sh), pct: pct(means[i]), top: top2.includes(i) })) };
     }
+
+    /* ============ SUGGESTIONS « PLUS DE TESTS » ============ */
+    const MODE_META = {
+      bigfive:   { i: 1,  icon: '<svg viewBox="0 0 24 24"><path d="M4 20V13M9 20V5M14 20v-9M19 20V8"/></svg>' },
+      disc:      { i: 2,  icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>' },
+      arch:      { i: 3,  icon: '<svg viewBox="0 0 24 24"><path d="M4 7.5C7 5.5 9.5 5 12 5s5 .5 8 2.5V13c0 4.5-3.4 7.5-8 7.5S4 17.5 4 13V7.5z"/></svg>' },
+      hexaco:    { i: 4,  icon: '<svg viewBox="0 0 24 24"><path d="M12 2.5l8.2 4.75v9.5L12 21.5l-8.2-4.75v-9.5z"/></svg>' },
+      riasec:    { i: 5,  icon: '<svg viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="12" rx="2"/><path d="M9 8V6.5A2 2 0 0 1 11 4.5h2a2 2 0 0 1 2 2V8"/></svg>' },
+      attach:    { i: 6,  icon: '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.5-7-9.5A3.8 3.8 0 0 1 12 7a3.8 3.8 0 0 1 7 3.5C19 15.5 12 20 12 20z"/></svg>' },
+      schemas:   { i: 7,  icon: '<svg viewBox="0 0 24 24"><path d="M12 3.5l8.2 4.6-8.2 4.6-8.2-4.6z"/><path d="M3.8 12.6l8.2 4.6 8.2-4.6"/><path d="M3.8 16.9l8.2 4.6 8.2-4.6"/></svg>' },
+      esteem:    { i: 8,  icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2"/><path d="M8.5 14.2c.7 1.3 2 2.1 3.5 2.1s2.8-.8 3.5-2.1"/></svg>' },
+      wellbeing: { i: 9,  icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 3.4v2.3M12 18.3v2.3M3.4 12h2.3M18.3 12h2.3"/></svg>' },
+      values:    { i: 10, icon: '<svg viewBox="0 0 24 24"><path d="M12 3l2.7 5.4 6 .9-4.3 4.2 1 6-5.4-2.8-5.4 2.8 1-6L3.3 9.3l6-.9z"/></svg>' }
+    };
+    function renderNextTests() {
+      const dict = UI[lang], keys = Object.keys(DATA);
+      const start = (keys.indexOf(mode) + 1) % keys.length;
+      const picks = [0, 1, 2].map(i => keys[(start + i * 3) % keys.length]).filter((v, i, a) => a.indexOf(v) === i && v !== mode).slice(0, 3);
+      const cards = picks.map(k => {
+        const mm = MODE_META[k]; if (!mm) return "";
+        return `<button class="rm-card" data-mode="${k}" data-goto="${k}">
+          <span class="m-ico" aria-hidden="true">${mm.icon}</span>
+          <span class="rm-t"><b>${tx(DATA[k].name)}</b><small>${dict["m_spec" + mm.i]}</small></span>
+        </button>`;
+      }).join("");
+      return `<div class="res-more"><div class="rm-head">${dict.res_more}</div><div class="rm-grid">${cards}</div></div>`;
+    }
+    document.addEventListener("click", e => {
+      const b = e.target.closest("[data-goto]");
+      if (b) startMode(b.dataset.goto);
+    });
+
     function showResults() {
       if (mode === "bigfive") resultsBigFive();
       else if (mode === "disc") resultsDisc();
@@ -2333,6 +2621,7 @@ function resultsValues() {
       else if (mode === "values") resultsValues();
       else resultsAttach();
       showScreen("results");
+      $("#res-body").insertAdjacentHTML("beforeend", renderNextTests());
       animateBars($("#res-body"));
       const sig = mode + "|" + answers.join(",");
       if (showResults._k !== sig) { showResults._k = sig; vaTrack("test_termine", { mode: mode }); }
