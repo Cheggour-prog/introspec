@@ -4,6 +4,25 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Introspec — Test de personnalité : Big Five, HEXACO, DISC, RIASEC, Attachement, Archétypes &amp; Schémas de pensée</title>
+  <meta name="description" content="Dix tests de personnalite gratuits et trilingues : Big Five, HEXACO, DISC, RIASEC, attachement, schemas de pensee, estime de soi, bien-etre, valeurs, archetypes. Resultats illustres et partageables, tout reste sur ton appareil." />
+  <meta name="theme-color" content="#1F4D3F" />
+  <link rel="canonical" href="https://introspec.vercel.app/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231F4D3F'/%3E%3Ccircle cx='32' cy='32' r='13' fill='none' stroke='%23FBFAF6' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='4.5' fill='%23FBFAF6'/%3E%3C/svg%3E" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Introspec" />
+  <meta property="og:title" content="Introspec - 10 tests de personnalite gratuits" />
+  <meta property="og:description" content="Big Five, HEXACO, DISC, RIASEC, attachement, schemas, estime, bien-etre, valeurs, archetypes : choisis ta lecture de toi, reponds, repars avec un profil clair et partageable. 100 % gratuit, sans inscription." />
+  <meta property="og:image" content="https://introspec.vercel.app/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://introspec.vercel.app/" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="ar_AR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Introspec - 10 tests de personnalite gratuits" />
+  <meta name="twitter:description" content="Big Five, HEXACO, DISC, RIASEC, attachement, schemas, estime, bien-etre, valeurs, archetypes. Resultats illustres et partageables, 100 % sur ton appareil." />
+  <meta name="twitter:image" content="https://introspec.vercel.app/og.png" />
   <!--
     V5 · Refonte visuelle : famille d'approches, une teinte par test, ambiance colorée.
     V4 · Changes:
@@ -678,6 +697,31 @@
     footer .powered .pb-by { font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted); }
     footer .powered .pb-brand { font-family: var(--sans); font-size: 12px; font-weight: 800; letter-spacing: 0.02em; color: var(--ink); }
 
+    /* ===== PROGRESSION & FIL ROUGE ===== */
+    .sec-progress { margin: -24px 0 8px; }
+    .progress-shell .core { padding: 22px 26px; }
+    .ps-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 12px; }
+    .ps-title { font-size: 15px; font-weight: 800; letter-spacing: -0.02em; }
+    .ps-count { font-family: var(--mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .ps-count b { color: var(--ink); font-size: 15px; font-weight: 700; }
+    .ps-bar { height: 8px; border-radius: 999px; background: var(--track); overflow: hidden; }
+    .ps-bar i { display: block; height: 100%; border-radius: inherit; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); transition: transform 700ms var(--ease); }
+    html[dir="rtl"] .ps-bar i { transform-origin: 100% 50%; }
+    .ps-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .ps-pill { display: inline-flex; align-items: center; gap: 8px; padding: 7px 13px 7px 11px; border-radius: 999px; background: var(--glass-2); box-shadow: inset 0 0 0 1px var(--hairline); font-size: 12.5px; font-weight: 700; }
+    .ps-pill i { width: 9px; height: 9px; border-radius: 999px; background: var(--accent); flex: none; }
+    .ps-pill small { font-family: var(--mono); font-size: 10px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+    html[dir="rtl"] .ps-pill small { font-family: var(--sans-ar); letter-spacing: 0; }
+    .ps-next { margin: 16px 0 0; font-size: 13.5px; color: var(--muted); }
+    .ps-next b { color: var(--ink); font-weight: 700; }
+    .ps-line { margin: 14px 0 0; padding: 14px 16px; border-radius: 14px; background: var(--accent-soft); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 20%, transparent); font-size: 13.5px; line-height: 1.55; }
+    .mode-card.is-done .core { background: color-mix(in oklab, var(--accent) 6%, var(--core)); }
+    .mode-card.is-done .m-ico { background: var(--accent); color: var(--accent-ink); }
+    .mode-card .m-ico { position: relative; }
+    .m-check { position: absolute; inset-inline-start: -7px; top: -7px; width: 20px; height: 20px; border-radius: 999px; background: var(--ink); color: var(--canvas); display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(var(--sc), 0.3); }
+    .m-check svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+    @media (max-width: 640px) { .sec-progress { margin: -12px 0 4px; } }
+
     /* ===== REVEAL ===== */
     .reveal { opacity: 0; transform: translateY(20px); filter: blur(6px); transition: opacity 800ms var(--ease), transform 800ms var(--ease), filter 800ms var(--ease); }
     .reveal.is-in { opacity: 1; transform: none; filter: none; }
@@ -803,6 +847,21 @@
             <div class="pv-note"><span class="pulse"></span><span data-i18n="pv_note">100 % local · tes réponses ne quittent jamais ton appareil</span></div>
           </div>
         </aside>
+      </section>
+
+      <section class="wrap sec-progress" id="sec-progress" hidden>
+        <div class="shell progress-shell">
+          <div class="core">
+            <div class="ps-head">
+              <span class="ps-title" data-i18n="prog_title">Ta progression</span>
+              <span class="ps-count"><b id="ps-count">0</b> / 10</span>
+            </div>
+            <div class="ps-bar"><i id="ps-fill"></i></div>
+            <div class="ps-pills" id="ps-pills"></div>
+            <p class="ps-next" id="ps-next"></p>
+            <p class="ps-line" id="ps-line" hidden></p>
+          </div>
+        </div>
       </section>
 
       <section class="block reveal" id="approches" data-od-id="approches">
@@ -1197,6 +1256,15 @@
     /* ============ UI TRILINGUE ============ */
     const UI = {
       fr: {
+        prog_title: "Ta progression", prog_next: "Prochaine étape conseillée",
+        prog_all_done: "Tu as exploré les 10 approches : ton portrait est complet.",
+        m_redo: "Refaire", m_resume: "Reprendre",
+        x_line1: "Ton regard sur toi pèse en ce moment plus que tout le reste. L'estime ne se décrète pas : elle se reconstruit par de petits faits, et c'est un terrain qui bouge.",
+        x_line2: "Tes liens demandent de la sécurité et de la justesse, et ton estime tient bon : appuie-toi dessus pour poser tes besoins calmement.",
+        x_line3: "Lien solide et estime en place : c'est le socle le plus stable pour traverser les périodes difficiles.",
+        x_line4: "Ton style relationnel colore tous tes autres résultats : relis-les à sa lumière. Le test d'estime de soi (10 questions) complète bien ce tableau.",
+        x_line5: "Un schéma dominant n'est pas un verdict : c'est une lentille apprise tôt. Les autres tests montrent ce qui, chez toi, ne passe pas par cette lentille.",
+        x_line6: "Chaque test ajoute une pièce au portrait : il t'en reste {n} pour une vue complète.",
         fam_nav: "Familles d’approches", fam_unit: "approches",
         fam_a_n: "Les fondations", fam_a_d: "Les modèles les plus étudiés en psychologie. Le socle solide.",
         fam_b_n: "Comportement & relations", fam_b_d: "Comment tu agis avec les autres, et ce qui se joue dans tes liens.",
@@ -1350,6 +1418,15 @@
         eq: "Un équilibre entre les deux pôles de cette dimension."
       },
       ar: {
+        prog_title: "تقدّمك", prog_next: "الخطوة التالية المقترحة",
+        prog_all_done: "لقد استكشفت المقاربات العشر كلها: صورتك اكتملت.",
+        m_redo: "إعادة", m_resume: "متابعة",
+        x_line1: "نظرتك إلى نفسك تثقل اليوم أكثر من أي شيء آخر. تقدير الذات لا يُقرّر، بل يُبنى من وقائع صغيرة.",
+        x_line2: "علاقاتك تحتاج إلى أمان وإنصاف، وتقديرك لذاتك صامد: استند إليه لتطرح احتياجاتك بهدوء.",
+        x_line3: "علاقة صلبة وتقدير ذات قائم: هذا هو الأساس الأكثر ثباتًا لعبور الفترات الصعبة.",
+        x_line4: "نمطك في العلاقات يصبغ كل نتائجك الأخرى: أعد قراءتها على ضوئه. اختبار تقدير الذات (10 أسئلة) يكمّل هذه الصورة.",
+        x_line5: "النمط الذهني المهيمن ليس حكمًا نهائيًا، بل عدسة تعلّمتها مبكرًا. الاختبارات الأخرى تُظهر ما لا يمرّ عبر هذه العدسة.",
+        x_line6: "كل اختبار يضيف قطعة إلى الصورة: يتبقّى لك {n} لاكتمال اللوحة.",
         fam_nav: "عائلات المقاربات", fam_unit: "مقاربات",
         fam_a_n: "الأسس", fam_a_d: "أكثر النماذج دراسةً في علم النفس. قاعدة صلبة.",
         fam_b_n: "السلوك والعلاقات", fam_b_d: "كيف تتصرّف مع الآخرين، وما يجري في علاقاتك.",
@@ -1503,6 +1580,15 @@
         eq: "توازن بين قطبي هذا البُعد."
       },
       en: {
+        prog_title: "Your progress", prog_next: "Suggested next step",
+        prog_all_done: "You've explored all 10 approaches: your portrait is complete.",
+        m_redo: "Redo", m_resume: "Resume",
+        x_line1: "How you see yourself weighs more than anything else right now. Self-esteem is not decided, it is rebuilt through small facts, and that ground can move.",
+        x_line2: "Your bonds need safety and fairness, and your self-esteem holds: lean on it to state your needs calmly.",
+        x_line3: "Solid bonds and steady self-esteem: the most stable base for getting through hard times.",
+        x_line4: "Your relational style colours every other result. Read them in its light. The self-esteem test (10 questions) rounds out the picture.",
+        x_line5: "A dominant schema is not a verdict, it is a lens learned early. The other tests show what does not pass through that lens.",
+        x_line6: "Each test adds a piece to the portrait: {n} left for the full picture.",
         fam_nav: "Approach families", fam_unit: "approaches",
         fam_a_n: "The foundations", fam_a_d: "Psychology’s most studied models. The solid base.",
         fam_b_n: "Behaviour & relationships", fam_b_d: "How you act with others, and what plays out in your bonds.",
@@ -2204,7 +2290,7 @@ values: {
       localStorage.setItem("introspec-lang", lang);
       $("#hero-radar").innerHTML = radarSVG([72, 58, 64, 80, 47], dict.radar, true);
       requestAnimationFrame(() => requestAnimationFrame(() => $("#hero-radar .radar").classList.add("go")));
-      if (!$("#app-layer").classList.contains("is-open")) return;
+      if (!$("#app-layer").classList.contains("is-open")) { renderProgress(); return; }
       if (SCREENS.results.classList.contains("is-active")) showResults();
       else if (mode) renderQ();
     }
@@ -2300,6 +2386,7 @@ values: {
       $("#app-layer").classList.remove("is-open");
       document.body.style.overflow = "";
       showScreen("home");
+      renderProgress();
       if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
     $("#close-layer-btn").addEventListener("click", closeLayer);
@@ -2319,7 +2406,15 @@ values: {
     /* ============ QUIZ ============ */
     function startMode(k) {
       document.getElementById("app-layer").dataset.mode = k;
-      mode = k; idx = 0; answers = new Array(DATA[k].qs.length).fill(null);
+      mode = k;
+      const _run = lsGet(LS_RUN, null);
+      if (_run && _run.m === k && Array.isArray(_run.a) && _run.a.length === DATA[k].qs.length) {
+        answers = _run.a.slice();
+        const _fe = answers.findIndex(v => v === null || v === undefined);
+        idx = _fe === -1 ? 0 : _fe;
+      } else {
+        idx = 0; answers = new Array(DATA[k].qs.length).fill(null);
+      }
       $("#quiz-mode").textContent = tx(DATA[k].name);
       showScreen("quiz");
       openLayer();
@@ -2380,6 +2475,7 @@ values: {
         if (prev) prev.classList.remove("picked");
       }
       answers[idx] = v;
+      runSave();
       const btn = $("#q-answers").querySelector(`[data-v="${v}"]`);
       if (btn) btn.classList.add("picked");
       setTimeout(() => {
@@ -2609,6 +2705,148 @@ function resultsValues() {
       if (b) startMode(b.dataset.goto);
     });
 
+    /* ============ MÉMOIRE LOCALE : PROGRESSION · REPRISE · FIL ROUGE ============ */
+    const LS_DONE = "introspec-done-v1", LS_RUN = "introspec-run-v1";
+    function lsGet(k, d) { try { return JSON.parse(localStorage.getItem(k)) || d; } catch (e) { return d; } }
+    function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+    function doneMap() { return lsGet(LS_DONE, {}); }
+    function runSave() { if (!mode || !answers) return; lsSet(LS_RUN, { m: mode, a: answers, t: Date.now() }); }
+    function runClear() { try { localStorage.removeItem(LS_RUN); } catch (e) {} }
+
+    function summarize(k, a) {
+      const D = DATA[k], t = o => (o && typeof o === "object") ? o[lang] : o;
+      if (!D || !a) return null;
+      if (k === "bigfive" || k === "hexaco") {
+        const off = k === "bigfive" ? 5 : 4, div = k === "bigfive" ? 20 : 16;
+        const sums = D.dims.map(() => 0);
+        D.qs.forEach((q, i) => { let v = a[i]; if (v == null) return; if (q.r) v = 6 - v; sums[q.d] += v; });
+        const vals = sums.map((s, d) => { const raw = Math.round(((s - off) / div) * 100); return D.dims[d].inv ? 100 - raw : raw; });
+        const top = vals.indexOf(Math.max.apply(null, vals));
+        return { l: t(D.dims[top].l), p: vals[top] };
+      }
+      if (k === "disc") {
+        const sums = D.dims.map(() => 0);
+        D.qs.forEach((q, i) => { if (a[i] != null) sums[q.d] += a[i]; });
+        const pri = sums.indexOf(Math.max.apply(null, sums));
+        return { l: D.dims[pri].letter + " · " + t(D.dims[pri].title), p: Math.round(((sums[pri] - 5) / 20) * 100) };
+      }
+      if (k === "riasec") {
+        const sums = D.dims.map(() => 0);
+        D.qs.forEach((q, i) => { if (a[i] != null) sums[q.d] += a[i]; });
+        const order = sums.map((v, i) => [v, i]).sort((x, y) => y[0] - x[0]);
+        return { l: order.slice(0, 3).map(o => D.dims[o[1]].letter).join("·"), p: Math.round(((sums[order[0][1]] - 3) / 12) * 100) };
+      }
+      if (k === "arch") {
+        const pts = D.archs.map(() => 0);
+        D.qs.forEach((q, i) => { const v = a[i]; if (v != null) pts[q.o[v][1]] += 1; });
+        const pri = pts.indexOf(Math.max.apply(null, pts));
+        return { l: t(D.archs[pri].n), p: Math.round((pts[pri] / 8) * 100) };
+      }
+      if (k === "attach") {
+        let sA = 0, sV = 0;
+        D.qs.forEach((q, i) => { let v = a[i]; if (v == null) return; if (q.r) v = 6 - v; if (q.a) sA += v; else sV += v; });
+        const anx = Math.round(((sA - 8) / 32) * 100), avo = Math.round(((sV - 8) / 32) * 100);
+        const st = (anx >= 50 ? 1 : 0) + (avo >= 50 ? 2 : 0);
+        return { l: t(D.styles[st].n), p: Math.max(anx, avo), insecure: (anx >= 50 || avo >= 50) };
+      }
+      if (k === "schemas") {
+        const sums = D.dims.map(() => 0), cnts = D.dims.map(() => 0);
+        D.qs.forEach((q, i) => { if (a[i] == null) return; sums[q.d] += a[i]; cnts[q.d]++; });
+        const means = sums.map((s, i) => s / cnts[i]);
+        const top = means.indexOf(Math.max.apply(null, means));
+        return { l: t(D.dims[top].l), p: Math.round(((means[top] - 1) / 4) * 100), m: means[top] };
+      }
+      if (k === "esteem") {
+        let sum = 0;
+        D.qs.forEach((q, i) => { if (a[i] == null) return; sum += q.r ? 6 - a[i] : a[i]; });
+        const mean = sum / D.qs.length;
+        const lv = mean < 2.5 ? 0 : (mean < 3.5 ? 1 : 2);
+        return { l: UI[lang]["es_l_" + ["low", "mid", "high"][lv]], p: Math.round(((mean - 1) / 4) * 100), lv: lv };
+      }
+      if (k === "wellbeing") {
+        const sums = [0, 0], cnts = [0, 0];
+        D.qs.forEach((q, i) => { if (a[i] == null) return; sums[q.d] += a[i]; cnts[q.d]++; });
+        const ser = sums[0] / cnts[0];
+        const serLv = ser >= 4 ? 3 : (ser >= 3 ? 2 : 1);
+        return { l: UI[lang]["wb_ser_l" + serLv], p: Math.round(((ser - 1) / 4) * 100) };
+      }
+      if (k === "values") {
+        const sums = D.dims.map(() => 0), cnts = D.dims.map(() => 0);
+        D.qs.forEach((q, i) => { if (a[i] == null || q.d === 10) return; sums[q.d] += a[i]; cnts[q.d]++; });
+        const means = sums.map((s, i) => s / cnts[i]);
+        const order = means.map((m, i) => [m, i]).sort((x, y) => y[0] - x[0]);
+        const a1 = order[0][1], b1 = order[1][1];
+        return { l: t(D.dims[a1].l) + " · " + t(D.dims[b1].l), p: Math.round(((means[a1] - 1) / 4) * 100) };
+      }
+      return null;
+    }
+
+    function crossLine(done) {
+      const dict = UI[lang], keys = Object.keys(done).filter(k => DATA[k]);
+      if (!keys.length) return null;
+      const est = done.esteem ? summarize("esteem", done.esteem.a) : null;
+      const att = done.attach ? summarize("attach", done.attach.a) : null;
+      if (att && est) return est.lv === 0 ? dict.x_line1 : (att.insecure ? dict.x_line2 : dict.x_line3);
+      if (att) return dict.x_line4;
+      if (done.schemas) return dict.x_line5;
+      return fill(dict.x_line6, { n: Math.max(0, 10 - keys.length) });
+    }
+
+    function markDone() {
+      if (!mode || !answers || answers.some(v => v === null || v === undefined)) return;
+      const d = doneMap(); d[mode] = { a: answers.slice(), t: Date.now() }; lsSet(LS_DONE, d);
+      runClear();
+      renderProgress();
+    }
+
+    function renderProgress() {
+      const dict = UI[lang], done = doneMap();
+      const keys = Object.keys(done).filter(k => DATA[k]);
+      const n = keys.length;
+      const strip = document.getElementById("sec-progress");
+      if (strip) {
+        strip.hidden = n === 0;
+        if (n) {
+          const cnt = document.getElementById("ps-count");
+          if (cnt) cnt.textContent = n;
+          const fillEl = document.getElementById("ps-fill");
+          if (fillEl) requestAnimationFrame(() => { fillEl.style.transform = "scaleX(" + (n / 10) + ")"; });
+          const pills = document.getElementById("ps-pills");
+          if (pills) pills.innerHTML = keys.map(k => {
+            const s = summarize(k, done[k].a);
+            return '<span class="ps-pill" data-mode="' + k + '"><i></i>' + tx(DATA[k].name) + (s && s.l ? ' <small>' + s.l + '</small>' : '') + '</span>';
+          }).join("");
+          const missing = Object.keys(DATA).filter(k => !done[k]);
+          const nx = document.getElementById("ps-next");
+          if (nx) {
+            if (missing.length) {
+              const next = missing.slice().sort((a, b) => DATA[a].qs.length - DATA[b].qs.length)[0];
+              const mm = MODE_META[next];
+              nx.innerHTML = dict.prog_next + " : <b>" + tx(DATA[next].name) + "</b> · " + dict["m_spec" + mm.i];
+            } else {
+              nx.textContent = dict.prog_all_done;
+            }
+          }
+          const line = document.getElementById("ps-line");
+          if (line) { const cl = n >= 2 ? crossLine(done) : null; line.hidden = !cl; line.innerHTML = cl || ""; }
+        }
+      }
+      const run = lsGet(LS_RUN, null);
+      document.querySelectorAll(".mode-card").forEach(card => {
+        const k = card.dataset.mode, isDone = !!done[k];
+        card.classList.toggle("is-done", isDone);
+        const goEl = card.querySelector(".m-go span");
+        if (goEl) goEl.textContent = isDone ? dict.m_redo : ((run && run.m === k) ? dict.m_resume : dict.m_go);
+        const ico = card.querySelector(".m-ico");
+        if (ico) {
+          const chk = ico.querySelector(".m-check");
+          if (isDone) {
+            if (!chk) ico.insertAdjacentHTML("beforeend", '<span class="m-check" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M2.4 6.3l2.4 2.4 4.8-5.2"/></svg></span>');
+          } else if (chk) chk.remove();
+        }
+      });
+    }
+
     function showResults() {
       if (mode === "bigfive") resultsBigFive();
       else if (mode === "disc") resultsDisc();
@@ -2620,6 +2858,7 @@ function resultsValues() {
       else if (mode === "wellbeing") resultsWellbeing();
       else if (mode === "values") resultsValues();
       else resultsAttach();
+      markDone();
       showScreen("results");
       $("#res-body").insertAdjacentHTML("beforeend", renderNextTests());
       animateBars($("#res-body"));
@@ -2751,7 +2990,7 @@ function resultsValues() {
     }
 
     /* ============ LANCEMENT + INIT ============ */
-    $("#redo-btn").addEventListener("click", () => { idx = 0; answers = new Array(DATA[mode].qs.length).fill(null); showScreen("quiz"); renderQ(); });
+    $("#redo-btn").addEventListener("click", () => { idx = 0; answers = new Array(DATA[mode].qs.length).fill(null); runSave(); showScreen("quiz"); renderQ(); });
     $("#home-btn").addEventListener("click", closeLayer);
     document.querySelectorAll(".mode-card").forEach(c => c.addEventListener("click", () => startMode(c.dataset.mode)));
     const io = new IntersectionObserver(es => {
@@ -2761,6 +3000,7 @@ function resultsValues() {
     applyTheme();
     applyLang();
     renderCounters();
+    renderProgress();
   </script>
 </body>
 </html>
